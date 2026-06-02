@@ -12,9 +12,9 @@ The live site is built from **`docs/`** (copied from `OPEN-THIS-FILE.html`).
 
 Your site will be at:
 
-`https://<your-org-or-username>.github.io/<repo-name>/`
+`https://shaiafriat-eng.github.io/lead-scoring/`
 
-Example: `https://acme-corp.github.io/hibob-lead-scoring-guide/`
+Repository: https://github.com/shaiafriat-eng/lead-scoring
 
 ## Push this project to GitHub
 
@@ -25,7 +25,7 @@ git init
 git add .
 git commit -m "Add lead scoring guide for GitHub Pages"
 git branch -M main
-git remote add origin https://github.com/<ORG_OR_USER>/<REPO>.git
+git remote add origin https://github.com/shaiafriat-eng/lead-scoring.git
 git push -u origin main
 ```
 
