@@ -1,0 +1,42 @@
+HOW TO OPEN THE LEAD SCORING LANDING PAGE
+=========================================
+
+There is NO separate "install" file. You have two options:
+
+OPTION 1 — EASIEST (no Node, no npm)
+------------------------------------
+1. Go to this folder in Finder:
+   Documents/Cursor/src/scoring-system/
+
+2. Double-click this file:
+   OPEN-THIS-FILE.html
+
+3. It opens in Chrome, Safari, or Edge. That is your landing page.
+
+   Full path:
+   /Users/shai.afriat/Documents/Cursor/src/scoring-system/OPEN-THIS-FILE.html
+
+   To share with colleagues: send them this .html file or upload it to your intranet.
+
+
+OPTION 2 — Developer version (needs Node.js)
+--------------------------------------------
+Only if you have Node/npm installed:
+
+   cd src/scoring-system
+   npm install
+   npm run dev
+
+Then open: http://localhost:5173
+
+The "install" step for Option 2 is: npm install
+(which reads package.json — not a separate install file).
+
+
+WHAT'S IN THIS FOLDER
+---------------------
+OPEN-THIS-FILE.html   ← OPEN THIS (standalone page)
+HOW-TO-OPEN.txt       ← This file
+package.json          ← Used only for Option 2
+README.md             ← More detail
+src/                  ← React source (Option 2)

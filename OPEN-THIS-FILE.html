@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lead Scoring Guide | HiBob</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Domine:wght@500;600;700&family=Lato:wght@400;700;900&display=swap" rel="stylesheet" />
+  <style>
+    /* HiBob brand — brand.hibob.com / 2024 guidelines */
+    :root {
+      --cherry-syrup: #ee164f;
+      --dark-wine: #83143d;
+      --orange-juice: #faa32b;
+      --cappuccino-foam: #fdf6eb;
+      --white-cream: #ffffff;
+      --black-coffee: #3a3a37;
+      --muted: #5c5c58;
+      --border: #e3ddd3;
+      --bg-page: #f6f4ef;
+      --bg-warm: #fffbf4;
+      --pink-mid: #f36488;
+      --radius: 16px;
+      --font-headline: "Archivo Black", sans-serif;
+      --font-subhead: "Domine", Georgia, serif;
+      --font-body: "Lato", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body { margin: 0; font-family: var(--font-body); color: var(--black-coffee); background: var(--bg-page); line-height: 1.6; }
+    h1 { font-family: var(--font-subhead); font-weight: 700; text-transform: none; letter-spacing: -0.01em; line-height: 1.15; font-size: clamp(1.75rem, 4vw, 2.75rem); margin: 0 0 1rem; }
+    h2 { font-family: var(--font-headline); font-weight: 400; text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.15; }
+    h3 { font-family: var(--font-subhead); font-weight: 700; line-height: 1.25; }
+    .hibob-word { text-transform: none; letter-spacing: -0.01em; }
+    .summary-section { padding-top: 0; padding-bottom: 2rem; }
+    .summary-section .card { padding: 1.1rem 1.3rem; }
+    .flow-step-dots { display: flex; flex-wrap: wrap; gap: 4px; padding: 1rem 1rem 0; }
+    .flow-dot { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border); font-weight: 900; font-size: 0.75rem; cursor: pointer; background: var(--white-cream); }
+    .flow-dot.active { background: var(--cherry-syrup); color: #fff; border-color: var(--cherry-syrup); }
+    .flow-dot.done { background: var(--pink-soft, #fac7d1); }
+    .flow-panel { padding: 1.25rem 1.5rem; }
+    .miro-embed { width: 100%; height: 360px; border: none; display: block; }
+    h2 { font-size: clamp(1.35rem, 3vw, 1.85rem); margin: 0 0 0.75rem; }
+    h3 { font-size: 1.05rem; margin: 0 0 0.5rem; }
+    a { color: var(--cherry-syrup); font-weight: 700; }
+    a:hover { color: var(--dark-wine); }
+    .wrap { width: min(1100px, 100% - 2rem); margin: 0 auto; }
+    header.site { position: sticky; top: 0; z-index: 50; background: rgba(255,251,244,.97); border-bottom: 1px solid var(--border); padding: 0.85rem 0; backdrop-filter: blur(8px); }
+    header.site .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .logo { display: flex; align-items: center; gap: 1rem; text-decoration: none; }
+    .logo img { height: 32px; width: auto; display: block; }
+    .logo-tag { font-size: 0.8125rem; font-weight: 700; color: var(--muted); border-left: 1px solid var(--border); padding-left: 1rem; }
+    nav a { font-size: 0.8rem; color: var(--muted); text-decoration: none; margin-left: 0.75rem; font-weight: 700; }
+    nav a:hover { color: var(--cherry-syrup); }
+    section { padding: 3.5rem 0; }
+    section.alt { background: var(--white-cream); }
+    .label { font-size: 0.7rem; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dark-wine); }
+    .card { background: var(--white-cream); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.5rem; box-shadow: 0 8px 24px rgba(58,58,55,.06); }
+    .grid-2 { display: grid; gap: 1.25rem; }
+    .grid-3 { display: grid; gap: 1.25rem; }
+    @media (min-width: 768px) { .grid-2 { grid-template-columns: 1fr 1fr; } .grid-3 { grid-template-columns: repeat(3, 1fr); } }
+    .hero { padding: 2.5rem 0 5rem; background: var(--bg-warm); position: relative; overflow: hidden; }
+    .hero-tagline, .hero-description { font-size: 1.0625rem; color: var(--muted); margin: 0; }
+    .hero-tagline { max-width: 40rem; margin-bottom: 0.75rem; }
+    .hero-description { max-width: none; }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2.25rem; }
+    .overview-intro { padding: 5rem 0 1rem; background: var(--bg-page); }
+    #how-it-works { padding-top: 2rem; }
+    #demographic { padding-bottom: 0.5rem; }
+    #behavioral { padding-top: 1.25rem; }
+    .overview-columns { display: grid; gap: 2rem; }
+    @media (min-width: 768px) {
+      .overview-columns { grid-template-columns: 1fr 1fr; gap: 0; }
+      .overview-item:first-child { padding-right: 2.5rem; border-right: 1px solid var(--border); }
+      .overview-item:last-child { padding-left: 2.5rem; }
+    }
+    .overview-item__title { margin: 0 0 0.65rem; padding-bottom: 0.5rem; border-bottom: 3px solid var(--cherry-syrup); display: inline-block; font-size: 1.125rem; }
+    .overview-item__text { margin: 0; color: var(--muted); font-size: 1rem; line-height: 1.65; }
+    .btn { display: inline-block; padding: 0.7rem 1.25rem; border-radius: 999px; font-weight: 900; font-size: 0.875rem; text-decoration: none; margin: 0.25rem 0.5rem 0.25rem 0; letter-spacing: 0.02em; }
+    .btn-primary { background: var(--cherry-syrup); color: #fff; }
+    .btn-primary:hover { background: var(--dark-wine); color: #fff; }
+    .btn-secondary { background: var(--white-cream); color: var(--black-coffee); border: 2px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    th, td { padding: 0.65rem 0.85rem; text-align: left; border-bottom: 1px solid var(--border); }
+    th { background: var(--cappuccino-foam); font-weight: 900; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.04em; }
+    .matrix-wrap { margin-top: 1rem; width: fit-content; max-width: 100%; }
+    .matrix { display: grid; grid-template-columns: auto repeat(4, 28px); gap: 3px; font-size: 0.625rem; font-weight: 700; width: fit-content; }
+    .matrix.card { padding: 1rem 1.1rem; }
+    .cell { border-radius: 6px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; }
+    details { border: 1px solid var(--border); border-radius: 12px; background: var(--white-cream); margin-bottom: 0.5rem; }
+    details summary { padding: 0.85rem 1rem; font-weight: 700; cursor: pointer; }
+    details .inner { padding: 0 1rem 1rem; color: var(--muted); font-size: 0.9rem; }
+    .tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+    .tab { padding: 0.5rem 1rem; border-radius: 999px; border: 2px solid var(--border); background: var(--white-cream); cursor: pointer; font-weight: 900; font-size: 0.85rem; }
+    .tab.active { background: var(--cherry-syrup); color: #fff; border-color: var(--cherry-syrup); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .banner { background: linear-gradient(135deg, var(--dark-wine), var(--cherry-syrup)); color: #fff; border: none; }
+    .banner h3 { color: #fff; }
+    footer { padding: 2rem 0; border-top: 1px solid var(--border); background: var(--white-cream); font-size: 0.85rem; color: var(--muted); }
+    footer .logo-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
+    footer img { height: 28px; }
+    .notice { background: var(--white-cream); border: 2px dashed var(--orange-juice); border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 2rem; font-size: 0.9rem; position: relative; z-index: 1; }
+    .hero .wrap { position: relative; z-index: 1; }
+    .icp-definition__summary { margin: 0 0 1rem; font-size: 1rem; line-height: 1.55; }
+    .icp-definition__list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .icp-definition__list li { position: relative; padding: 0.65rem 0.85rem 0.65rem 2.25rem; background: var(--cappuccino-foam); border-radius: 12px; font-size: 0.9375rem; font-weight: 700; line-height: 1.4; }
+    .icp-definition__list li::before { content: ""; position: absolute; left: 0.85rem; top: 50%; transform: translateY(-50%); width: 8px; height: 8px; border-radius: 50%; background: var(--cherry-syrup); }
+    .sales-order { margin-top: 0.75rem; padding: 1rem 1.15rem; background: var(--white-cream); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: 0 8px 24px rgba(58,58,55,.06); }
+    .sales-order__header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.35rem; margin-bottom: 0.6rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+    .sales-order__title { margin: 0; font-family: var(--font-subhead); font-size: 1.05rem; }
+    .sales-order__caption { font-size: 0.7rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dark-wine); }
+    .sales-order__ladder { display: flex; flex-direction: column; }
+    .sales-order__row { display: grid; grid-template-columns: 1.75rem 1fr; align-items: center; gap: 0.5rem; padding: 0.12rem 0; }
+    .sales-order__rank { display: flex; align-items: center; justify-content: center; width: 1.75rem; height: 1.75rem; border-radius: 50%; background: var(--cappuccino-foam); border: 2px solid var(--border); font-size: 0.65rem; font-weight: 900; color: var(--dark-wine); }
+    .sales-order__row:first-child .sales-order__rank { background: var(--cherry-syrup); border-color: var(--cherry-syrup); color: #fff; }
+    .sales-order__row:last-child .sales-order__rank { background: var(--bg-page); color: var(--muted); }
+    .sales-order__codes { display: flex; flex-wrap: wrap; gap: 0.25rem; }
+    .sales-order__code { display: inline-flex; align-items: center; justify-content: center; min-width: 2.1rem; padding: 0.2rem 0.45rem; border-radius: 8px; font-weight: 800; font-size: 0.75rem; box-shadow: 0 2px 8px rgba(58,58,55,.1); }
+    .sales-order__foot { margin: 0.6rem 0 0; padding-top: 0.5rem; border-top: 1px solid var(--border); font-size: 0.8125rem; color: var(--muted); }
+    @media (min-width: 640px) {
+      .sales-order__ladder { display: grid; grid-template-columns: 1fr 1fr; column-gap: 1.25rem; row-gap: 0.1rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap">
+      <a class="logo" href="#overview">
+        <img src="assets/hibob-logo.svg" alt="HiBob" width="88" height="35" />
+        <span class="logo-tag">Lead Scoring Guide</span>
+      </a>
+      <nav>
+        <a href="#scoring-flow">Scoring flow</a>
+        <a href="#mqling-flow">MQLing flow</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#non-mql-reasons">Why not MQL</a>
+        <a href="#manual-mql-review">MQL review</a>
+        <a href="#mql-policy">MQL policy</a>
+        <a href="#faq">FAQ</a>
+        <a href="https://brand.hibob.com/" target="_blank" rel="noopener">Brand</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="overview">
+    <div class="wrap">
+      <p class="label">Internal stakeholder guide</p>
+      <h1>Understand <span class="hibob-word">HiBob</span> lead scoring</h1>
+      <p class="hero-tagline">Fit, engagement, and priority in one view.</p>
+      <p class="hero-description">Our two-dimensional model helps Marketing, Sales, and RevOps focus on leads most&nbsp;likely to become sales-qualified opportunities.</p>
+      <div class="hero-ctas" style="margin-top:2.25rem">
+        <a class="btn btn-primary" href="#scoring-flow">Explore scoring flow</a>
+        <a class="btn btn-secondary" href="#mql-policy">MQL policy (2025)</a>
+        <a class="btn btn-secondary" href="https://miro.com/app/board/uXjVIkUIQp0=/?share_link_id=79974080622" target="_blank" rel="noopener">Open Miro board</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="overview-intro" id="overview-intro">
+    <div class="wrap overview-columns">
+      <article class="overview-item">
+        <h3 class="overview-item__title">What it is</h3>
+        <p class="overview-item__text">A method to rank leads by <strong>demographic fit</strong> (A–D) and <strong>behavioral engagement</strong> (1–4), combined into codes like A1 or B3.</p>
+      </article>
+      <article class="overview-item">
+        <h3 class="overview-item__title">Why it exists</h3>
+        <p class="overview-item__text">Prioritize sales outreach, reduce MQL noise, and route leads using conversion data—not treating every <strong>100-point</strong> MQL equally.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="how-it-works">
+    <div class="wrap">
+      <p class="label">Mechanics</p>
+      <h2>How the score works</h2>
+      <div class="grid-2">
+        <div class="card"><h3>Demographic (A–D)</h3><p style="color:var(--muted)">Person (function, seniority) + Account (ICP, status, geo, EE count) → grade A–D.</p></div>
+        <div class="card"><h3>Behavioral (1–4)</h3><p style="color:var(--muted)">Activities earn Marketo points → bucketed into tiers 1 (100+) through 4 (0–14).</p></div>
+      </div>
+      <p style="margin-top:1.5rem"><strong>Systems:</strong> Marketo (scoring & MQL), Salesforce (ICP), 6Sense (intent & booth bonus). <strong>MQL threshold: 100 points.</strong></p>
+    </div>
+  </section>
+
+  <section id="scoring-flow" class="alt">
+    <div class="wrap">
+      <p class="label">Interactive</p>
+      <h2>Explore the scoring flow</h2>
+      <p style="color:var(--muted);max-width:40rem">Step through the process aligned with our <a href="https://miro.com/app/board/uXjVIkUIQp0=/?share_link_id=79974080622" target="_blank" rel="noopener">Miro board</a>.</p>
+      <div class="grid-2" style="margin-top:1.5rem;align-items:start">
+        <div class="card" style="padding:0">
+          <div class="flow-step-dots" id="flow-dots"></div>
+          <div class="flow-panel" id="flow-panel"></div>
+        </div>
+        <div>
+          <div class="card" style="padding:0;overflow:hidden">
+            <iframe class="miro-embed" title="Miro lead scoring" src="https://miro.com/app/live-embed/uXjVIkUIQp0=/?embedMode=view_only_without_ui&share_link_id=79974080622" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="mqling-flow">
+    <div class="wrap">
+      <p class="label">Routing</p>
+      <h2>MQLing flow</h2>
+      <p style="color:var(--muted);max-width:42rem;margin-bottom:1.25rem">How fit, engagement, and channel rules combine before a lead becomes an MQL. ICP is the account-level gate for demographic scoring.</p>
+      <div class="card icp-definition">
+        <h3>ICP definition</h3>
+        <p class="icp-definition__summary">An account is ICP when it meets size, technology, industry, and geography rules—or is manually overridden in Salesforce.</p>
+        <p style="color:var(--muted);margin:0 0 0.65rem;font-size:0.875rem">Account must meet <strong>all</strong> criteria below (unless overridden):</p>
+        <ul class="icp-definition__list">
+          <li>100–5,000 employees</li>
+          <li>At least one modern technology in tech stack</li>
+          <li>Industry is NOT colleges/universities, government, federal, or schools</li>
+          <li>US-based companies must be international</li>
+          <li>OR manually flagged via ICP override field</li>
+        </ul>
+        <p style="margin:1rem 0 0;font-size:0.875rem;color:var(--muted)">Full rules and edge cases: maintained by <strong>MIS</strong>.</p>
+        <a class="btn btn-secondary" href="https://docs.google.com/document/d/1RLKQBVBYxgLHPT3YOboqpobUEW0yQZDwkt67vONTTto/edit?tab=t.0" target="_blank" rel="noopener" style="margin-top:0.75rem">Open full ICP doc (Google) →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="demographic">
+    <div class="wrap">
+      <p class="label">Dimension 1</p>
+      <h2>Demographic score (A–D)</h2>
+      <div class="grid-2">
+        <div class="card"><h3><span style="color:var(--cherry-syrup)">A</span> Best fit</h3><p style="color:var(--muted);margin:0">ICP + decision maker/champion (incl. 50–99 EE when ICP flag lags).</p></div>
+        <div class="card"><h3><span style="color:var(--cherry-syrup)">B</span> Strong fit</h3><p style="color:var(--muted);margin:0">ICP + relevant function, or non-ICP + decision maker.</p></div>
+        <div class="card"><h3>C Workable</h3><p style="color:var(--muted);margin:0">Non-ICP workable persona or ICP validating function.</p></div>
+        <div class="card"><h3>D Lowest / DQ</h3><p style="color:var(--muted);margin:0">Irrelevant fit, junk, bad geo, competitor, customer, EE out of range.</p></div>
+      </div>
+      <div class="card" style="margin-top:1.25rem">
+        <h3>Junk & test lead criteria</h3>
+        <p style="color:var(--muted)">Classified as junk if <strong>one or more</strong> apply:</p>
+        <ul style="color:var(--muted)">
+          <li>Test/fake data in names, company, notes, or email (e.g. test, asdf, Lorem Ipsum)</li>
+          <li>Invalid, disposable, or bounced email</li>
+          <li>Internal QA/UAT from non-production environments</li>
+          <li>Restricted/high-risk countries (Iran, North Korea, Syria, Cuba, Sudan, Libya, Iraq, Afghanistan, Somalia, Pakistan, India, China, Palestine, Lebanon, etc.)</li>
+          <li>Fails qualification (e.g. missing referral form)</li>
+          <li>Flagged via operational junk-lead processes</li>
+          <li>Low-quality email validation (free/disposable indicators)</li>
+        </ul>
+        <p style="font-size:0.9rem;color:var(--muted)"><em>Exceptions for approved companies, domains, referral programs, and reviewed records.</em></p>
+      </div>
+      <h3 style="margin-top:2rem">Grade D — full rules (expand)</h3>
+      <details><summary>Person-level disqualifiers</summary><div class="inner"><ul><li>Junk/bounced/private/invalid email</li><li>Unsubscribed</li><li>Student, Design, intern, professor</li><li>Job function: Sales</li><li>HiBob employees</li></ul></div></details>
+      <details><summary>Account-level disqualifiers</summary><div class="inner"><ul><li>Not Relevant status</li><li>Bad country</li><li>Competitor or Customer</li><li>EE &lt;20 or &gt;8,000 with Update MQL Process FALSE</li></ul></div></details>
+      <details><summary>Restricted countries</summary><div class="inner"><p>Iran, Lebanon, North Korea, Somalia, Cuba, Syria, Sudan, Libya, Pakistan, India, Iraq, Palestine, Syrian Arab Republic, China, Palestinian Territory (Occupied), Palestinian Territory</p></div></details>
+    </div>
+  </section>
+
+  <section id="behavioral">
+    <div class="wrap">
+      <p class="label">Dimension 2</p>
+      <h2>Behavioral score (1–4)</h2>
+      <div class="card" style="overflow-x:auto">
+        <table>
+          <tr><th>Tier</th><th>Points (Marketo)</th><th>Typical activities</th></tr>
+          <tr><td><strong>1</strong></td><td>100+</td><td>Demo, pricing, explicit sales contact</td></tr>
+          <tr><td><strong>2</strong></td><td>50–99</td><td>WAD, product tour, BOFU, events</td></tr>
+          <tr><td><strong>3</strong></td><td>15–49</td><td>Nurture forms, MOFU, CPL</td></tr>
+          <tr><td><strong>4</strong></td><td>0–14</td><td>TOFU only</td></tr>
+        </table>
+      </div>
+      <div class="card" style="margin-top:1rem;border-left:4px solid var(--orange-juice)">
+        <h3>Top weights</h3>
+        <p style="margin:0;color:var(--muted)"><strong style="color:var(--cherry-syrup)">+100</strong> Demo, pricing, contact sales · <strong style="color:var(--cherry-syrup)">+50</strong> WAD, tour, ROI, events · <strong style="color:var(--cherry-syrup)">+35</strong> A-tier booth + Decision/Purchase · <strong style="color:var(--cherry-syrup)">+5</strong> Email click (max 3/mo—cannot reach 100-pt threshold alone)</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="matrix" class="alt">
+    <div class="wrap">
+      <p class="label">Prioritization</p>
+      <h2>Score matrix</h2>
+      <p style="color:var(--muted)">Darker = higher priority. A1 top → D4 lowest.</p>
+      <div class="matrix-wrap">
+        <div class="card matrix" id="matrix-grid"></div>
+      </div>
+      <div id="sales-order" class="sales-order" aria-label="Sales queue order"></div>
+    </div>
+  </section>
+
+  <section id="non-mql-reasons" class="alt">
+    <div class="wrap">
+      <p class="label">Exceptions</p>
+      <h2>Common reasons a lead won't be MQL'd</h2>
+      <p style="color:var(--muted);max-width:42rem;margin-bottom:1.5rem">Reaching 100+ points or high engagement is not enough—fit, channel, and March 2025 combo rules all apply.</p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Fit & account disqualifiers</h3>
+          <p style="color:var(--muted);font-size:0.9375rem">Grade D, bad geo, competitor/customer, EE out of range, irrelevant persona.</p>
+          <ul style="color:var(--muted);font-size:0.9rem">
+            <li>Demographic D: junk, Not Relevant status, restricted countries, Update MQL Process = FALSE (&lt;20 or &gt;8,000 EE)</li>
+            <li>Unsubscribed, HiBob employees, Sales job function, student/intern titles</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Engagement below threshold</h3>
+          <p style="color:var(--muted);font-size:0.9375rem">Under 100 points or low-intent activity only.</p>
+          <ul style="color:var(--muted);font-size:0.9rem">
+            <li>Tiers 3–4 (typically 0–49 points) without a qualifying hand-raise or WAD path</li>
+            <li>TOFU-only; email clicks (+5, max 3/mo) cannot reach 100 points alone</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Channel & score-code rules</h3>
+          <p style="color:var(--muted);font-size:0.9375rem">March 2025 limits which codes auto-MQL by source.</p>
+          <ul style="color:var(--muted);font-size:0.9rem">
+            <li>Activity-based: <strong>only A1 & B1</strong> auto-MQL</li>
+            <li>WAD: no D3; C3 only selective regions (no Micro)</li>
+            <li>No auto-MQL: ROI calculator, High-value asset (“New Movers”)</li>
+            <li>Hand raiser forms always MQL when valid (demo, pricing, contact sales)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Junk, test & data quality</h3>
+          <p style="color:var(--muted);font-size:0.9375rem">Screened before or regardless of points.</p>
+          <ul style="color:var(--muted);font-size:0.9rem">
+            <li>Test/fake data, invalid/bounced email, QA/UAT records</li>
+            <li>Failed qualification, ops junk flags, disposable email signals</li>
+          </ul>
+        </div>
+        <div class="card" style="grid-column:1/-1">
+          <h3>Events & booth (common misconception)</h3>
+          <p style="color:var(--muted);font-size:0.9375rem;margin:0">ICP booth attendance alone does not MQL everyone—only <strong>A</strong> demographic + 6Sense <strong>Decision/Purchase</strong> get the +35 bonus (~top 5%). Attendance (+15) still requires passing DQ checks and channel combo rules.</p>
+        </div>
+      </div>
+      <div class="card" style="margin-top:1.25rem;border-left:4px solid var(--dark-wine)">
+        <h3>Quick check before escalating</h3>
+        <p style="margin:0;color:var(--muted)">Confirm grade (not D), lead source, score code vs auto-MQL list for that channel, and junk/DQ flags. See <a href="#mql-policy">MQL policy</a>, <a href="#scoring-flow">scoring flow</a>, or <a href="#manual-mql-review">manual MQL review</a> if it still looks wrong.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="manual-mql-review">
+    <div class="wrap">
+      <p class="label">Escalation</p>
+      <h2>Manual MQL review</h2>
+      <p style="color:var(--muted);max-width:42rem;margin-bottom:1.5rem">When a lead looks qualified but did not MQL, use this path before assuming automation failed. Threshold: <strong>100 points</strong> + channel rules.</p>
+      <div class="grid-2" style="margin-bottom:1.5rem">
+        <div class="card">
+          <h3>When to request a review</h3>
+          <ul style="color:var(--muted);margin:0;padding-left:1.25rem">
+            <li>High-intent action (demo, pricing, contact sales, WAD) but no MQL in expected timing</li>
+            <li>Score code or demographic grade seems wrong for the account/persona</li>
+            <li>ICP, EE count, or account status recently changed—may not have synced</li>
+            <li>Source/campaign should qualify under March 2025 policy but was excluded</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Before you escalate</h3>
+          <p style="color:var(--muted);margin:0 0 0.75rem;font-size:0.9375rem">Most “missed” MQLs are policy-intentional. Confirm first:</p>
+          <ul style="color:var(--muted);margin:0;padding-left:1.25rem;font-size:0.9rem">
+            <li><a href="#non-mql-reasons">Why not MQL</a></li>
+            <li><a href="#mql-policy">MQL policy (2025)</a></li>
+            <li><a href="#scoring-flow">Scoring flow</a></li>
+            <li><a href="#mqling-flow">MQLing flow</a> (ICP)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:1.5rem">
+        <h3>Review process</h3>
+        <ol style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:1rem">
+          <li style="display:grid;grid-template-columns:2.5rem 1fr;gap:1rem;align-items:start">
+            <span style="width:2.5rem;height:2.5rem;border-radius:50%;background:var(--cherry-syrup);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900">1</span>
+            <div><strong>Self-check against policy</strong><p style="margin:0.35rem 0 0;color:var(--muted);font-size:0.9rem">Use Why not MQL and MQL policy—confirm exclusion was intentional (e.g. D3 on WAD, not A1/B1 on activity path).</p></div>
+          </li>
+          <li style="display:grid;grid-template-columns:2.5rem 1fr;gap:1rem;align-items:start">
+            <span style="width:2.5rem;height:2.5rem;border-radius:50%;background:var(--cherry-syrup);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900">2</span>
+            <div><strong>Verify data freshness</strong><p style="margin:0.35rem 0 0;color:var(--muted);font-size:0.9rem">Allow ~24h for SFDC ICP; confirm Marketo flows ran since last activity.</p></div>
+          </li>
+          <li style="display:grid;grid-template-columns:2.5rem 1fr;gap:1rem;align-items:start">
+            <span style="width:2.5rem;height:2.5rem;border-radius:50%;background:var(--cherry-syrup);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900">3</span>
+            <div><strong>Open review with Marketing Ops / RevOps</strong><p style="margin:0.35rem 0 0;color:var(--muted);font-size:0.9rem">Use your team’s standard Slack channel or ticket queue. Include the checklist below.</p></div>
+          </li>
+          <li style="display:grid;grid-template-columns:2.5rem 1fr;gap:1rem;align-items:start">
+            <span style="width:2.5rem;height:2.5rem;border-radius:50%;background:var(--cherry-syrup);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900">4</span>
+            <div><strong>Reviewer decision</strong><p style="margin:0.35rem 0 0;color:var(--muted);font-size:0.9rem">Manual MQL, data/rule fix and re-run flows, confirmed no MQL, or documented one-off exception.</p></div>
+          </li>
+        </ol>
+      </div>
+      <div class="card" style="margin-bottom:1.5rem;overflow-x:auto">
+        <h3>What to include in your request</h3>
+        <table>
+          <tr><th>Item</th><th>Notes for reviewer</th></tr>
+          <tr><td><strong>Lead / contact ID</strong></td><td style="color:var(--muted)">SFDC 18-char ID and Marketo lead ID</td></tr>
+          <tr><td><strong>Behavioral Score Calculation</strong></td><td style="color:var(--muted)">Point total; is it ≥ 100?</td></tr>
+          <tr><td><strong>Demographic grade & code</strong></td><td style="color:var(--muted)">e.g. A1, B2</td></tr>
+          <tr><td><strong>Lead source / program</strong></td><td style="color:var(--muted)">Hand raiser, WAD, activity-based, event, PPL</td></tr>
+          <tr><td><strong>ICP & account status</strong></td><td style="color:var(--muted)">ICP checkbox, status, EE count, geo flags</td></tr>
+          <tr><td><strong>Recent activities</strong></td><td style="color:var(--muted)">Forms, visits, emails—with dates (7–14 days)</td></tr>
+          <tr><td><strong>Junk / DQ flags</strong></td><td style="color:var(--muted)">Junk, unsubscribe, grade-D signals</td></tr>
+          <tr><td><strong>What you expected</strong></td><td style="color:var(--muted)">Which auto-MQL path should have fired</td></tr>
+        </table>
+      </div>
+      <div class="grid-2">
+        <div class="card"><h3 style="font-size:1rem">Approved manual MQL</h3><p style="margin:0;color:var(--muted);font-size:0.9rem">Routed to sales with audit note when automation missed a valid MQL.</p></div>
+        <div class="card"><h3 style="font-size:1rem">Data or rule fix</h3><p style="margin:0;color:var(--muted);font-size:0.9rem">ICP/grade/activity corrected; flows re-triggered.</p></div>
+        <div class="card"><h3 style="font-size:1rem">Confirmed no MQL</h3><p style="margin:0;color:var(--muted);font-size:0.9rem">Reason documented; nurture or suppression per policy.</p></div>
+        <div class="card"><h3 style="font-size:1rem">Policy exception</h3><p style="margin:0;color:var(--muted);font-size:0.9rem">Rare one-off; recurring cases should feed rule review.</p></div>
+      </div>
+      <div class="card" style="margin-top:1.25rem;border-left:4px solid var(--cherry-syrup)">
+        <h3>Do not bypass policy without review</h3>
+        <p style="margin:0;color:var(--muted)">Do not change MQL status in Salesforce without Ops alignment—use the formal review path so exceptions stay traceable for reporting.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="mql-policy">
+    <div class="wrap">
+      <p class="label">Go-to-market</p>
+      <h2>MQL policy (March 2025)</h2>
+      <div class="tabs">
+        <button class="tab active" data-tab="hr">Hand raiser</button>
+        <button class="tab" data-tab="wad">WAD</button>
+        <button class="tab" data-tab="act">Activity-based</button>
+        <button class="tab" data-tab="oth">Other</button>
+      </div>
+      <div class="card tab-panel active" id="tab-hr"><h3>Hand raiser — always auto-MQL</h3><p style="color:var(--muted)">Request Demo, Pricing, Contact Sales · ~18% MQL-to-SQA CVR</p></div>
+      <div class="card tab-panel" id="tab-wad"><h3>WAD — combo-based</h3><ul style="color:var(--muted)"><li>Auto-MQL: A1–A4, B1–B3, C1</li><li>C3: Americas, UK, APJ (no Micro)</li><li>No D3</li></ul><p><em>6,297 → 2,566 MQLs; 8% → 14% CR</em></p></div>
+      <div class="card tab-panel" id="tab-act"><h3>Activity-based — A1 & B1 only</h3><p style="color:var(--muted)">1,874 → 86 MQLs; 4% → 17% CR</p></div>
+      <div class="card tab-panel" id="tab-oth"><h3>Other</h3><ul style="color:var(--muted)"><li>Keep PPL/directories</li><li>No ROI calculator MQL</li><li>No High-value asset (“New Movers”) MQL</li></ul></div>
+      <div class="card banner" style="margin-top:1.25rem"><h3>Key metric</h3><p style="margin:0">MQL-to-SQA conversion rate drives routing decisions.</p></div>
+    </div>
+  </section>
+
+  <section id="examples" class="alt">
+    <div class="wrap">
+      <p class="label">Walkthroughs</p>
+      <h2>Examples</h2>
+      <div class="grid-2">
+        <div class="card"><h3>VP HR — demo</h3><p><strong style="color:var(--cherry-syrup);font-size:1.4rem">A1</strong> · Always MQL (hand raiser)</p></div>
+        <div class="card"><h3>ICP manager — BOFU</h3><p><strong style="color:var(--cherry-syrup);font-size:1.4rem">B2</strong> · MQL if WAD rules match</p></div>
+        <div class="card"><h3>Non-ICP — MOFU</h3><p><strong style="color:var(--cherry-syrup);font-size:1.4rem">C3</strong> · Selective by region</p></div>
+        <div class="card"><h3>Irrelevant — TOFU</h3><p><strong style="font-size:1.4rem">D4</strong> · No auto-MQL</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="interpretation">
+    <div class="wrap">
+      <p class="label">For teams</p>
+      <h2>How to interpret</h2>
+      <div class="grid-2">
+        <div class="card" style="border-top:4px solid var(--cherry-syrup)"><h3>Do</h3><ul style="color:var(--muted)"><li>Read code + lead source together</li><li>Prioritize A1, B1 on activity paths</li><li>Re-check after major engagement</li></ul></div>
+        <div class="card" style="border-top:4px solid var(--orange-juice)"><h3>Don't</h3><ul style="color:var(--muted)"><li>Treat all MQLs as equal</li><li>Auto-expect D3 on WAD</li><li>Use email clicks alone as MQL signal</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="alt">
+    <div class="wrap">
+      <p class="label">Support</p>
+      <h2>FAQ</h2>
+      <details><summary>What is lead scoring?</summary><div class="inner">Fit (A–D) + engagement (1–4) for prioritization and MQL routing—not points alone.</div></details>
+      <details><summary>What is the MQL point threshold?</summary><div class="inner">100 points in Behavioral Score Calculation, plus demographic grade and channel-specific auto-MQL rules.</div></details>
+      <details><summary>Can email clicks alone MQL someone?</summary><div class="inner">No. +5 clicks, max 3/month, cannot reach the 100-point threshold alone.</div></details>
+      <details><summary>Why wasn't my lead MQL'd?</summary><div class="inner">See <a href="#non-mql-reasons">Why not MQL</a>. Still wrong? Follow <a href="#manual-mql-review">Manual MQL review</a>.</div></details>
+      <details><summary>How do I request a manual MQL review?</summary><div class="inner">Self-check policy, gather IDs/scores/activities, submit to Marketing Ops / RevOps via your team intake. Full checklist: <a href="#manual-mql-review">Manual MQL review</a>.</div></details>
+      <details><summary>How are junk/fake leads identified?</summary><div class="inner">Test/fake data, invalid emails, QA/UAT, restricted countries, failed qualification, ops junk flags, and email quality signals—with approved exceptions.</div></details>
+      <details><summary>Why not all booth attendees MQL?</summary><div class="inner">Only A demographic + 6Sense Decision/Purchase get +35 booth bonus (~top 5%).</div></details>
+      <details><summary>ICP shows FALSE for new contacts?</summary><div class="inner">SFDC ICP can take ~24h; Marketo ICP used interim.</div></details>
+    </div>
+  </section>
+
+  <section id="methodology">
+    <div class="wrap">
+      <p class="label">Trust</p>
+      <h2>Methodology & limitations</h2>
+      <ul style="color:var(--muted)">
+        <li>Behavioral tiers and point buckets describe the same dimension.</li>
+        <li>ICP and score updates have operational lag.</li>
+        <li>Demographics are rule-based, not ML.</li>
+        <li>Confirm live rules in Marketo before major campaigns.</li>
+      </ul>
+      <p><a href="https://miro.com/app/board/uXjVIkUIQp0=/?share_link_id=79974080622" target="_blank" rel="noopener">Miro process board →</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="logo-row">
+        <img src="assets/hibob-logo.svg" alt="HiBob" width="88" height="28" />
+        <span>Internal use · Lead Scoring Guide</span>
+      </div>
+      <p style="margin:0">Brand: <a href="https://brand.hibob.com/" target="_blank" rel="noopener">brand.hibob.com</a> · Open <code>OPEN-THIS-FILE.html</code> in any browser</p>
+    </div>
+  </footer>
+
+  <script>
+    const heat = (p) => p <= 2 ? "#ee164f" : p <= 5 ? "#f36488" : p <= 8 ? "#faa32b" : p <= 10 ? "#febb59" : "#e3ddd3";
+    const pri = { A1:1,A2:2,A3:3,A4:4,B1:2,B2:5,B3:6,B4:7,C1:2,C2:8,C3:9,C4:10,D1:11,D2:12,D3:13,D4:14 };
+    const textColor = (p) => p <= 8 ? "#fff" : "var(--black-coffee)";
+    function buildSalesQueueTiers() {
+      const codes = Object.keys(pri).sort((a, b) => pri[a] - pri[b] || a.localeCompare(b));
+      const tiers = [];
+      codes.forEach((code) => {
+        const rank = pri[code];
+        const last = tiers[tiers.length - 1];
+        if (last && last.rank === rank) last.codes.push(code);
+        else tiers.push({ rank, codes: [code] });
+      });
+      return tiers;
+    }
+    (function renderSalesOrder() {
+      const el = document.getElementById("sales-order");
+      if (!el) return;
+      const tiers = buildSalesQueueTiers();
+      el.innerHTML =
+        '<div class="sales-order__header"><h3 class="sales-order__title">Sales queue order</h3><span class="sales-order__caption">Highest priority first</span></div>' +
+        '<div class="sales-order__ladder">' +
+        tiers
+          .map((tier) => {
+            const chips = tier.codes
+              .map(
+                (code) =>
+                  '<span class="sales-order__code" style="background:' +
+                  heat(pri[code]) +
+                  ";color:" +
+                  textColor(pri[code]) +
+                  '" title="' +
+                  code +
+                  " — priority " +
+                  pri[code] +
+                  '">' +
+                  code +
+                  "</span>",
+              )
+              .join("");
+            return (
+              '<div class="sales-order__row"><span class="sales-order__rank">' +
+              tier.rank +
+              '</span><div class="sales-order__codes">' +
+              chips +
+              "</div></div>"
+            );
+          })
+          .join("") +
+        "</div>" +
+        '<p class="sales-order__foot">Work the queue from <strong>A1</strong> down to <strong>D4</strong> as capacity allows. Tied ranks (e.g. A2, B1, C1 at rank 2) are equivalent in sequence.</p>';
+    })();
+    const g = document.getElementById("matrix-grid");
+    g.appendChild(document.createElement("div"));
+    [1,2,3,4].forEach(b => { const d=document.createElement("div"); d.textContent=b; d.style.textAlign="center"; g.appendChild(d); });
+    "ABCD".split("").forEach(demo => {
+      const l=document.createElement("div"); l.textContent=demo; l.style.display="flex"; l.style.alignItems="center"; g.appendChild(l);
+      [1,2,3,4].forEach(b => {
+        const c=document.createElement("div"); const code=demo+b; const p=pri[code]||14;
+        c.className="cell"; c.textContent=code; c.style.background=heat(p); c.style.color=p<=8?"#fff":"var(--black-coffee)"; g.appendChild(c);
+      });
+    });
+    (function initFlow() {
+      const FLOW_STEPS = [
+        { title: "Lead enters", body: "Engagement via web, events, or third-party sources. Data syncs to Marketo and Salesforce." },
+        { title: "Junk / test screening", body: "Ops rules check junk/test signals. Matches → grade D, excluded from MQL routing.", junk: true },
+        { title: "Demographic (A–D)", body: "Persona + account (ICP per MIS doc, status, geo, EE) → fit grade." },
+        { title: "Point ledger", body: "Activities add points in Marketo (Behavioral Score Calculation field)." },
+        { title: "Behavioral tier (1–4)", body: "100+ → 1, 50–99 → 2, 15–49 → 3, 0–14 → 4. MQL threshold = 100 points." },
+        { title: "Score code", body: "Demographic + behavioral = code (e.g. A1, B3)." },
+        { title: "MQL decision", body: "Hand raiser, WAD, or activity rules determine auto-MQL." },
+        { title: "Sales priority", body: "A1 first; scores update as engagement changes." }
+      ];
+      let flowStep = 0, junkChoice = null;
+      const panel = document.getElementById("flow-panel");
+      const dotsEl = document.getElementById("flow-dots");
+      function renderFlow() {
+        dotsEl.innerHTML = "";
+        FLOW_STEPS.forEach((_, i) => {
+          const b = document.createElement("button");
+          b.type = "button";
+          b.className = "flow-dot" + (i === flowStep ? " active" : i < flowStep ? " done" : "");
+          b.textContent = String(i + 1);
+          b.onclick = () => { flowStep = i; if (i !== 1) junkChoice = null; renderFlow(); };
+          dotsEl.appendChild(b);
+        });
+        const s = FLOW_STEPS[flowStep];
+        panel.innerHTML = "";
+        const label = document.createElement("p");
+        label.className = "label";
+        label.textContent = "Step " + (flowStep + 1) + " of " + FLOW_STEPS.length;
+        panel.appendChild(label);
+        const h = document.createElement("h3");
+        h.textContent = s.title;
+        panel.appendChild(h);
+        const p = document.createElement("p");
+        p.style.color = "var(--muted)";
+        p.textContent = s.body;
+        panel.appendChild(p);
+        if (s.junk) {
+          const q = document.createElement("p");
+          q.style.fontWeight = "700";
+          q.style.fontSize = "0.875rem";
+          q.textContent = "Matches junk criteria?";
+          panel.appendChild(q);
+          const row = document.createElement("div");
+          row.style.marginBottom = "0.75rem";
+          ["yes", "no"].forEach((v) => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = v === "yes" ? "btn btn-secondary" : "btn btn-primary";
+            btn.style.marginRight = "0.5rem";
+            btn.textContent = v === "yes" ? "Yes → Grade D" : "No → Continue";
+            btn.onclick = () => { junkChoice = v; renderFlow(); };
+            row.appendChild(btn);
+          });
+          panel.appendChild(row);
+          if (junkChoice === "yes") {
+            const note = document.createElement("p");
+            note.style.cssText = "padding:0.75rem;background:var(--cappuccino-foam);border-radius:8px;font-size:0.9rem";
+            note.textContent = "Stops at Grade D — not auto-MQL on standard paths.";
+            panel.appendChild(note);
+          }
+        }
+        if (flowStep === FLOW_STEPS.length - 1) {
+          const end = document.createElement("p");
+          end.style.cssText = "margin-top:1rem;padding:1rem;background:linear-gradient(135deg,var(--dark-wine),var(--cherry-syrup));color:#fff;border-radius:12px";
+          end.textContent = junkChoice === "yes" ? "End: Grade D path." : "Example: 105 pts + ICP champion → A1 → top priority.";
+          panel.appendChild(end);
+        }
+        const nav = document.createElement("div");
+        nav.style.cssText = "margin-top:1rem;display:flex;gap:0.5rem";
+        const back = document.createElement("button");
+        back.type = "button";
+        back.className = "btn btn-secondary";
+        back.textContent = "Back";
+        back.disabled = flowStep === 0;
+        back.onclick = () => { if (flowStep > 0) { flowStep--; junkChoice = null; renderFlow(); } };
+        nav.appendChild(back);
+        if (flowStep < FLOW_STEPS.length - 1) {
+          const next = document.createElement("button");
+          next.type = "button";
+          next.className = "btn btn-primary";
+          next.textContent = "Next";
+          next.disabled = s.junk && !junkChoice;
+          next.onclick = () => {
+            if (s.junk && !junkChoice) return;
+            if (junkChoice === "yes") flowStep = FLOW_STEPS.length - 1;
+            else flowStep++;
+            renderFlow();
+          };
+          nav.appendChild(next);
+        } else {
+          const reset = document.createElement("button");
+          reset.type = "button";
+          reset.className = "btn btn-primary";
+          reset.textContent = "Start over";
+          reset.onclick = () => { flowStep = 0; junkChoice = null; renderFlow(); };
+          nav.appendChild(reset);
+        }
+        panel.appendChild(nav);
+      }
+      renderFlow();
+    })();
+
+    document.querySelectorAll(".tab").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+        document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+        btn.classList.add("active");
+        document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
+      });
+    });
+  </script>
+</body>
+</html>

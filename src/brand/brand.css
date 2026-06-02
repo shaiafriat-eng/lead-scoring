@@ -1,0 +1,29 @@
+/**
+ * HiBob brand tokens — brand.hibob.com / 2024 Brand Guidelines
+ * Typography: G Suite alternates (Archivo Black, Domine, Lato)
+ */
+:root {
+  --cherry-syrup: #ee164f;
+  --dark-wine: #83143d;
+  --orange-juice: #faa32b;
+  --cappuccino-foam: #fdf6eb;
+  --white-cream: #ffffff;
+  --black-coffee: #3a3a37;
+  --coffee-muted: #5c5c58;
+  --pink-soft: #fac7d1;
+  --pink-soft: #fac7d1;
+  --pink-mid: #f36488;
+  --bg-page: #f6f4ef;
+  --bg-warm: #fffbf4;
+  --border: #e3ddd3;
+
+  --font-headline: "Archivo Black", sans-serif;
+  --font-subhead: "Domine", Georgia, serif;
+  --font-body: "Lato", system-ui, sans-serif;
+
+  --radius-lg: 22px;
+  --radius-md: 16px;
+  --radius-sm: 12px;
+  --shadow: 0 8px 24px rgba(58, 58, 55, 0.08);
+  --nav-height: 72px;
+}
