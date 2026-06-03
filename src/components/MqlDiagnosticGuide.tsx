@@ -1,19 +1,24 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { MqlDiagnosticBotAvatar } from "./MqlDiagnosticBotAvatar";
+import { MqlDiagnosticThinking } from "./MqlDiagnosticThinking";
 import {
   MQL_DIAGNOSTIC_CONCLUSIONS,
-  MQL_DIAGNOSTIC_INTRO,
   MQL_DIAGNOSTIC_START,
   enrichConclusionWithDemographic,
   getMqlDiagnosticConclusion,
   getMqlDiagnosticStep,
   computeDemographicFromInputs,
   routeAfterMarketoGrade,
+  routeAfterEngage,
+  tierFromEngage,
+  getEngageActivitySummary,
   type DemographicScoringAnswers,
   type MqlDiagnosticConclusion,
 } from "../data/scoringContent";
 
 type HistoryEntry = { question: string; answer: string };
+
+const THINK_MS = 750;
 
 const TONE_STYLES: Record<
   MqlDiagnosticConclusion["tone"],
@@ -36,11 +41,35 @@ const TONE_STYLES: Record<
   },
 };
 
+function HistoryExchange({ entry }: { entry: HistoryEntry }) {
+  return (
+    <>
+      <div className="mql-diagnostic__msg mql-diagnostic__msg--guide">
+        <MqlDiagnosticBotAvatar />
+        <div className="mql-diagnostic__bubble">{entry.question}</div>
+      </div>
+      <div className="mql-diagnostic__msg mql-diagnostic__msg--user">
+        <div className="mql-diagnostic__bubble mql-diagnostic__bubble--user">{entry.answer}</div>
+      </div>
+    </>
+  );
+}
+
 export function MqlDiagnosticGuide() {
   const [stepId, setStepId] = useState<string>(MQL_DIAGNOSTIC_START);
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [answers, setAnswers] = useState<DemographicScoringAnswers>({});
   const [conclusionId, setConclusionId] = useState<string | null>(null);
+  const [thinking, setThinking] = useState(false);
+  const [pendingExchange, setPendingExchange] = useState<HistoryEntry | null>(null);
+  const thinkTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const threadRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    return () => {
+      if (thinkTimerRef.current) clearTimeout(thinkTimerRef.current);
+    };
+  }, []);
 
   const step = conclusionId ? null : getMqlDiagnosticStep(stepId);
   const baseConclusion = conclusionId ? getMqlDiagnosticConclusion(conclusionId) : null;
@@ -63,6 +92,11 @@ export function MqlDiagnosticGuide() {
     return Math.min(12 + history.length * 10, 92);
   }, [conclusionId, history.length]);
 
+  useEffect(() => {
+    const el = threadRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [history, thinking, pendingExchange, stepId, conclusionId]);
+
   const goTo = (next: string) => {
     const nextConclusion = getMqlDiagnosticConclusion(next);
     if (nextConclusion) {
@@ -74,56 +108,90 @@ export function MqlDiagnosticGuide() {
     setStepId(next);
   };
 
-  const pickOption = (stepKey: string, question: string, label: string, optionId: string, next: string) => {
-    setHistory((h) => [...h, { question, answer: label }]);
-    const nextAnswers = { ...answers, [stepKey]: optionId };
-    setAnswers(nextAnswers);
+  const pickOption = (
+    stepKey: string,
+    question: string,
+    label: string,
+    optionId: string,
+    next: string,
+  ) => {
+    if (thinking) return;
 
-    if (next === "__grade_route__") {
-      const computedNow = computeDemographicFromInputs(answers);
-      if (computedNow) {
-        goTo(routeAfterMarketoGrade(optionId, computedNow));
+    const exchange = { question, answer: label };
+    setPendingExchange(exchange);
+    setThinking(true);
+
+    if (thinkTimerRef.current) clearTimeout(thinkTimerRef.current);
+    thinkTimerRef.current = setTimeout(() => {
+      thinkTimerRef.current = null;
+      const nextAnswers = { ...answers, [stepKey]: optionId };
+      setHistory((h) => [...h, exchange]);
+      setAnswers(nextAnswers);
+      setPendingExchange(null);
+      setThinking(false);
+
+      if (next === "__grade_route__") {
+        const computedNow = computeDemographicFromInputs(nextAnswers);
+        if (computedNow) {
+          goTo(routeAfterMarketoGrade(optionId, computedNow));
+          return;
+        }
+      }
+
+      if (next === "__engage_route__") {
+        const computedNow = computeDemographicFromInputs(nextAnswers);
+        goTo(routeAfterEngage(optionId, computedNow));
         return;
       }
-    }
 
-    goTo(next);
+      goTo(next);
+    }, THINK_MS);
   };
 
   const reset = () => {
+    if (thinkTimerRef.current) clearTimeout(thinkTimerRef.current);
+    thinkTimerRef.current = null;
+    setThinking(false);
+    setPendingExchange(null);
     setStepId(MQL_DIAGNOSTIC_START);
     setHistory([]);
     setAnswers({});
     setConclusionId(null);
   };
 
-  const showGradeInsight = step?.id === "marketo_grade" && computed;
+  const showGradeInsight = !thinking && step?.id === "marketo_grade" && computed;
+  const engageTier = tierFromEngage(answers.engage);
+  const engageSummary = getEngageActivitySummary(answers.engage);
+  const showEngageInsight =
+    !thinking && Boolean(engageTier && engageSummary && step?.id !== "engage" && step?.id !== "marketo_grade");
 
   return (
-    <div className="mql-diagnostic">
+    <div className={`mql-diagnostic${thinking ? " mql-diagnostic--thinking" : ""}`}>
       <div className="mql-diagnostic__progress" aria-hidden>
         <div className="mql-diagnostic__progress-bar" style={{ width: `${progress}%` }} />
       </div>
 
-      <div className="mql-diagnostic__thread" role="log" aria-live="polite">
-        <div className="mql-diagnostic__msg mql-diagnostic__msg--guide">
-          <MqlDiagnosticBotAvatar />
-          <div className="mql-diagnostic__bubble">{MQL_DIAGNOSTIC_INTRO}</div>
-        </div>
-
+      <div className="mql-diagnostic__thread" role="log" aria-live="polite" ref={threadRef}>
         {history.map((entry, i) => (
-          <div key={i}>
-            <div className="mql-diagnostic__msg mql-diagnostic__msg--guide">
-              <MqlDiagnosticBotAvatar />
-              <div className="mql-diagnostic__bubble">{entry.question}</div>
-            </div>
-            <div className="mql-diagnostic__msg mql-diagnostic__msg--user">
-              <div className="mql-diagnostic__bubble mql-diagnostic__bubble--user">{entry.answer}</div>
-            </div>
+          <div key={`hist-${i}`}>
+            <HistoryExchange entry={entry} />
           </div>
         ))}
 
-        {showGradeInsight && (
+        {thinking && pendingExchange && (
+          <>
+            <div className="mql-diagnostic__msg mql-diagnostic__msg--guide">
+              <MqlDiagnosticBotAvatar />
+              <div className="mql-diagnostic__bubble">{pendingExchange.question}</div>
+            </div>
+            <div className="mql-diagnostic__msg mql-diagnostic__msg--user">
+              <div className="mql-diagnostic__bubble mql-diagnostic__bubble--user">{pendingExchange.answer}</div>
+            </div>
+            <MqlDiagnosticThinking />
+          </>
+        )}
+
+        {!thinking && showGradeInsight && (
           <div className="mql-diagnostic__grade-insight">
             <p className="mql-diagnostic__grade-insight-title">
               From scoring logic → <strong>expected {computed.grade}</strong> ({computed.title})
@@ -136,7 +204,16 @@ export function MqlDiagnosticGuide() {
           </div>
         )}
 
-        {step && (
+        {showEngageInsight && (
+          <div className="mql-diagnostic__grade-insight">
+            <p className="mql-diagnostic__grade-insight-title">
+              From activity → <strong>Tier {engageTier}</strong>
+            </p>
+            <p style={{ margin: 0, color: "var(--coffee-muted)" }}>{engageSummary}</p>
+          </div>
+        )}
+
+        {!thinking && step && (
           <div className="mql-diagnostic__msg mql-diagnostic__msg--guide">
             <MqlDiagnosticBotAvatar />
             <div className="mql-diagnostic__bubble">
@@ -150,9 +227,9 @@ export function MqlDiagnosticGuide() {
           </div>
         )}
 
-        {conclusion && toneStyle && (
+        {!thinking && conclusion && toneStyle && (
           <div
-            className="mql-diagnostic__conclusion"
+            className={`mql-diagnostic__conclusion mql-diagnostic__conclusion--${conclusion.tone}`}
             style={{
               borderLeft: `4px solid ${toneStyle.border}`,
               background: toneStyle.bg,
@@ -188,6 +265,7 @@ export function MqlDiagnosticGuide() {
               key={opt.id}
               type="button"
               className="mql-diagnostic__option"
+              disabled={thinking}
               onClick={() => pickOption(step.id, step.question, opt.label, opt.id, opt.next)}
             >
               {opt.label}

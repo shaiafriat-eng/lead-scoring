@@ -1,8 +1,5 @@
 (function () {
   const MQL_THRESHOLD = 100;
-  const INTRO =
-    "Let's apply the same demographic rules Marketo uses: employee size, ICP, job function, and seniority combine into grade A–D. Answer about the lead, then we'll compare that logic to engagement and MQL policy.";
-
   const OPS_BOT_AVATAR =
     '<span class="mql-diagnostic__avatar" aria-hidden title="Marketing Ops bot">' +
     '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
@@ -109,11 +106,27 @@
     return { grade: "C", title: "Grade C — default workable", reasons: reasons };
   }
 
+  var ENGAGE_TO_TIER = { p100: "1", p50: "2", p15: "3", p5: "4" };
+
+  function engageActivitySummary(engageId) {
+    if (engageId === "p100") return "+100 pts — demo, pricing, or contact sales (Tier 1)";
+    if (engageId === "p50") return "+50 pts — WAD, product tour, ROI calculator, or event (Tier 2)";
+    if (engageId === "p15") return "+15 pts — BOFU visit, content, newsletter, or webinar form (Tier 3)";
+    if (engageId === "p5") return "+5 pts — email link click only (Tier 4; cannot reach MQL threshold alone)";
+    return null;
+  }
+
   function routeGrade(stated, computed) {
     var s = stated.toUpperCase();
-    if (s === computed.grade) return s === "D" ? "points_after_d" : "points";
+    if (s === computed.grade) return "engage";
     if (GRADE_ORDER[s] < GRADE_ORDER[computed.grade]) return "c_grade_system_lower";
     return "c_grade_system_higher";
+  }
+
+  function routeAfterEngage(engageId, computed) {
+    if (engageId === "p5") return "c_low_points";
+    if (computed && computed.grade === "D") return "points_after_d";
+    return "points";
   }
 
   var STEPS = {
@@ -180,6 +193,17 @@
         { id: "b", label: "Grade B", next: "__grade_route__" },
         { id: "c", label: "Grade C", next: "__grade_route__" },
         { id: "d", label: "Grade D", next: "__grade_route__" },
+      ],
+    },
+    engage: {
+      question: "Behavioral scoring — what activity did the lead perform?",
+      helper:
+        "Pick the highest-intent action in Marketo's point ledger (Behavioral Score Calculation). Points stack until the next activity.",
+      options: [
+        { id: "p100", label: "Demo, pricing, or contact sales", next: "__engage_route__" },
+        { id: "p50", label: "WAD, product tour, ROI calculator, or event", next: "__engage_route__" },
+        { id: "p15", label: "BOFU visit, content, newsletter, or webinar form", next: "__engage_route__" },
+        { id: "p5", label: "Email link click only", next: "__engage_route__" },
       ],
     },
     points_after_d: {
@@ -411,10 +435,25 @@
   var root = document.getElementById("mql-diagnostic");
   if (!root) return;
 
+  var THINK_MS = 750;
   var stepId = "junk";
   var history = [];
   var answers = {};
   var conclusionId = null;
+  var thinking = false;
+  var pendingExchange = null;
+  var thinkTimer = null;
+
+  function thinkingLoaderHtml() {
+    return (
+      '<div class="mql-diagnostic__msg mql-diagnostic__msg--guide mql-diagnostic__msg--thinking">' +
+      OPS_BOT_AVATAR +
+      '<div class="mql-diagnostic__bubble mql-diagnostic__bubble--thinking" aria-busy="true">' +
+      '<span class="mql-diagnostic__thinking-text">Thinking</span>' +
+      '<span class="mql-diagnostic__thinking-dots" aria-hidden="true"><span></span><span></span><span></span></span>' +
+      "</div></div>"
+    );
+  }
 
   function esc(s) {
     var d = document.createElement("div");
@@ -433,6 +472,8 @@
     if (answers.ee === "ee_5000_8000") {
       extra.push("Note: 5,000–8,000 EE may still MQL under policy outside standard ICP size.");
     }
+    var engageSummary = engageActivitySummary(answers.engage);
+    if (engageSummary) extra.push("Primary activity: " + engageSummary + ".");
     return extra;
   }
 
@@ -446,44 +487,67 @@
       (conclusionId ? 100 : Math.min(12 + history.length * 10, 92)) +
       '%"></div></div>';
     html += '<div class="mql-diagnostic__thread" role="log" aria-live="polite">';
-    html +=
-      '<div class="mql-diagnostic__msg mql-diagnostic__msg--guide">' + OPS_BOT_AVATAR + '<div class="mql-diagnostic__bubble">' +
-      esc(INTRO) +
-      "</div></div>";
 
     history.forEach(function (entry) {
       html +=
-        '<div class="mql-diagnostic__msg mql-diagnostic__msg--guide">' + OPS_BOT_AVATAR + '<div class="mql-diagnostic__bubble">' +
+        '<div class="mql-diagnostic__msg mql-diagnostic__msg--guide">' +
+        OPS_BOT_AVATAR +
+        '<div class="mql-diagnostic__bubble">' +
         esc(entry.question) +
         '</div></div><div class="mql-diagnostic__msg mql-diagnostic__msg--user"><div class="mql-diagnostic__bubble mql-diagnostic__bubble--user">' +
         esc(entry.answer) +
         "</div></div>";
     });
 
-    if (step && stepId === "marketo_grade" && computed) {
-      html += '<div class="mql-diagnostic__grade-insight"><p class="mql-diagnostic__grade-insight-title">From scoring logic → <strong>expected ' +
-        computed.grade +
-        "</strong> (" +
-        esc(computed.title) +
-        ')</p><ul>';
-      computed.reasons.forEach(function (r) {
-        html += "<li>" + esc(r) + "</li>";
-      });
-      html += "</ul></div>";
-    }
-
-    if (step) {
+    if (thinking && pendingExchange) {
       html +=
-        '<div class="mql-diagnostic__msg mql-diagnostic__msg--guide">' + OPS_BOT_AVATAR + '<div class="mql-diagnostic__bubble"><p style="margin:0;font-weight:700">' +
-        esc(step.question) +
-        "</p>";
-      if (step.helper) {
-        html += '<p style="margin:0.5rem 0 0;font-size:0.8125rem;color:var(--muted)">' + esc(step.helper) + "</p>";
+        '<div class="mql-diagnostic__msg mql-diagnostic__msg--guide">' +
+        OPS_BOT_AVATAR +
+        '<div class="mql-diagnostic__bubble">' +
+        esc(pendingExchange.question) +
+        '</div></div><div class="mql-diagnostic__msg mql-diagnostic__msg--user"><div class="mql-diagnostic__bubble mql-diagnostic__bubble--user">' +
+        esc(pendingExchange.answer) +
+        "</div></div>";
+      html += thinkingLoaderHtml();
+    } else {
+      if (step && stepId === "marketo_grade" && computed) {
+        html +=
+          '<div class="mql-diagnostic__grade-insight"><p class="mql-diagnostic__grade-insight-title">From scoring logic → <strong>expected ' +
+          computed.grade +
+          "</strong> (" +
+          esc(computed.title) +
+          ')</p><ul>';
+        computed.reasons.forEach(function (r) {
+          html += "<li>" + esc(r) + "</li>";
+        });
+        html += "</ul></div>";
       }
-      html += "</div></div>";
+
+      if (answers.engage && ENGAGE_TO_TIER[answers.engage] && stepId !== "engage" && stepId !== "marketo_grade") {
+        var engageSummary = engageActivitySummary(answers.engage);
+        html +=
+          '<div class="mql-diagnostic__grade-insight"><p class="mql-diagnostic__grade-insight-title">From activity → <strong>Tier ' +
+          ENGAGE_TO_TIER[answers.engage] +
+          "</strong></p><p style=\"margin:0;color:var(--muted)\">" +
+          esc(engageSummary) +
+          "</p></div>";
+      }
+
+      if (step) {
+        html +=
+          '<div class="mql-diagnostic__msg mql-diagnostic__msg--guide">' +
+          OPS_BOT_AVATAR +
+          '<div class="mql-diagnostic__bubble"><p style="margin:0;font-weight:700">' +
+          esc(step.question) +
+          "</p>";
+        if (step.helper) {
+          html += '<p style="margin:0.5rem 0 0;font-size:0.8125rem;color:var(--muted)">' + esc(step.helper) + "</p>";
+        }
+        html += "</div></div>";
+      }
     }
 
-    if (conclusion) {
+    if (!thinking && conclusion) {
       var border =
         conclusion.tone === "review"
           ? "var(--cherry-syrup)"
@@ -533,26 +597,46 @@
     html += "</div>";
 
     root.innerHTML = html;
+    root.classList.toggle("mql-diagnostic--thinking", thinking);
+    var thread = root.querySelector(".mql-diagnostic__thread");
+    if (thread) thread.scrollTop = thread.scrollHeight;
 
     if (step) {
       root.querySelectorAll(".mql-diagnostic__option").forEach(function (btn) {
         btn.addEventListener("click", function () {
+          if (thinking) return;
           var opt = step.options[Number(btn.getAttribute("data-idx"))];
-          history.push({ question: step.question, answer: opt.label });
-          if (opt.id) answers[stepId] = opt.id;
-          var next = opt.next;
-          if (next === "__grade_route__") {
-            var comp = computeDemographic(answers);
-            if (comp) next = routeGrade(opt.id, comp);
-          }
-          if (CONCLUSIONS[next]) {
-            conclusionId = next;
-            stepId = null;
-          } else {
-            stepId = next;
-            conclusionId = null;
-          }
+          var exchange = { question: step.question, answer: opt.label };
+          var currentStepId = stepId;
+          pendingExchange = exchange;
+          thinking = true;
           render();
+
+          if (thinkTimer) clearTimeout(thinkTimer);
+          thinkTimer = setTimeout(function () {
+            thinkTimer = null;
+            history.push(exchange);
+            pendingExchange = null;
+            if (opt.id) answers[currentStepId] = opt.id;
+            var next = opt.next;
+            if (next === "__grade_route__") {
+              var comp = computeDemographic(answers);
+              if (comp) next = routeGrade(opt.id, comp);
+            }
+            if (next === "__engage_route__") {
+              var compEngage = computeDemographic(answers);
+              next = routeAfterEngage(opt.id, compEngage);
+            }
+            if (CONCLUSIONS[next]) {
+              conclusionId = next;
+              stepId = null;
+            } else {
+              stepId = next;
+              conclusionId = null;
+            }
+            thinking = false;
+            render();
+          }, THINK_MS);
         });
       });
     }
@@ -560,6 +644,10 @@
     var resetBtn = document.getElementById("mql-diag-reset");
     if (resetBtn) {
       resetBtn.addEventListener("click", function () {
+        if (thinkTimer) clearTimeout(thinkTimer);
+        thinkTimer = null;
+        thinking = false;
+        pendingExchange = null;
         stepId = "junk";
         history = [];
         answers = {};

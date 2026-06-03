@@ -667,7 +667,7 @@ export const MQL_QUALIFICATION_ISSUES = [
   },
   {
     id: "irrelevant-accounts",
-    title: "Conversions on Irrelevant Accounts",
+    title: "Conversions on Not Relevant Accounts",
     body: "Leads converting on accounts already marked as not relevant are not assigned to sales and lose MQL status.",
   },
 ] as const;
@@ -700,12 +700,12 @@ export {
   computeDemographicFromInputs,
   enrichConclusionWithDemographic,
   routeAfterMarketoGrade,
+  routeAfterEngage,
+  tierFromEngage,
+  getEngageActivitySummary,
   type ComputedDemographic,
   type DemographicScoringAnswers,
 } from "./mqlDiagnosticLogic";
-
-export const MQL_DIAGNOSTIC_INTRO =
-  "Let's apply the same demographic rules Marketo uses: employee size, ICP, job function, and seniority combine into grade A–D. Answer about the lead, then we'll compare that logic to engagement and MQL policy.";
 
 export const MQL_DIAGNOSTIC_START = "junk";
 
@@ -791,6 +791,34 @@ export const MQL_DIAGNOSTIC_STEPS: MqlDiagnosticStep[] = [
       { id: "b", label: "Grade B", next: "__grade_route__" },
       { id: "c", label: "Grade C", next: "__grade_route__" },
       { id: "d", label: "Grade D", next: "__grade_route__" },
+    ],
+  },
+  {
+    id: "engage",
+    question: "Behavioral scoring — what activity did the lead perform?",
+    helper:
+      "Pick the highest-intent action in Marketo's point ledger (Behavioral Score Calculation). Points stack until the next activity.",
+    options: [
+      {
+        id: "p100",
+        label: "Demo, pricing, or contact sales",
+        next: "__engage_route__",
+      },
+      {
+        id: "p50",
+        label: "WAD, product tour, ROI calculator, or event",
+        next: "__engage_route__",
+      },
+      {
+        id: "p15",
+        label: "BOFU visit, content, newsletter, or webinar form",
+        next: "__engage_route__",
+      },
+      {
+        id: "p5",
+        label: "Email link click only",
+        next: "__engage_route__",
+      },
     ],
   },
   {

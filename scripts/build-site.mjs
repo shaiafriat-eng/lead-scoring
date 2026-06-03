@@ -134,7 +134,7 @@ function matrixSection({ embedded = false } = {}) {
   return `    <section class="${sectionClass}" id="matrix">
       <div class="wrap">
         <${heading}>Score matrix</${heading}>
-        <p class="lead">Darker = higher priority. A1 top → D4 lowest. Hover a cell for an example lead.</p>
+        <p class="lead">Darker = higher priority. A1 top → D4 lowest. <br>Hover a cell for an example lead.</p>
         <div class="matrix-wrap matrix-wrap--with-hint">
           <div class="matrix-try-hint" id="matrix-try-hint" aria-hidden="true">
             <div class="matrix-try-hint__bubble">
@@ -242,7 +242,7 @@ ${matrixSection({ embedded: true })}`,
           <div class="card"><h3>Employee Count Discrepancies</h3><p style="color:var(--muted);margin:0;font-size:0.9375rem;line-height:1.55">Company size data is often inaccurate, mainly due to reliance on ZoomInfo without Apollo as a secondary source.</p></div>
           <div class="card"><h3>Job Title Classification</h3><p style="color:var(--muted);margin:0;font-size:0.9375rem;line-height:1.55">Most title-related issues involve broad roles such as student, intern, sales, or marketing.</p></div>
           <div class="card"><h3 class="qualification-issue__title"><span>WAD vs. Scoring Misalignment</span><span class="qualification-issue__wip">WIP</span></h3><p style="color:var(--muted);margin:0;font-size:0.9375rem;line-height:1.55">Some WAD completions have strong titles but receive a low score due to company attributes, preventing MQL qualification.</p></div>
-          <div class="card"><h3>Conversions on Irrelevant Accounts</h3><p style="color:var(--muted);margin:0;font-size:0.9375rem;line-height:1.55">Leads converting on accounts already marked as not relevant are not assigned to sales and lose MQL status.</p></div>
+          <div class="card"><h3>Conversions on Not Relevant Accounts</h3><p style="color:var(--muted);margin:0;font-size:0.9375rem;line-height:1.55">Leads converting on accounts already marked as not relevant are not assigned to sales and lose MQL status.</p></div>
         </div>
         <div class="card" style="margin-top:1.5rem;border-left:4px solid var(--dark-wine);background:linear-gradient(90deg,var(--white-cream) 0%,var(--cappuccino-foam) 100%)">
           <h3>Quick check before escalating</h3>

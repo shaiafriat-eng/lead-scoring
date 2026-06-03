@@ -16,7 +16,12 @@ export function ScoreMatrixSection({ embedded = false }: { embedded?: boolean })
       <Section
         id="matrix"
         title="Score matrix"
-        subtitle="Darker = higher priority. A1 top → D4 lowest. Hover a cell for an example lead."
+        subtitle={
+          <>
+            Darker = higher priority. A1 top → D4 lowest. <br />
+            Hover a cell for an example lead.
+          </>
+        }
         alt
       >
         <div className="matrix-wrap">

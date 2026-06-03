@@ -6,6 +6,7 @@ export type DemographicScoringAnswers = {
   job?: string;
   seniority?: string;
   marketo_grade?: string;
+  engage?: string;
 };
 
 export type ComputedDemographic = {
@@ -129,12 +130,53 @@ export function routeAfterMarketoGrade(
 ): string {
   const s = stated.toUpperCase() as "A" | "B" | "C" | "D";
   if (s === computed.grade) {
-    return s === "D" ? "points_after_d" : "points";
+    return "engage";
   }
   if (GRADE_ORDER[s] < GRADE_ORDER[computed.grade]) {
     return "c_grade_system_lower";
   }
   return "c_grade_system_higher";
+}
+
+/** Behavioral tier (1–4) implied by the lead's primary marketing activity. */
+export const ENGAGE_TO_TIER: Record<string, string> = {
+  p100: "1",
+  p50: "2",
+  p15: "3",
+  p5: "4",
+};
+
+export function tierFromEngage(engageId: string | undefined): string | null {
+  if (!engageId) return null;
+  return ENGAGE_TO_TIER[engageId] ?? null;
+}
+
+export function getEngageActivitySummary(engageId: string | undefined): string | null {
+  switch (engageId) {
+    case "p100":
+      return "+100 pts — demo, pricing, or contact sales (Tier 1)";
+    case "p50":
+      return "+50 pts — WAD, product tour, ROI calculator, or event (Tier 2)";
+    case "p15":
+      return "+15 pts — BOFU visit, content, newsletter, or webinar form (Tier 3)";
+    case "p5":
+      return "+5 pts — email link click only (Tier 4; cannot reach MQL threshold alone)";
+    default:
+      return null;
+  }
+}
+
+export function routeAfterEngage(
+  engageId: string,
+  computed: ComputedDemographic | null,
+): string {
+  if (engageId === "p5") {
+    return "c_low_points";
+  }
+  if (computed?.grade === "D") {
+    return "points_after_d";
+  }
+  return "points";
 }
 
 export function enrichConclusionWithDemographic(
@@ -153,6 +195,10 @@ export function enrichConclusionWithDemographic(
   }
   if (answers.ee === "ee_5000_8000") {
     extra.push("Note: 5,000–8,000 EE accounts may still MQL under policy even when outside standard ICP size.");
+  }
+  const engageSummary = getEngageActivitySummary(answers.engage);
+  if (engageSummary) {
+    extra.push(`Primary activity: ${engageSummary}.`);
   }
   return extra;
 }
