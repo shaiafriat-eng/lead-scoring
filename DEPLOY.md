@@ -6,10 +6,11 @@ The live site is built from **`docs/`** (multi-page static site copied from `sit
 
 **Private repos on a free personal account cannot use GitHub Pages.** You must either make the repo **public** or host elsewhere (Netlify, `hibobio` org with Enterprise, etc.).
 
-1. **Settings → General → Danger Zone → Change visibility → Public** (confirm in the dialog).
-2. **Settings → Pages → Build and deployment → Source: GitHub Actions**
-3. Push `main` (see below). The workflow **Deploy to GitHub Pages** runs on each push.
-4. In **Actions**, confirm the deploy job is green.
+1. **Settings → General → Danger Zone → Change visibility → Public** (required on free accounts).
+2. **Settings → Pages → Build and deployment:**
+   - **Fastest:** Source = **Deploy from a branch** → Branch **main** → Folder **/docs** → **Save**
+   - **Or:** Source = **GitHub Actions** → click **Configure Static HTML** (uses `deploy-pages.yml`)
+3. Push `main` (see below). If using Actions, confirm **Deploy to GitHub Pages** is green.
 
 Your site will be at:
 
