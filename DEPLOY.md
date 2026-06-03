@@ -4,11 +4,12 @@ The live site is built from **`docs/`** (multi-page static site copied from `sit
 
 ## One-time setup on GitHub
 
-1. Create a **new repository** on GitHub (e.g. `hibob-lead-scoring-guide`). It can be private if your org allows private Pages.
-2. Push this folder to that repo (see commands below).
-3. In the repo: **Settings → Pages**
-   - **Build and deployment:** Source = **GitHub Actions**
-4. After the first push to `main`, open **Actions** and confirm **Deploy to GitHub Pages** succeeded.
+**Private repos on a free personal account cannot use GitHub Pages.** You must either make the repo **public** or host elsewhere (Netlify, `hibobio` org with Enterprise, etc.).
+
+1. **Settings → General → Danger Zone → Change visibility → Public** (confirm in the dialog).
+2. **Settings → Pages → Build and deployment → Source: GitHub Actions**
+3. Push `main` (see below). The workflow **Deploy to GitHub Pages** runs on each push.
+4. In **Actions**, confirm the deploy job is green.
 
 Your site will be at:
 
