@@ -164,18 +164,6 @@
         },
       ],
     },
-    {
-      id: "sales",
-      title: "Sales priority",
-      body: "Queue order follows the score matrix (A1 first → D4 lowest). Scores refresh as fit or engagement changes.",
-      branchMode: "show-all",
-      branchPrompt: "Routing outcome:",
-      branches: [
-        { id: "top", label: "A1 / top codes", outcome: "Fast-track outreach and SDR queue priority" },
-        { id: "mid", label: "B2–C2", outcome: "Standard nurture or timed sales follow-up" },
-        { id: "low", label: "D grades", outcome: "Suppress, nurture only, or manual review exceptions" },
-      ],
-    },
   ];
 
   let flowStep = 0;
