@@ -305,6 +305,24 @@ export type ScoringFlowStep = {
   branches?: ScoringFlowBranch[];
 };
 
+/** Maps step-4 activity choice → step-5 behavioral tier (1–4). */
+export const ENGAGE_TO_TIER: Record<string, string> = {
+  p100: "1",
+  p50: "2",
+  p15: "3",
+  p5: "4",
+};
+
+export function tierFromEngage(engageId: string | undefined): string | null {
+  if (!engageId) return null;
+  return ENGAGE_TO_TIER[engageId] ?? null;
+}
+
+export function getEngageBranch(engageId: string | undefined) {
+  if (!engageId) return undefined;
+  return SCORING_FLOW_STEPS.find((s) => s.id === "engage")?.branches?.find((b) => b.id === engageId);
+}
+
 export const SCORING_FLOW_STEPS: ScoringFlowStep[] = [
   {
     id: "enter",
@@ -409,14 +427,38 @@ export const SCORING_FLOW_STEPS: ScoringFlowStep[] = [
   {
     id: "behavior",
     title: "Behavioral tier (1–4)",
-    body: `Total points map to engagement tier. MQL threshold is ${MQL_POINT_THRESHOLD} points, but channel and grade still gate auto-MQL.`,
-    branchMode: "show-all",
-    branchPrompt: "Point total → behavioral tier:",
+    body: `Point total maps to tier 1–4. MQL threshold is ${MQL_POINT_THRESHOLD} points; demographic grade still gates auto-MQL.`,
+    branchMode: "choose-one",
+    branchPrompt: "Confirm behavioral tier from your activity:",
     branches: [
-      { id: "1", label: "Tier 1 (100+ pts)", grade: "1", outcome: "Demo, pricing, explicit sales contact — highest intent" },
-      { id: "2", label: "Tier 2 (50–99 pts)", grade: "2", outcome: "WAD, product tour, BOFU, events" },
-      { id: "3", label: "Tier 3 (15–49 pts)", grade: "3", outcome: "Nurture forms, MOFU, CPL" },
-      { id: "4", label: "Tier 4 (0–14 pts)", grade: "4", outcome: "TOFU only — lowest engagement" },
+      {
+        id: "1",
+        label: "Tier 1 (100+ pts)",
+        grade: "1",
+        outcome: "Matches demo, pricing, or contact sales — highest intent.",
+        action: "continue",
+      },
+      {
+        id: "2",
+        label: "Tier 2 (50–99 pts)",
+        grade: "2",
+        outcome: "Matches WAD, product tour, ROI calculator, or events.",
+        action: "continue",
+      },
+      {
+        id: "3",
+        label: "Tier 3 (15–49 pts)",
+        grade: "3",
+        outcome: "Matches BOFU visits, content, newsletter, or webinar forms.",
+        action: "continue",
+      },
+      {
+        id: "4",
+        label: "Tier 4 (0–14 pts)",
+        grade: "4",
+        outcome: "Matches email clicks only or very low engagement.",
+        action: "continue",
+      },
     ],
   },
   {

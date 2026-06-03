@@ -103,16 +103,40 @@
       id: "behavior",
       title: "Behavioral tier (1–4)",
       body:
-        "Total points map to engagement tier. MQL threshold is " +
+        "Point total maps to tier 1–4. MQL threshold is " +
         MQL_THRESHOLD +
-        " points, but channel and grade still gate auto-MQL.",
-      branchMode: "show-all",
-      branchPrompt: "Point total → behavioral tier:",
+        " points; demographic grade still gates auto-MQL.",
+      branchMode: "choose-one",
+      branchPrompt: "Confirm behavioral tier from your activity:",
       branches: [
-        { id: "1", label: "Tier 1 (100+ pts)", grade: "1", outcome: "Demo, pricing, explicit sales contact — highest intent" },
-        { id: "2", label: "Tier 2 (50–99 pts)", grade: "2", outcome: "WAD, product tour, BOFU, events" },
-        { id: "3", label: "Tier 3 (15–49 pts)", grade: "3", outcome: "Nurture forms, MOFU, CPL" },
-        { id: "4", label: "Tier 4 (0–14 pts)", grade: "4", outcome: "TOFU only — lowest engagement" },
+        {
+          id: "1",
+          label: "Tier 1 (100+ pts)",
+          grade: "1",
+          outcome: "Matches demo, pricing, or contact sales — highest intent.",
+          action: "continue",
+        },
+        {
+          id: "2",
+          label: "Tier 2 (50–99 pts)",
+          grade: "2",
+          outcome: "Matches WAD, product tour, ROI calculator, or events.",
+          action: "continue",
+        },
+        {
+          id: "3",
+          label: "Tier 3 (15–49 pts)",
+          grade: "3",
+          outcome: "Matches BOFU visits, content, newsletter, or webinar forms.",
+          action: "continue",
+        },
+        {
+          id: "4",
+          label: "Tier 4 (0–14 pts)",
+          grade: "4",
+          outcome: "Matches email clicks only or very low engagement.",
+          action: "continue",
+        },
       ],
     },
     {
@@ -168,6 +192,59 @@
 
   const ENGAGE_TO_TIER = { p100: "1", p50: "2", p15: "3", p5: "4" };
 
+  function getEngageBranch(engageId) {
+    const engageStep = FLOW_STEPS.find(function (s) {
+      return s.id === "engage";
+    });
+    return engageStep && engageStep.branches
+      ? engageStep.branches.find(function (b) {
+          return b.id === engageId;
+        })
+      : undefined;
+  }
+
+  function getDisplayedStep(step) {
+    if (step.id !== "behavior") return step;
+    if (!choices.engage) {
+      return {
+        id: step.id,
+        title: step.title,
+        body: "Behavioral tier follows from the activity you chose on step 4.",
+        branchMode: step.branchMode,
+        branchPrompt: null,
+        branches: step.branches,
+      };
+    }
+    const engage = getEngageBranch(choices.engage);
+    const suggestedTier = ENGAGE_TO_TIER[choices.engage];
+    const pointsPart = engage && engage.outcome ? engage.outcome.split("—")[0].trim() : "points added";
+    return {
+      id: step.id,
+      title: step.title,
+      body:
+        'From "' +
+        (engage ? engage.label : "your activity") +
+        '" (' +
+        pointsPart +
+        "), Marketo maps this lead to behavioral tier " +
+        suggestedTier +
+        ".",
+      branchMode: step.branchMode,
+      branchPrompt:
+        "Suggested tier " +
+        suggestedTier +
+        " from step 4 — confirm or pick another tier if points stacked differently:",
+      branches: step.branches,
+    };
+  }
+
+  function setChoice(stepId, branchId) {
+    choices[stepId] = branchId;
+    if (stepId === "engage" && ENGAGE_TO_TIER[branchId]) {
+      choices.behavior = ENGAGE_TO_TIER[branchId];
+    }
+  }
+
   function endSummary() {
     if (choices.junk === "yes") {
       return "Lead stops at Grade D after junk screening—not auto-MQL on standard WAD/activity paths.";
@@ -179,13 +256,15 @@
         "+ points, standard auto-MQL paths are usually blocked—see MQL routing."
       );
     }
-    if (choices.demo && choices.engage) {
-      const tier = ENGAGE_TO_TIER[choices.engage] || "?";
+    if (choices.demo && (choices.behavior || choices.engage)) {
+      const tier = choices.behavior || ENGAGE_TO_TIER[choices.engage] || "?";
       const code = choices.demo.toUpperCase() + tier;
       return (
         "With grade " +
         choices.demo.toUpperCase() +
-        " and your selected activity → example score code " +
+        " and behavioral tier " +
+        tier +
+        " → score code " +
         code +
         ". MQL still depends on channel rules (threshold: " +
         MQL_THRESHOLD +
@@ -242,7 +321,7 @@
         lbl.textContent = branch.label;
         btn.appendChild(lbl);
         btn.onclick = function () {
-          choices[step.id] = branch.id;
+          setChoice(step.id, branch.id);
           renderFlow();
         };
         li.appendChild(btn);
@@ -307,22 +386,33 @@
     });
 
     const s = FLOW_STEPS[flowStep];
+    if (s.id === "behavior" && choices.engage && ENGAGE_TO_TIER[choices.engage] && !choices.behavior) {
+      choices.behavior = ENGAGE_TO_TIER[choices.engage];
+    }
+    const displayed = getDisplayedStep(s);
     panel.innerHTML = "";
     const label = document.createElement("p");
     label.className = "label";
     label.textContent = "Step " + (flowStep + 1) + " of " + FLOW_STEPS.length;
     panel.appendChild(label);
     const h = document.createElement("h3");
-    h.textContent = s.title;
+    h.textContent = displayed.title;
     panel.appendChild(h);
     const p = document.createElement("p");
     p.style.color = "var(--muted)";
     p.style.marginBottom = "1rem";
-    p.textContent = s.body;
+    p.textContent = displayed.body;
     panel.appendChild(p);
 
-    const branchesEl = renderBranches(s);
-    if (branchesEl) panel.appendChild(branchesEl);
+    if (s.id === "behavior" && !choices.engage) {
+      const hint = document.createElement("p");
+      hint.style.cssText = "font-size:0.875rem;color:var(--muted);margin-bottom:1.25rem";
+      hint.textContent = "Select a marketing activity on step 4 first — tier 1–4 is derived from that choice.";
+      panel.appendChild(hint);
+    } else {
+      const branchesEl = renderBranches(displayed);
+      if (branchesEl) panel.appendChild(branchesEl);
+    }
 
     if (flowStep === FLOW_STEPS.length - 1) {
       const end = document.createElement("p");
@@ -347,7 +437,10 @@
     };
     nav.appendChild(back);
 
-    const needsChoice = s.branchMode === "choose-one" && !choices[s.id];
+    const needsChoice =
+      s.id === "behavior" && !choices.engage
+        ? true
+        : s.branchMode === "choose-one" && !choices[s.id];
 
     if (flowStep < FLOW_STEPS.length - 1) {
       const next = document.createElement("button");
