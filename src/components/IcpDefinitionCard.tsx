@@ -1,13 +1,15 @@
 import {
   ICP_DEFINITION,
   ICP_DEFINITION_SUMMARY,
+  ICP_DOC_BUTTON_LABEL,
+  ICP_DOC_BUTTON_NOTE,
   ICP_DOC_URL,
+  ICP_MQL_EE_DISCLAIMER,
 } from "../data/scoringContent";
 
 export function IcpDefinitionCard() {
   return (
     <div className="card icp-definition">
-      <h3>ICP definition</h3>
       <p className="icp-definition__summary">{ICP_DEFINITION_SUMMARY}</p>
       <p style={{ color: "var(--coffee-muted)", margin: "0 0 0.65rem", fontSize: "0.875rem" }}>
         Account must meet <strong>all</strong> criteria below (unless overridden):
@@ -17,17 +19,19 @@ export function IcpDefinitionCard() {
           <li key={rule}>{rule}</li>
         ))}
       </ul>
-      <p style={{ margin: "1rem 0 0", fontSize: "0.875rem", color: "var(--coffee-muted)" }}>
-        Full rules and edge cases: maintained by <strong>MIS</strong>.
-      </p>
+      <p className="icp-disclaimer">{ICP_MQL_EE_DISCLAIMER}</p>
       <a
-        className="btn btn-secondary"
+        className="btn btn-secondary icp-doc-link"
         href={ICP_DOC_URL}
         target="_blank"
         rel="noopener noreferrer"
-        style={{ marginTop: "0.75rem" }}
+        style={{ marginTop: "1rem" }}
       >
-        Open full ICP doc (Google) →
+        <span className="icp-doc-link__label">{ICP_DOC_BUTTON_LABEL}</span>
+        <span className="icp-doc-link__note">
+          {" "}
+          — {ICP_DOC_BUTTON_NOTE} →
+        </span>
       </a>
     </div>
   );

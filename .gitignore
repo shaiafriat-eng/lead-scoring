@@ -1,5 +1,6 @@
 node_modules/
 dist/
+.venv-img/
 .DS_Store
 *.log
 .env

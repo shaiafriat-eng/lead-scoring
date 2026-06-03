@@ -1,40 +1,27 @@
-import { MQL_POINT_THRESHOLD, NON_MQL_REASONS } from "../data/scoringContent";
+import { Link } from "react-router-dom";
+import { MQL_QUALIFICATION_ISSUES } from "../data/scoringContent";
 import { Section } from "./Section";
 
 export function NonMqlReasonsSection() {
   return (
     <Section
       id="non-mql-reasons"
-      label="Exceptions"
-      title="Common reasons a lead won't be MQL'd"
-      subtitle={`Reaching ${MQL_POINT_THRESHOLD}+ points or high engagement is not enough—fit, channel, and March 2025 combo rules all apply.`}
+      label="Qualification issues"
+      title="Common MQL Qualification Issues"
       alt
     >
       <div className="grid-2">
-        {NON_MQL_REASONS.map((group) => (
-          <div
-            key={group.id}
-            className="card"
-            style={group.id === "booth" ? { gridColumn: "1 / -1" } : undefined}
-          >
-            <h3>{group.title}</h3>
-            <p style={{ color: "var(--coffee-muted)", margin: "0 0 0.75rem", fontSize: "0.9375rem" }}>
-              {group.summary}
+        {MQL_QUALIFICATION_ISSUES.map((issue) => (
+          <div key={issue.id} className="card">
+            <h3 className="qualification-issue__title">
+              <span>{issue.title}</span>
+              {"wip" in issue && issue.wip ? (
+                <span className="qualification-issue__wip">WIP</span>
+              ) : null}
+            </h3>
+            <p style={{ color: "var(--coffee-muted)", margin: 0, fontSize: "0.9375rem", lineHeight: 1.55 }}>
+              {issue.body}
             </p>
-            <ul
-              style={{
-                margin: 0,
-                paddingLeft: "1.25rem",
-                color: "var(--coffee-muted)",
-                fontSize: "0.9rem",
-              }}
-            >
-              {group.reasons.map((reason) => (
-                <li key={reason} style={{ marginBottom: "0.4rem" }}>
-                  {reason}
-                </li>
-              ))}
-            </ul>
           </div>
         ))}
       </div>
@@ -49,12 +36,10 @@ export function NonMqlReasonsSection() {
       >
         <h3>Quick check before escalating</h3>
         <p style={{ margin: 0, color: "var(--coffee-muted)" }}>
-          Confirm demographic grade (not D unless reviewed), lead source (hand raiser vs WAD vs
-          activity-based), score code vs auto-MQL list for that channel, and whether junk/DQ flags
-          are present. When in doubt, see{" "}
-          <a href="#mql-policy">MQL policy</a>, the{" "}
-          <a href="#scoring-flow">scoring flow</a>, or{" "}
-          <a href="#manual-mql-review">manual MQL review</a> if it still looks wrong.
+          Confirm employee count sources, job title classification, WAD vs demographic grade alignment, and
+          account relevance before opening a manual review. See the{" "}
+          <Link to="/mql-routing#manual-review">MQL diagnostic</Link> below or{" "}
+          <Link to="/scoring-flow">scoring flow</Link> for full policy detail.
         </p>
       </div>
     </Section>

@@ -1,14 +1,11 @@
 import { ACTIVITY_WEIGHTS, BEHAVIORAL_TIERS, MQL_POINT_THRESHOLD } from "../data/scoringContent";
 import { Section } from "./Section";
 
-export function BehavioralSection() {
+type Props = { embedded?: boolean };
+
+function BehavioralContent() {
   return (
-    <Section
-      id="behavioral"
-      label="Dimension 2"
-      title="Behavioral score (1–4)"
-      subtitle={`Engagement depth from the Marketo point ledger. MQL threshold: ${MQL_POINT_THRESHOLD} points. Higher points → higher tier → stronger intent.`}
-    >
+    <>
       <div className="grid-2" style={{ marginBottom: "2rem" }}>
         <div className="card">
           <h3>Engagement tiers (stakeholder view)</h3>
@@ -103,6 +100,40 @@ export function BehavioralSection() {
           (6Sense) receive +35 points—helping top ~5% reach the {MQL_POINT_THRESHOLD}-point MQL threshold alongside attendance points (+15).
         </p>
       </div>
+    </>
+  );
+}
+
+export function BehavioralSection({ embedded }: Props = {}) {
+  if (embedded) {
+    return (
+      <div id="behavioral" className="dimension-block dimension-block--follow" aria-labelledby="behavioral-heading">
+        <span className="section-label">Dimension 2 · Behavior</span>
+        <h2 id="behavioral-heading">Behavioral score (1–4)</h2>
+        <p
+          style={{
+            maxWidth: "42rem",
+            color: "var(--coffee-muted)",
+            marginBottom: "2rem",
+            fontSize: "1.0625rem",
+          }}
+        >
+          Engagement depth from the Marketo point ledger. MQL threshold: {MQL_POINT_THRESHOLD} points.
+          Higher points → higher tier → stronger intent.
+        </p>
+        <BehavioralContent />
+      </div>
+    );
+  }
+
+  return (
+    <Section
+      id="behavioral"
+      label="Dimension 2 · Behavior"
+      title="Behavioral score (1–4)"
+      subtitle={`Engagement depth from the Marketo point ledger. MQL threshold: ${MQL_POINT_THRESHOLD} points. Higher points → higher tier → stronger intent.`}
+    >
+      <BehavioralContent />
     </Section>
   );
 }

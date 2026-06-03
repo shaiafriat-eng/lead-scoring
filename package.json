@@ -6,11 +6,14 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:site": "node scripts/build-site.mjs",
+    "sync:pages": "bash scripts/sync-docs.sh",
     "preview": "vite preview"
   },
   "dependencies": {
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.1.0"
   },
   "devDependencies": {
     "@types/react": "^19.0.0",

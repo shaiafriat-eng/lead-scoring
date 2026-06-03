@@ -1,38 +1,31 @@
-import { JUNK_LEAD_CRITERIA, JUNK_EXCEPTIONS } from "../data/scoringContent";
-import { Accordion } from "./Accordion";
+import { DISQUALIFIERS_D, JUNK_LEAD_CRITERIA, JUNK_EXCEPTIONS } from "../data/scoringContent";
 
-export function JunkLeadsSection() {
+/** Junk criteria shown inside Person-level disqualifiers → Junk/bounced/private/invalid email */
+export function JunkCriteriaNested() {
   return (
-    <div className="card" style={{ marginBottom: "1.5rem" }}>
-      <h3>Junk & test lead criteria</h3>
-      <p style={{ color: "var(--coffee-muted)", marginBottom: "1rem" }}>
-        Leads are classified as junk if they meet <strong>one or more</strong> of the following
-        (operational junk-lead process):
+    <>
+      <p style={{ color: "var(--coffee-muted)", margin: "0 0 0.75rem", fontSize: "0.9rem" }}>
+        Classified as junk if <strong>one or more</strong> apply:
       </p>
-      <ul style={{ margin: 0, paddingLeft: "1.25rem", color: "var(--coffee-muted)" }}>
+      <ul style={{ margin: 0, paddingLeft: "1.25rem", color: "var(--coffee-muted)", fontSize: "0.9rem" }}>
         {JUNK_LEAD_CRITERIA.map((item) => (
           <li key={item} style={{ marginBottom: "0.35rem" }}>
             {item}
           </li>
         ))}
       </ul>
-      <p style={{ margin: "1rem 0 0", fontSize: "0.875rem", color: "var(--coffee-muted)" }}>
+      <p style={{ margin: "0.75rem 0 0", fontSize: "0.875rem", color: "var(--coffee-muted)" }}>
         {JUNK_EXCEPTIONS}
       </p>
-      <Accordion
-        items={[
-          {
-            id: "junk-ops",
-            title: "Relationship to grade D",
-            content: (
-              <p style={{ margin: 0 }}>
-                Junk/test matches typically receive demographic grade <strong>D</strong> and are
-                excluded from auto-MQL paths unless manually reviewed and excepted.
-              </p>
-            ),
-          },
-        ]}
-      />
-    </div>
+    </>
+  );
+}
+
+/** Country list inside Account-level disqualifiers → Restricted countries */
+export function RestrictedCountriesNested() {
+  return (
+    <p style={{ margin: 0, fontSize: "0.875rem", lineHeight: 1.8, color: "var(--coffee-muted)" }}>
+      {DISQUALIFIERS_D.countries.join(" · ")}
+    </p>
   );
 }

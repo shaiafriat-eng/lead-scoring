@@ -1,6 +1,6 @@
 # HiBob Lead Scoring — Internal Stakeholder Guide
 
-A responsive internal landing page explaining HiBob's two-dimensional lead scoring system (demographic A–D × behavioral 1–4), MQL policy, and interpretation guidance.
+A multi-page internal site explaining HiBob's two-dimensional lead scoring system (demographic A–D × behavioral 1–4), MQL policy, and interpretation guidance.
 
 ## Favicon
 
@@ -8,15 +8,33 @@ Lead scoring icon at `assets/favicon.png` (also in `public/` for the Vite dev se
 
 ## Open the page (no install)
 
-**Double-click:** [`OPEN-THIS-FILE.html`](./OPEN-THIS-FILE.html)
+**Double-click:** [`OPEN-THIS-FILE.html`](./OPEN-THIS-FILE.html) — redirects to the multi-page site.
 
-Or open in your browser:
+Or open the home page directly:
 
-`file:///Users/shai.afriat/Documents/Cursor/src/scoring-system/OPEN-THIS-FILE.html`
+[`site/index.html`](./site/index.html)
 
 See also [`HOW-TO-OPEN.txt`](./HOW-TO-OPEN.txt).
 
-There is no separate install file — the standalone HTML works without Node.
+No Node required for the static site in `site/`.
+
+## Site pages
+
+| Page | File |
+|------|------|
+| Home | `site/index.html` (includes how it works + fit & behavior) |
+| Scoring flow | `site/scoring-flow.html` |
+| MQLing flow | `site/mqling-flow.html` |
+| Matrix | `site/matrix.html` |
+| MQL routing | `site/mql-routing.html` |
+| Support and Trust | `site/guide.html` |
+
+Content is generated from `scripts/build-site.mjs` (edit that script or the React source in `src/`, then rebuild).
+
+```bash
+npm run build:site      # writes site/*.html
+npm run sync:pages      # copies site/ → docs/ for GitHub Pages
+```
 
 ## Optional: developer mode (requires Node.js + npm)
 
@@ -26,16 +44,16 @@ npm install
 npm run dev
 ```
 
-Open `http://localhost:5173` (uses the React version in `src/`).
+Open `http://localhost:5173` — React app with the same pages via `react-router-dom`.
 
 ## Host live on GitHub Pages
 
 See **[DEPLOY.md](./DEPLOY.md)** for step-by-step instructions.
 
-Quick version: push this folder to a GitHub repo, enable **Pages → GitHub Actions**, and the site is served from `docs/index.html` (synced from `OPEN-THIS-FILE.html`).
+Quick version: push to GitHub, enable **Pages → GitHub Actions**. The live site is served from `docs/` (built from `site/`).
 
 ```bash
-bash scripts/sync-docs.sh   # after editing OPEN-THIS-FILE.html
+npm run sync:pages   # after content changes
 ```
 
 ## Build for hosting (React / Vite)
@@ -60,9 +78,11 @@ Styling follows [brand.hibob.com](https://brand.hibob.com/): Cherry Syrup, Cappu
 
 | Path | Purpose |
 |------|---------|
-| `src/data/scoringContent.ts` | Copy, tables, FAQ — single content source |
+| `site/` | Multi-page static HTML (primary for stakeholders) |
+| `scripts/build-site.mjs` | Generates `site/*.html` |
+| `src/data/scoringContent.ts` | Copy, tables, FAQ — React content source |
 | `src/components/` | Section components |
-| `src/index.css` | HiBob brand tokens (Cherry Syrup, Cappuccino Foam, etc.) |
+| `src/index.css` | HiBob brand tokens |
 
 ## Future enhancements
 

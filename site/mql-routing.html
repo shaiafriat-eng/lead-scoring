@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MQL Policy | HiBob Lead Scoring</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Domine:wght@500;600;700&family=Lato:wght@400;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+  <div id="site-header"></div>
+  <main>
+    <section class="page" id="policy">
+      <div class="wrap">
+        <h1>MQL policy <span class="heading-date">last updated on March 2025</span></h1>
+        <div class="tabs">
+          <button class="tab active" data-tab="hr">Hand raiser</button>
+          <button class="tab" data-tab="wad">WAD</button>
+          <button class="tab" data-tab="act">Activity-based</button>
+          <button class="tab" data-tab="oth">Other</button>
+        </div>
+        <div class="card tab-panel active" id="tab-hr"><h3>Hand raiser — always auto-MQL</h3><p style="color:var(--muted)">Request Demo, Pricing, Contact Sales · ~18% MQL-to-SQA CVR</p></div>
+        <div class="card tab-panel" id="tab-wad"><h3>WAD — combo-based</h3><ul style="color:var(--muted)"><li>Auto-MQL: A1–A4, B1–B3, C1</li><li>C3: Americas, UK, APJ (no Micro)</li><li>No D3</li></ul></div>
+        <div class="card tab-panel" id="tab-act"><h3>Activity-based — A1 & B1 only</h3><p style="color:var(--muted)">1,874 → 86 MQLs; 4% → 17% CR</p></div>
+        <div class="card tab-panel" id="tab-oth"><h3>Other</h3><ul style="color:var(--muted)"><li>Keep PPL/directories</li><li>No ROI calculator MQL</li></ul></div>
+        <div class="card banner" style="margin-top:1.25rem"><h3>Key metric</h3><p style="margin:0">MQL-to-SQA conversion rate drives routing decisions.</p></div>
+      </div>
+    </section>
+    <section class="page page--alt" id="non-mql-reasons">
+      <div class="wrap">
+        <p class="label">Qualification issues</p>
+        <h1>Common MQL Qualification Issues</h1>
+        <div class="grid-2" style="margin-top:1.25rem">
+          <div class="card"><h3>Employee Count Discrepancies</h3><p style="color:var(--muted);margin:0;font-size:0.9375rem;line-height:1.55">Company size data is often inaccurate, mainly due to reliance on ZoomInfo without Apollo as a secondary source.</p></div>
+          <div class="card"><h3>Job Title Classification</h3><p style="color:var(--muted);margin:0;font-size:0.9375rem;line-height:1.55">Most title-related issues involve broad roles such as student, intern, sales, or marketing.</p></div>
+          <div class="card"><h3 class="qualification-issue__title"><span>WAD vs. Scoring Misalignment</span><span class="qualification-issue__wip">WIP</span></h3><p style="color:var(--muted);margin:0;font-size:0.9375rem;line-height:1.55">Some WAD completions have strong titles but receive a low score due to company attributes, preventing MQL qualification.</p></div>
+          <div class="card"><h3>Conversions on Irrelevant Accounts</h3><p style="color:var(--muted);margin:0;font-size:0.9375rem;line-height:1.55">Leads converting on accounts already marked as not relevant are not assigned to sales and lose MQL status.</p></div>
+        </div>
+        <div class="card" style="margin-top:1.5rem;border-left:4px solid var(--dark-wine);background:linear-gradient(90deg,var(--white-cream) 0%,var(--cappuccino-foam) 100%)">
+          <h3>Quick check before escalating</h3>
+          <p style="margin:0;color:var(--muted)">Confirm employee count sources, job title classification, WAD vs demographic grade alignment, and account relevance before opening a manual review. See the <a href="mql-routing.html#manual-review">MQL diagnostic</a> below or <a href="scoring-flow.html">scoring flow</a> for full policy detail.</p>
+        </div>
+      </div>
+    </section>
+    <section class="page" id="manual-review">
+      <div class="wrap">
+        <h1>Why wasn't this lead MQL'd?</h1>
+        <p class="lead lead--full-width">Walk through employee size, ICP, job function, and seniority—the same inputs Marketo uses for demographic grade—then engagement and MQL channel rules.</p>
+        <div class="card mql-diagnostic" id="mql-diagnostic"></div>
+        <div class="page-nav-links" style="margin-top:1.5rem">
+          <a class="btn btn-primary" href="https://form.asana.com/?k=VjhxKo900uMGso834pxKXg&d=103035621276259" target="_blank" rel="noopener">Request manual MQL review (Marketing Ops) →</a>
+        </div>
+        <p style="margin:0.75rem 0 0;font-size:0.875rem;color:var(--muted);max-width:52rem">Use this form when the guide shows the lead should have MQL'd but did not—Marketing Ops can review and force MQL if appropriate.</p>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="js/site-shell.js"></script>
+  <script src="js/mql-policy.js"></script>
+  <script src="js/mql-diagnostic.js"></script>
+</body>
+</html>

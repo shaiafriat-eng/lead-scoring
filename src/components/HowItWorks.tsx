@@ -1,15 +1,15 @@
+import { Link } from "react-router-dom";
 import { Section } from "./Section";
-import { MIRO_BOARD_URL } from "../data/scoringContent";
 
 export function HowItWorks() {
   return (
-    <Section
-      id="how-it-works"
-      label="Mechanics"
-      title="How the score works"
-      subtitle="Two independent dimensions combine into a score code. Both update as account data and engagement change."
-    >
-      <div className="grid-2">
+    <Section id="how-it-works" title="How the score works">
+      <div className="intro-grid">
+        <p className="lead">
+          Two dimensions—fit and engagement—combine into a score code used for prioritization and MQL
+          routing.
+        </p>
+        <div className="grid-2">
         <div className="card">
           <h3>1. Demographic score (A–D)</h3>
           <p style={{ color: "var(--coffee-muted)", marginBottom: "1rem" }}>
@@ -44,6 +44,7 @@ export function HowItWorks() {
             Activities → Points (MQL at 100+) → <strong>Tier 1–4</strong> → Code (e.g. B2)
           </div>
         </div>
+        </div>
       </div>
 
       <div
@@ -75,9 +76,9 @@ export function HowItWorks() {
             Scores refresh as engagement accrues (typically within hours of activity).
           </p>
         </div>
-        <a className="btn btn-primary" href="#scoring-flow">
+        <Link className="btn btn-primary" to="/scoring-flow">
           Try interactive flow →
-        </a>
+        </Link>
       </div>
 
       <svg

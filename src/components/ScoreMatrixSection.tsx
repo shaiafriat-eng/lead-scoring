@@ -1,6 +1,5 @@
 import { MATRIX_CELLS } from "../data/scoringContent";
 import { Section } from "./Section";
-import { SalesPriorityOrder } from "./SalesPriorityOrder";
 import { ScoreMatrixPreview } from "./ScoreMatrixPreview";
 
 const PRIORITY_LADDER = [
@@ -11,11 +10,25 @@ const PRIORITY_LADDER = [
   "D4 — Lowest (irrelevant fit + minimal engagement)",
 ];
 
-export function ScoreMatrixSection() {
+export function ScoreMatrixSection({ embedded = false }: { embedded?: boolean }) {
+  if (embedded) {
+    return (
+      <Section
+        id="matrix"
+        title="Score matrix"
+        subtitle="Darker = higher priority. A1 top → D4 lowest. Hover a cell for an example lead."
+        alt
+      >
+        <div className="matrix-wrap">
+          <ScoreMatrixPreview variant="section" />
+        </div>
+      </Section>
+    );
+  }
+
   return (
     <Section
       id="matrix"
-      label="Prioritization"
       title="Score matrix & sales priority"
       subtitle="Combine demographic letter + behavioral number. Hotter cells go to the front of the queue."
       alt
@@ -36,8 +49,6 @@ export function ScoreMatrixSection() {
           </p>
         </div>
       </div>
-
-      <SalesPriorityOrder />
 
       <div className="card" style={{ marginTop: "1.5rem", overflowX: "auto" }}>
         <table>

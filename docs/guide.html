@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support and Trust | HiBob Lead Scoring</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Domine:wght@500;600;700&family=Lato:wght@400;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+  <div id="site-header"></div>
+  <main>
+    <section class="page">
+      <div class="wrap">
+        <p class="label">Support</p>
+        <h1>FAQ</h1>
+        <details><summary>What is lead scoring?</summary><div class="inner">Fit (A–D) + engagement (1–4) for prioritization and MQL routing—not points alone.</div></details>
+        <details><summary>What is the MQL point threshold?</summary><div class="inner">100 points in Behavioral Score Calculation, plus demographic grade and channel-specific auto-MQL rules.</div></details>
+        <details><summary>Why wasn't my lead MQL'd?</summary><div class="inner">See <a href="mql-routing.html">MQL routing</a>. Still wrong? <a href="mql-routing.html#manual-review">Manual MQL review</a>.</div></details>
+        <details><summary>ICP shows FALSE for new contacts?</summary><div class="inner">SFDC ICP can take ~24h; Marketo ICP used interim.</div></details>
+      </div>
+    </section>
+    <section class="page page--alt">
+      <div class="wrap">
+        <p class="label">Trust</p>
+        <h1>Methodology & limitations</h1>
+        <ul style="color:var(--muted)">
+          <li>Behavioral tiers and point buckets describe the same dimension.</li>
+          <li>ICP and score updates have operational lag.</li>
+          <li>Demographics are rule-based, not ML.</li>
+          <li>Confirm live rules in Marketo before major campaigns.</li>
+        </ul>
+        <p><a href="https://miro.com/app/board/uXjVIkUIQp0=/?share_link_id=79974080622" target="_blank" rel="noopener">Miro process board →</a></p>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="js/site-shell.js"></script>
+</body>
+</html>

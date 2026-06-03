@@ -1,20 +1,24 @@
 import { useState } from "react";
-import {
-  MIRO_BOARD_URL,
-  MIRO_EMBED_URL,
-  SCORING_FLOW_STEPS,
-  MQL_POINT_THRESHOLD,
-} from "../data/scoringContent";
+import { MIRO_BOARD_URL, SCORING_FLOW_STEPS, MQL_POINT_THRESHOLD } from "../data/scoringContent";
+import { FlowStepBranches } from "./FlowStepBranches";
 import { Section } from "./Section";
 
 export function ScoringFlowExplorer() {
   const [step, setStep] = useState(0);
-  const [junkPath, setJunkPath] = useState<"yes" | "no" | null>(null);
+  const [choices, setChoices] = useState<Record<string, string>>({});
+
   const current = SCORING_FLOW_STEPS[step];
-  const isJunkStep = current.id === "junk";
+  const selectedBranchId = choices[current.id] ?? null;
+  const selectedBranch = current.branches?.find((b) => b.id === selectedBranchId);
+  const needsChoice = current.branchMode === "choose-one" && !selectedBranchId;
+  const isLastStep = step === SCORING_FLOW_STEPS.length - 1;
+
+  const setChoice = (stepId: string, branchId: string) => {
+    setChoices((prev) => ({ ...prev, [stepId]: branchId }));
+  };
 
   const goNext = () => {
-    if (isJunkStep && junkPath === "yes") {
+    if (selectedBranch?.action === "end") {
       setStep(SCORING_FLOW_STEPS.length - 1);
       return;
     }
@@ -25,19 +29,56 @@ export function ScoringFlowExplorer() {
 
   const reset = () => {
     setStep(0);
-    setJunkPath(null);
+    setChoices({});
+  };
+
+  const demoGrade = choices.demo;
+  const junkEnd = choices.junk === "yes";
+
+  const endSummary = () => {
+    if (junkEnd) {
+      return "Lead stops at Grade D after junk screening—not auto-MQL on standard WAD/activity paths.";
+    }
+    if (demoGrade === "d") {
+      return `Demographic grade D (persona/account not a fit). Even with ${MQL_POINT_THRESHOLD}+ points, standard auto-MQL paths are usually blocked—see MQL routing.`;
+    }
+    if (demoGrade) {
+      const code =
+        demoGrade === "a" ? "A1" : demoGrade === "b" ? "B2" : demoGrade === "c" ? "C3" : "D4";
+      return `Example with grade ${demoGrade.toUpperCase()}: strong engagement could produce ${code}. MQL still depends on channel rules (A1/B1 vs C3 selective vs D blocked).`;
+    }
+    return `Example: ICP champion with 105 points → A1 → high priority. MQL threshold: ${MQL_POINT_THRESHOLD} points.`;
   };
 
   return (
     <Section
       id="scoring-flow"
-      label="Interactive"
       title="Explore the scoring flow"
-      subtitle="Step through the end-to-end process aligned with our Miro board. Choose paths where noted."
       alt
     >
-      <div className="grid-2" style={{ alignItems: "start" }}>
-        <div className="card" style={{ padding: 0, overflow: "hidden" }}>
+      <div className="scoring-flow-block">
+        <p
+          className="scoring-flow-block__intro"
+          style={{
+            color: "var(--coffee-muted)",
+            margin: "0 0 1.25rem",
+            fontSize: "1.0625rem",
+            fontWeight: 400,
+            textTransform: "none",
+            maxWidth: "none",
+            width: "100%",
+          }}
+        >
+          Step through the process below. On branching steps, pick a path or read every outcome—including
+          Grade D when persona and account are not a fit.
+        </p>
+        <p className="scoring-flow-block__miro" style={{ margin: "1rem 0 1.25rem", fontSize: "0.9375rem", color: "var(--coffee-muted)" }}>
+          Full diagram:{" "}
+          <a href={MIRO_BOARD_URL} target="_blank" rel="noopener noreferrer">
+            Open Miro board →
+          </a>
+        </p>
+      <div className="card scoring-flow-block__card" style={{ padding: 0, overflow: "hidden", marginTop: 0 }}>
           <div
             style={{
               display: "flex",
@@ -50,16 +91,14 @@ export function ScoringFlowExplorer() {
               <button
                 key={s.id}
                 type="button"
-                onClick={() => {
-                  setStep(i);
-                  if (s.id !== "junk") setJunkPath(null);
-                }}
+                onClick={() => setStep(i)}
                 style={{
                   width: 28,
                   height: 28,
                   borderRadius: "50%",
                   border: "2px solid var(--border)",
-                  background: i === step ? "var(--cherry-syrup)" : i < step ? "var(--pink-soft)" : "var(--white-cream)",
+                  background:
+                    i === step ? "var(--cherry-syrup)" : i < step ? "#fac7d1" : "var(--white-cream)",
                   color: i === step ? "#fff" : "var(--black-coffee)",
                   fontWeight: 900,
                   fontSize: "0.75rem",
@@ -80,59 +119,13 @@ export function ScoringFlowExplorer() {
             <h3 style={{ fontSize: "1.2rem", marginBottom: "0.75rem" }}>{current.title}</h3>
             <p style={{ color: "var(--coffee-muted)", margin: "0 0 1rem" }}>{current.body}</p>
 
-            {isJunkStep && current.branch && (
-              <div style={{ marginBottom: "1.25rem" }}>
-                <p style={{ fontWeight: 700, fontSize: "0.875rem", marginBottom: "0.5rem" }}>
-                  Does the lead match junk/test criteria?
-                </p>
-                <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
-                  <button
-                    type="button"
-                    className="btn"
-                    style={{
-                      background: junkPath === "yes" ? "var(--dark-wine)" : "var(--white-cream)",
-                      color: junkPath === "yes" ? "#fff" : "var(--black-coffee)",
-                      border: "2px solid var(--border)",
-                    }}
-                    onClick={() => setJunkPath("yes")}
-                  >
-                    Yes → Grade D
-                  </button>
-                  <button
-                    type="button"
-                    className="btn"
-                    style={{
-                      background: junkPath === "no" ? "var(--cherry-syrup)" : "var(--white-cream)",
-                      color: junkPath === "no" ? "#fff" : "var(--black-coffee)",
-                      border: "2px solid var(--border)",
-                    }}
-                    onClick={() => setJunkPath("no")}
-                  >
-                    No → Continue
-                  </button>
-                </div>
-                {junkPath === "yes" && (
-                  <p
-                    style={{
-                      marginTop: "0.75rem",
-                      padding: "0.75rem",
-                      background: "var(--cappuccino-foam)",
-                      borderRadius: 8,
-                      fontSize: "0.875rem",
-                    }}
-                  >
-                    {current.branch.yes}
-                  </p>
-                )}
-                {junkPath === "no" && (
-                  <p style={{ marginTop: "0.75rem", fontSize: "0.875rem", color: "var(--coffee-muted)" }}>
-                    {current.branch.no}
-                  </p>
-                )}
-              </div>
-            )}
+            <FlowStepBranches
+              step={current}
+              selectedId={selectedBranchId}
+              onSelect={(id) => setChoice(current.id, id)}
+            />
 
-            {step === SCORING_FLOW_STEPS.length - 1 && (
+            {isLastStep && (
               <div
                 style={{
                   padding: "1rem",
@@ -143,9 +136,7 @@ export function ScoringFlowExplorer() {
                   fontSize: "0.9375rem",
                 }}
               >
-                {junkPath === "yes"
-                  ? "Lead stops at Grade D — not auto-MQL on standard WAD/activity paths."
-                  : `Example: ICP champion with 105 points → A1 → high priority. MQL threshold: ${MQL_POINT_THRESHOLD} points.`}
+                {endSummary()}
               </div>
             )}
 
@@ -153,13 +144,8 @@ export function ScoringFlowExplorer() {
               <button type="button" className="btn btn-secondary" onClick={goPrev} disabled={step === 0}>
                 Back
               </button>
-              {step < SCORING_FLOW_STEPS.length - 1 ? (
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={goNext}
-                  disabled={isJunkStep && junkPath === null}
-                >
+              {!isLastStep ? (
+                <button type="button" className="btn btn-primary" onClick={goNext} disabled={needsChoice}>
                   Next
                 </button>
               ) : (
@@ -169,29 +155,6 @@ export function ScoringFlowExplorer() {
               )}
             </div>
           </div>
-        </div>
-
-        <div>
-          <div className="card" style={{ padding: 0, overflow: "hidden", marginBottom: "1rem" }}>
-            <iframe
-              title="HiBob lead scoring Miro board"
-              src={MIRO_EMBED_URL}
-              style={{
-                width: "100%",
-                height: 360,
-                border: "none",
-                display: "block",
-              }}
-              allowFullScreen
-            />
-          </div>
-          <p style={{ fontSize: "0.8125rem", color: "var(--coffee-muted)", margin: 0 }}>
-            Full diagram on{" "}
-            <a href={MIRO_BOARD_URL} target="_blank" rel="noopener noreferrer">
-              Miro
-            </a>
-            . Use the step guide on the left to walk through the same logic.
-          </p>
         </div>
       </div>
     </Section>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fit & behavior | HiBob Lead Scoring</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Domine:wght@500;600;700&family=Lato:wght@400;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+  <div id="site-header"></div>
+  <main>
+    <section class="page" id="dimensions">
+      <div class="wrap">
+        <div class="dimension-block" id="demographic">
+        <p class="label">Dimension 1 · Fit</p>
+        <h1>Demographic score (A–D)</h1>
+        <div class="grid-2">
+          <div class="card"><h3><span style="color:var(--cherry-syrup)">A</span> Best fit</h3><p style="color:var(--muted);margin:0">ICP + decision maker/champion (incl. 50–99 EE when ICP flag lags).</p></div>
+          <div class="card"><h3><span style="color:var(--cherry-syrup)">B</span> Strong fit</h3><p style="color:var(--muted);margin:0">ICP + relevant function, or non-ICP + decision maker.</p></div>
+          <div class="card"><h3>C Workable</h3><p style="color:var(--muted);margin:0">Non-ICP workable persona or ICP validating function.</p></div>
+          <div class="card"><h3>D Lowest / DQ</h3><p style="color:var(--muted);margin:0">Irrelevant fit, junk, bad geo, competitor, customer, EE out of range.</p></div>
+        </div>
+        <h3 style="margin-top:2rem">Grade D — full rules</h3>
+        <details><summary>Person-level disqualifiers</summary><div class="inner"><ul class="dq-person-list">
+          <li><details class="details-in-list"><summary>Junk/bounced/private/invalid email</summary><div class="details-in-list__body">
+          <p style="color:var(--muted);margin:0 0 0.75rem">Classified as junk if <strong>one or more</strong> apply:</p>
+          <ul style="color:var(--muted);margin:0;padding-left:1.25rem">
+            <li>Test/fake data in names, company, notes, or email</li>
+            <li>Invalid, disposable, or bounced email</li>
+            <li>Internal QA/UAT from non-production environments</li>
+            <li>Restricted/high-risk countries</li>
+            <li>Fails qualification (e.g. missing referral form)</li>
+            <li>Flagged via operational junk-lead processes</li>
+            <li>Low-quality email validation signals</li>
+          </ul>
+          </div></details></li>
+          <li>Unsubscribed</li><li>Student, Design, intern, professor</li><li>Job function: Sales</li><li>HiBob employees</li></ul></div></details>
+        <details><summary>Account-level disqualifiers</summary><div class="inner"><ul class="dq-person-list">
+          <li>Account status is Not Relevant</li>
+          <li><details class="details-in-list"><summary>Bad country</summary><div class="details-in-list__body"><p style="margin:0;font-size:0.875rem;line-height:1.8;color:var(--muted)">Iran, Lebanon, North Korea, Somalia, Cuba, Syria, Sudan, Libya, Pakistan, India, Iraq, Palestine, Syrian Arab Republic, China, Palestinian Territory (Occupied), Palestinian Territory</p></div></details></li>
+          <li>Competitor or Customer</li><li>Account has fewer than 20 or more than 8,000 employees, and Update MQL Process = FALSE in Salesforce (standard auto-MQL is off for that size band)</li></ul></div></details>
+        </div>
+        <div class="dimension-block dimension-block--follow" id="behavioral">
+        <p class="label">Dimension 2 · Behavior</p>
+        <h1>Behavioral score (1–4)</h1>
+        <div class="card" style="overflow-x:auto">
+          <table>
+            <tr><th>Tier</th><th>Points (Marketo)</th><th>Typical activities</th></tr>
+            <tr><td><strong>1</strong></td><td>100+</td><td>Demo, pricing, explicit sales contact</td></tr>
+            <tr><td><strong>2</strong></td><td>50–99</td><td>WAD, product tour, BOFU, events</td></tr>
+            <tr><td><strong>3</strong></td><td>15–49</td><td>Nurture forms, MOFU, CPL</td></tr>
+            <tr><td><strong>4</strong></td><td>0–14</td><td>TOFU only</td></tr>
+          </table>
+        </div>
+        <div class="card" style="margin-top:1rem;border-left:4px solid var(--orange-juice)">
+          <h3>Top weights</h3>
+          <p style="margin:0;color:var(--muted)"><strong style="color:var(--cherry-syrup)">+100</strong> Demo, pricing, contact sales · <strong style="color:var(--cherry-syrup)">+50</strong> WAD, tour, ROI, events · <strong style="color:var(--cherry-syrup)">+35</strong> A-tier booth + Decision/Purchase · <strong style="color:var(--cherry-syrup)">+5</strong> Email click (max 3/mo)</p>
+        </div>
+        <div class="page-nav-links"><a class="btn btn-secondary" href="matrix.html">Score matrix →</a></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="js/site-shell.js"></script>
+</body>
+</html>

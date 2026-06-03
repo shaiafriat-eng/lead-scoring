@@ -1,6 +1,6 @@
 # Deploy the Lead Scoring Guide (GitHub Pages)
 
-The live site is built from **`docs/`** (copied from `OPEN-THIS-FILE.html`).
+The live site is built from **`docs/`** (multi-page static site copied from `site/`).
 
 ## One-time setup on GitHub
 
@@ -31,13 +31,14 @@ git push -u origin main
 
 Replace `<ORG_OR_USER>` and `<REPO>` with your GitHub org/user and repository name.
 
-## After you edit the HTML
+## After you edit content
 
-Whenever you change `OPEN-THIS-FILE.html`, sync before pushing:
+Rebuild the static site and sync before pushing:
 
 ```bash
+npm run build:site    # or: node scripts/build-site.mjs
 bash scripts/sync-docs.sh
-git add docs/
+git add docs/ site/
 git commit -m "Update live site"
 git push
 ```

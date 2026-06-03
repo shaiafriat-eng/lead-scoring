@@ -1,17 +1,13 @@
 import { DEMOGRAPHIC_GRADES, DISQUALIFIERS_D } from "../data/scoringContent";
 import { Section } from "./Section";
 import { Accordion } from "./Accordion";
-import { JunkLeadsSection } from "./JunkLeadsSection";
+import { JunkCriteriaNested, RestrictedCountriesNested } from "./JunkLeadsSection";
 
-export function DemographicSection() {
+type Props = { embedded?: boolean };
+
+function DemographicContent() {
   return (
-    <Section
-      id="demographic"
-      label="Dimension 1"
-      title="Demographic score (A–D)"
-      subtitle="Measures fit within our Ideal Customer Profile and whether the person is a decision maker, influencer, or irrelevant."
-      alt
-    >
+    <>
       <div className="grid-2" style={{ marginBottom: "1.5rem" }}>
         {DEMOGRAPHIC_GRADES.map((g) => (
           <div key={g.grade} className="card">
@@ -46,9 +42,7 @@ export function DemographicSection() {
         ))}
       </div>
 
-      <JunkLeadsSection />
-
-      <h3 style={{ marginBottom: "1rem" }}>Grade D — full disqualifier rules</h3>
+      <h3 style={{ marginBottom: "1rem" }}>Grade D — full rules</h3>
       <p style={{ color: "var(--coffee-muted)", marginBottom: "1rem" }}>
         Operational detail for RevOps and Marketing Ops. Sensitive lists are included for internal
         accuracy.
@@ -59,7 +53,15 @@ export function DemographicSection() {
             id: "d-person",
             title: "Person-level disqualifiers",
             content: (
-              <ul>
+              <ul className="dq-person-list">
+                <li>
+                  <details className="details-in-list">
+                    <summary>Junk/bounced/private/invalid email</summary>
+                    <div className="details-in-list__body">
+                      <JunkCriteriaNested />
+                    </div>
+                  </details>
+                </li>
                 {DISQUALIFIERS_D.person.map((p) => (
                   <li key={p}>{p}</li>
                 ))}
@@ -70,27 +72,58 @@ export function DemographicSection() {
             id: "d-account",
             title: "Account-level disqualifiers",
             content: (
-              <ul>
+              <ul className="dq-person-list">
+                <li>Account status is Not Relevant</li>
+                <li>
+                  <details className="details-in-list">
+                    <summary>Bad country</summary>
+                    <div className="details-in-list__body">
+                      <RestrictedCountriesNested />
+                    </div>
+                  </details>
+                </li>
                 {DISQUALIFIERS_D.account.map((p) => (
                   <li key={p}>{p}</li>
                 ))}
               </ul>
             ),
           },
-          {
-            id: "d-countries",
-            title: "Restricted countries (bad country list)",
-            content: (
-              <>
-                <p>Leads associated with these countries receive grade D:</p>
-                <p style={{ fontSize: "0.875rem", lineHeight: 1.8 }}>
-                  {DISQUALIFIERS_D.countries.join(" · ")}
-                </p>
-              </>
-            ),
-          },
         ]}
       />
+    </>
+  );
+}
+
+export function DemographicSection({ embedded }: Props = {}) {
+  if (embedded) {
+    return (
+      <div id="demographic" className="dimension-block" aria-labelledby="demographic-heading">
+        <span className="section-label">Dimension 1 · Fit</span>
+        <h2 id="demographic-heading">Demographic score (A–D)</h2>
+        <p
+          style={{
+            maxWidth: "42rem",
+            color: "var(--coffee-muted)",
+            marginBottom: "2rem",
+            fontSize: "1.0625rem",
+          }}
+        >
+          Measures fit within our Ideal Customer Profile and whether the person is a decision maker,
+          influencer, or irrelevant.
+        </p>
+        <DemographicContent />
+      </div>
+    );
+  }
+
+  return (
+    <Section
+      id="demographic"
+      label="Dimension 1 · Fit"
+      title="Demographic score (A–D)"
+      subtitle="Measures fit within our Ideal Customer Profile and whether the person is a decision maker, influencer, or irrelevant."
+    >
+      <DemographicContent />
     </Section>
   );
 }

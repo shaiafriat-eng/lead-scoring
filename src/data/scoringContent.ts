@@ -7,42 +7,160 @@ export const MIRO_EMBED_URL =
 export const ICP_DOC_URL =
   "https://docs.google.com/document/d/1RLKQBVBYxgLHPT3YOboqpobUEW0yQZDwkt67vONTTto/edit?tab=t.0";
 
+/** Marketing Ops form to request manual review / force MQL on a lead that did not auto-MQL. */
+export const MANUAL_MQL_REVIEW_FORM_URL =
+  "https://form.asana.com/?k=VjhxKo900uMGso834pxKXg&d=103035621276259";
+
 export const MQL_POINT_THRESHOLD = 100;
 
-export const NAV_SECTIONS = [
-  { id: "overview", label: "Overview" },
-  { id: "how-it-works", label: "How it works" },
-  { id: "scoring-flow", label: "Scoring flow" },
-  { id: "mqling-flow", label: "MQLing flow" },
-  { id: "demographic", label: "Demographic" },
-  { id: "behavioral", label: "Behavioral" },
-  { id: "matrix", label: "Score matrix" },
-  { id: "non-mql-reasons", label: "Why not MQL" },
-  { id: "manual-mql-review", label: "MQL review" },
-  { id: "mql-policy", label: "MQL policy" },
-  { id: "examples", label: "Examples" },
-  { id: "interpretation", label: "Interpretation" },
-  { id: "faq", label: "FAQ" },
-  { id: "methodology", label: "Methodology" },
+/** Multi-page site navigation (paths, not anchor links). */
+export const SITE_NAV = [
+  { path: "/", label: "Home" },
+  { path: "/mqling-flow", label: "ICP definition" },
+  { path: "/scoring-flow", label: "Explore the Flow" },
+  { path: "/mql-routing", label: "MQL Policy" },
+  { path: "/guide", label: "Support and Trust" },
 ] as const;
 
-export const MATRIX_CELLS: { demo: string; beh: number; priority: number; label: string }[] = [
-  { demo: "A", beh: 1, priority: 1, label: "Top priority" },
-  { demo: "A", beh: 2, priority: 2, label: "High" },
-  { demo: "A", beh: 3, priority: 3, label: "High" },
-  { demo: "A", beh: 4, priority: 4, label: "Medium" },
-  { demo: "B", beh: 1, priority: 2, label: "High" },
-  { demo: "B", beh: 2, priority: 5, label: "Medium" },
-  { demo: "B", beh: 3, priority: 6, label: "Medium" },
-  { demo: "B", beh: 4, priority: 7, label: "Lower" },
-  { demo: "C", beh: 1, priority: 2, label: "High" },
-  { demo: "C", beh: 2, priority: 8, label: "Lower" },
-  { demo: "C", beh: 3, priority: 9, label: "Nurture / selective" },
-  { demo: "C", beh: 4, priority: 10, label: "Lower" },
-  { demo: "D", beh: 1, priority: 11, label: "Review" },
-  { demo: "D", beh: 2, priority: 12, label: "Low" },
-  { demo: "D", beh: 3, priority: 13, label: "Typically not MQL" },
-  { demo: "D", beh: 4, priority: 14, label: "Lowest" },
+/** @deprecated Use SITE_NAV — kept for legacy section ids */
+export const NAV_SECTIONS = SITE_NAV.map((item) => ({
+  id: item.path.replace(/^\//, "").replace(/\//g, "-") || "overview",
+  label: item.label,
+}));
+
+export type MatrixCell = {
+  demo: string;
+  beh: number;
+  priority: number;
+  label: string;
+  example: string;
+};
+
+export const MATRIX_CELLS: MatrixCell[] = [
+  {
+    demo: "A",
+    beh: 1,
+    priority: 1,
+    label: "Top priority",
+    example:
+      "VP People at a 400-employee ICP tech company requests a demo on the website (105 pts).",
+  },
+  {
+    demo: "A",
+    beh: 2,
+    priority: 2,
+    label: "High",
+    example:
+      "ICP CHRO attends a live webinar and downloads the pricing guide (~72 pts).",
+  },
+  {
+    demo: "A",
+    beh: 3,
+    priority: 3,
+    label: "High",
+    example:
+      "ICP People Ops Manager engages with MOFU emails and product pages (~30 pts).",
+  },
+  {
+    demo: "A",
+    beh: 4,
+    priority: 4,
+    label: "Medium",
+    example: "ICP champion clicks newsletter links only; no high-intent actions (~8 pts).",
+  },
+  {
+    demo: "B",
+    beh: 1,
+    priority: 2,
+    label: "High",
+    example:
+      "ICP People Manager submits a WAD pricing form at a strong-fit account (102 pts).",
+  },
+  {
+    demo: "B",
+    beh: 2,
+    priority: 5,
+    label: "Medium",
+    example:
+      "ICP HR Manager downloads an implementation guide plus a BOFU asset (~58 pts).",
+  },
+  {
+    demo: "B",
+    beh: 3,
+    priority: 6,
+    label: "Medium",
+    example:
+      "ICP HRBP visits the booth at an event and consumes MOFU content (~24 pts).",
+  },
+  {
+    demo: "B",
+    beh: 4,
+    priority: 7,
+    label: "Lower",
+    example: "Strong-fit manager subscribes to the blog with light TOFU only (~11 pts).",
+  },
+  {
+    demo: "C",
+    beh: 1,
+    priority: 2,
+    label: "High",
+    example:
+      "Non-ICP 800-EE account; C-level champion reaches 100+ pts on an executive brief.",
+  },
+  {
+    demo: "C",
+    beh: 2,
+    priority: 8,
+    label: "Lower",
+    example:
+      "Non-ICP HR Generalist replays a BOFU webinar and downloads an asset (~55 pts).",
+  },
+  {
+    demo: "C",
+    beh: 3,
+    priority: 9,
+    label: "Nurture / selective",
+    example:
+      "Non-ICP event attendee in a target region; MOFU engagement only (~25 pts).",
+  },
+  {
+    demo: "C",
+    beh: 4,
+    priority: 10,
+    label: "Lower",
+    example: "Workable persona at a non-ICP firm; single whitepaper view (~9 pts).",
+  },
+  {
+    demo: "D",
+    beh: 1,
+    priority: 11,
+    label: "Review",
+    example:
+      "Sales job function at an otherwise relevant account; 100+ pts but demographic D.",
+  },
+  {
+    demo: "D",
+    beh: 2,
+    priority: 12,
+    label: "Low",
+    example: "Design intern at an ICP account with some content engagement (~18 pts).",
+  },
+  {
+    demo: "D",
+    beh: 3,
+    priority: 13,
+    label: "Typically not MQL",
+    example:
+      "Competitor- or restricted-country-flagged account with moderate engagement (~32 pts).",
+  },
+  {
+    demo: "D",
+    beh: 4,
+    priority: 14,
+    label: "Lowest",
+    example:
+      "Irrelevant persona with TOFU only—e.g. student or ops junk-adjacent lead (~5 pts).",
+  },
 ];
 
 export function heatColorForPriority(priority: number): string {
@@ -168,7 +286,26 @@ export const JUNK_LEAD_CRITERIA = [
 export const JUNK_EXCEPTIONS =
   "Exceptions apply for approved companies, domains, referral programs, and manually reviewed records to reduce false positives.";
 
-export const SCORING_FLOW_STEPS = [
+export type ScoringFlowBranch = {
+  id: string;
+  label: string;
+  outcome: string;
+  grade?: string;
+  /** end = jump to final step; continue = normal next step */
+  action?: "continue" | "end";
+};
+
+export type ScoringFlowStep = {
+  id: string;
+  title: string;
+  body: string;
+  branchPrompt?: string;
+  /** choose-one: pick a path; show-all: display all outcomes (optional highlight) */
+  branchMode?: "choose-one" | "show-all";
+  branches?: ScoringFlowBranch[];
+};
+
+export const SCORING_FLOW_STEPS: ScoringFlowStep[] = [
   {
     id: "enter",
     title: "Lead enters the system",
@@ -177,97 +314,599 @@ export const SCORING_FLOW_STEPS = [
   {
     id: "junk",
     title: "Junk / test screening",
-    body: "Marketo and ops rules check for junk/test signals. Matches are graded D and excluded from MQL routing (see Junk & test criteria).",
-    branch: { yes: "Grade D — nurture or suppress", no: "Continue to demographic scoring" },
+    body: "Marketo and ops rules check for junk/test signals before fit scoring runs.",
+    branchMode: "choose-one",
+    branchPrompt: "Does the lead match junk/test criteria?",
+    branches: [
+      {
+        id: "yes",
+        label: "Yes — junk / test match",
+        grade: "D",
+        outcome: "Grade D immediately. Lead is nurtured or suppressed—not scored through the normal A–D fit ladder.",
+        action: "end",
+      },
+      {
+        id: "no",
+        label: "No — passes screening",
+        outcome: "Continue to demographic scoring (persona + account).",
+        action: "continue",
+      },
+    ],
   },
   {
     id: "demo",
     title: "Demographic score (A–D)",
-    body: "Persona (function, seniority) and account (ICP per MIS definition, status, geo, employee count) determine fit grade A through D.",
+    body: "Marketo/Salesforce rules evaluate persona (function, seniority) and account (ICP, status, geography, employee count) together.",
+    branchMode: "choose-one",
+    branchPrompt: "Persona + account fit — which grade applies?",
+    branches: [
+      {
+        id: "a",
+        label: "Grade A — Best fit",
+        grade: "A",
+        outcome:
+          "ICP account with champion/decision-maker persona (or eligible 50–99 EE edge case). Strongest demographic fit.",
+        action: "continue",
+      },
+      {
+        id: "b",
+        label: "Grade B — Strong fit",
+        grade: "B",
+        outcome: "ICP + relevant function, or non-ICP + decision maker/champion. Still strong for outreach.",
+        action: "continue",
+      },
+      {
+        id: "c",
+        label: "Grade C — Workable",
+        grade: "C",
+        outcome:
+          "Non-ICP with a workable persona, or ICP with validating/influencing (non-champion) function. Selective MQL paths only.",
+        action: "continue",
+      },
+      {
+        id: "d",
+        label: "Grade D — Not a fit",
+        grade: "D",
+        outcome:
+          "Persona and/or account are not a fit (irrelevant role, non-ICP without champion, competitor, customer, bad geo, DQ rules). Grade D—typically blocked from standard auto-MQL paths.",
+        action: "continue",
+      },
+    ],
   },
   {
     id: "engage",
     title: "Engagement & point ledger",
-    body: "Each activity adds points in Marketo (Behavioral Score Calculation). Points accumulate until the lead engages again.",
+    body: "Each marketing activity adds points in Marketo (Behavioral Score Calculation). Points stack until the next activity.",
+    branchMode: "show-all",
+    branchPrompt: "How points accrue (examples):",
+    branches: [
+      { id: "p100", label: "+100 pts", outcome: "Demo, pricing, contact sales — immediate high intent" },
+      { id: "p50", label: "+50 pts", outcome: "WAD, product tour, ROI calculator, events" },
+      { id: "p15", label: "+15 pts", outcome: "BOFU visit, content/newsletter/webinar form (daily caps apply)" },
+      { id: "p5", label: "+5 pts", outcome: "Email click — capped; cannot reach MQL threshold alone" },
+    ],
   },
   {
     id: "behavior",
     title: "Behavioral tier (1–4)",
-    body: `Point total maps to tier: 100+ → 1, 50–99 → 2, 15–49 → 3, 0–14 → 4. MQL threshold is ${MQL_POINT_THRESHOLD} points (plus combo rules).`,
+    body: `Total points map to engagement tier. MQL threshold is ${MQL_POINT_THRESHOLD} points, but channel and grade still gate auto-MQL.`,
+    branchMode: "show-all",
+    branchPrompt: "Point total → behavioral tier:",
+    branches: [
+      { id: "1", label: "Tier 1 (100+ pts)", grade: "1", outcome: "Demo, pricing, explicit sales contact — highest intent" },
+      { id: "2", label: "Tier 2 (50–99 pts)", grade: "2", outcome: "WAD, product tour, BOFU, events" },
+      { id: "3", label: "Tier 3 (15–49 pts)", grade: "3", outcome: "Nurture forms, MOFU, CPL" },
+      { id: "4", label: "Tier 4 (0–14 pts)", grade: "4", outcome: "TOFU only — lowest engagement" },
+    ],
   },
   {
     id: "code",
     title: "Score code",
-    body: "Demographic letter + behavioral number = code (e.g. A1, B3). Used for prioritization and reporting.",
+    body: "Demographic letter + behavioral number = code (e.g. A1, B3). Used for prioritization, reporting, and MQL combo rules.",
+    branchMode: "show-all",
+    branchPrompt: "Examples:",
+    branches: [
+      { id: "a1", label: "A1", grade: "A1", outcome: "Best ICP fit + highest engagement → top sales priority" },
+      { id: "b2", label: "B2", grade: "B2", outcome: "Strong fit + high engagement → high priority" },
+      { id: "c3", label: "C3", grade: "C3", outcome: "Workable fit + mid engagement → selective MQL/outreach" },
+      { id: "d4", label: "D4", grade: "D4", outcome: "Poor fit + low engagement → lowest priority / usually no MQL" },
+    ],
   },
   {
     id: "mql",
     title: "MQL decision",
-    body: "Hand raiser, WAD, or activity-based rules determine auto-MQL. Not every high-engagement lead MQLs—channel and grade matter.",
+    body: "Reaching 100+ points is necessary but not sufficient. Hand-raiser, WAD, and activity-based paths each have grade and channel rules.",
+    branchMode: "show-all",
+    branchPrompt: "Typical branches by score code:",
+    branches: [
+      {
+        id: "mql-ab",
+        label: "A1 / B1 + qualifying channel",
+        outcome: "Usually auto-MQL on activity-based paths (March 2025 policy).",
+      },
+      {
+        id: "mql-c",
+        label: "C3 + WAD (selective)",
+        outcome: "May MQL in target regions only; not a blanket pass.",
+      },
+      {
+        id: "mql-d",
+        label: "Any D grade",
+        grade: "D",
+        outcome: "Generally no auto-MQL—D3 blocked on WAD; D4 lowest priority.",
+      },
+      {
+        id: "mql-block",
+        label: "100+ pts but wrong combo",
+        outcome: "Points alone do not MQL if grade/channel/source is excluded (see MQL routing).",
+      },
+    ],
   },
   {
     id: "sales",
     title: "Sales priority",
-    body: "A1 leads queue first; lower combos follow. Scores update dynamically as fit or engagement changes.",
+    body: "Queue order follows the score matrix (A1 first → D4 lowest). Scores refresh as fit or engagement changes.",
+    branchMode: "show-all",
+    branchPrompt: "Routing outcome:",
+    branches: [
+      { id: "top", label: "A1 / top codes", outcome: "Fast-track outreach and SDR queue priority" },
+      { id: "mid", label: "B2–C2", outcome: "Standard nurture or timed sales follow-up" },
+      { id: "low", label: "D grades", outcome: "Suppress, nurture only, or manual review exceptions" },
+    ],
+  },
+];
+
+export const MQL_QUALIFICATION_ISSUES = [
+  {
+    id: "employee-count",
+    title: "Employee Count Discrepancies",
+    body: "Company size data is often inaccurate, mainly due to reliance on ZoomInfo without Apollo as a secondary source.",
+  },
+  {
+    id: "job-title",
+    title: "Job Title Classification",
+    body: "Most title-related issues involve broad roles such as student, intern, sales, or marketing.",
+  },
+  {
+    id: "wad-scoring",
+    title: "WAD vs. Scoring Misalignment",
+    body: "Some WAD completions have strong titles but receive a low score due to company attributes, preventing MQL qualification.",
+    wip: true,
+  },
+  {
+    id: "irrelevant-accounts",
+    title: "Conversions on Irrelevant Accounts",
+    body: "Leads converting on accounts already marked as not relevant are not assigned to sales and lose MQL status.",
   },
 ] as const;
 
-export const NON_MQL_REASONS = [
-  {
-    id: "fit",
-    title: "Fit & account disqualifiers",
-    summary: "Demographic grade D or account/persona signals that fail ICP and routing rules.",
-    reasons: [
-      "Demographic grade D (junk, irrelevant persona, competitor, customer, bad country, EE <20 or >8,000 with Update MQL Process = FALSE).",
-      "Persona or function outside champion/decision-maker paths for the account’s ICP status.",
-      "Account status Not Relevant, or restricted/high-risk geography.",
-      "Unsubscribed or HiBob employee records.",
-    ],
-  },
-  {
-    id: "engagement",
-    title: "Engagement below MQL threshold",
-    summary: `Behavioral points stay under the ${MQL_POINT_THRESHOLD}-point bar or reflect low-intent activity only.`,
-    reasons: [
-      `Total points in Behavioral Score Calculation below ${MQL_POINT_THRESHOLD} (tiers 3–4: typically 0–49 points).`,
-      "TOFU-only engagement (general forms, light page visits) without BOFU or hand-raise actions.",
-      "Email link clicks (+5, max 3×/month) cannot reach the MQL threshold alone.",
-      "Engagement exists but does not map to an auto-MQL combo for that channel (see MQL policy).",
-    ],
-  },
-  {
-    id: "channel",
-    title: "Channel & score-code rules",
-    summary: "March 2025 policy limits which demographic × behavioral codes auto-MQL by source.",
-    reasons: [
-      "Activity-based path: only A1 and B1 auto-MQL—other codes (e.g. B2, C1, A2) do not qualify on points alone.",
-      "WAD / product tour: D3 explicitly excluded; many C and D combos do not auto-MQL.",
-      "C3: only selective regions (Americas, UK, APJ)—excludes Micro segment; not a default MQL.",
-      "Excluded sources: ROI calculator submissions and High-value asset (“New Movers”) do not auto-MQL.",
-      "Not a hand raiser (Request Demo, Pricing, Contact Sales)—those forms always MQL when valid.",
-    ],
-  },
+export type MqlQualificationIssue = (typeof MQL_QUALIFICATION_ISSUES)[number];
+
+export type MqlDiagnosticOption = {
+  id: string;
+  label: string;
+  next: string;
+};
+
+export type MqlDiagnosticStep = {
+  id: string;
+  question: string;
+  helper?: string;
+  options: MqlDiagnosticOption[];
+};
+
+export type MqlDiagnosticConclusion = {
+  id: string;
+  title: string;
+  tone: "policy" | "review" | "info";
+  summary: string;
+  reasons: string[];
+  nextSteps: string[];
+};
+
+export {
+  computeDemographicFromInputs,
+  enrichConclusionWithDemographic,
+  routeAfterMarketoGrade,
+  type ComputedDemographic,
+  type DemographicScoringAnswers,
+} from "./mqlDiagnosticLogic";
+
+export const MQL_DIAGNOSTIC_INTRO =
+  "Let's apply the same demographic rules Marketo uses: employee size, ICP, job function, and seniority combine into grade A–D. Answer about the lead, then we'll compare that logic to engagement and MQL policy.";
+
+export const MQL_DIAGNOSTIC_START = "junk";
+
+export const MQL_DIAGNOSTIC_STEPS: MqlDiagnosticStep[] = [
   {
     id: "junk",
-    title: "Junk, test & data quality",
-    summary: "Operational junk screening removes leads before or regardless of engagement scoring.",
-    reasons: [
-      "Test/fake data, invalid or bounced email, QA/UAT from non-production environments.",
-      "Failed qualification (e.g. missing referral form) or ops junk-lead flags.",
-      "Low-quality/disposable email signals—typically graded D and suppressed from MQL routing.",
+    question: "First, does the record show junk, test, or hard disqualifier flags?",
+    helper:
+      "Unsubscribed, bounced/invalid email, test/QA data, bad country, ops junk flags, or person-level DQs (Sales, student, intern).",
+    options: [
+      { id: "yes", label: "Yes — junk / DQ signals present", next: "c_junk" },
+      { id: "no", label: "No — passes screening", next: "ee" },
     ],
   },
   {
-    id: "booth",
-    title: "Events & booth (common misconception)",
-    summary: "ICP booth attendance alone does not guarantee an MQL.",
-    reasons: [
-      "Post-2023 rule: only demographic A + 6Sense Decision/Purchase stage receive the +35 booth bonus.",
-      "Attendance points (+15) plus bonus still require passing junk/DQ checks and channel combo rules.",
-      "Most booth traffic is nurtured rather than auto-MQL’d to protect SQA conversion rates.",
+    id: "ee",
+    question: "How many employees does the account have?",
+    helper: "From Salesforce account — drives ICP and Grade D rules when Update MQL Process = FALSE.",
+    options: [
+      { id: "under_20", label: "Under 20 employees", next: "c_ee_dq" },
+      { id: "ee_50_99", label: "50–99 employees", next: "icp" },
+      { id: "ee_100_4999", label: "100–4,999 employees (standard ICP band)", next: "icp" },
+      { id: "ee_5000_8000", label: "5,000–8,000 employees", next: "icp" },
+      { id: "over_8000", label: "More than 8,000 employees", next: "c_ee_dq" },
     ],
   },
-] as const;
+  {
+    id: "icp",
+    question: "What is the account ICP / status fit?",
+    helper: "SFDC ICP checkbox, account status, and the 50–99 EE edge case when ICP lags.",
+    options: [
+      { id: "icp_true", label: "ICP = TRUE", next: "job" },
+      { id: "icp_false", label: "ICP = FALSE", next: "job" },
+      {
+        id: "icp_50_99",
+        label: "50–99 EE, ICP still FALSE (modern industry, not gov/edu)",
+        next: "job",
+      },
+      { id: "competitor", label: "Competitor account", next: "c_account_dq" },
+      { id: "customer", label: "Customer account", next: "c_account_dq" },
+    ],
+  },
+  {
+    id: "job",
+    question: "What is the lead's job function?",
+    helper: "Persona rules: HR/HR Finance are champion paths; Sales is always Grade D.",
+    options: [
+      { id: "hr", label: "HR / People / Talent", next: "seniority" },
+      { id: "hr_finance", label: "HR Finance / HR & Finance", next: "seniority" },
+      {
+        id: "finance_ops_ceo",
+        label: "Finance, Business Operations, CEO, or G&A",
+        next: "seniority",
+      },
+      { id: "sales", label: "Sales (any seniority)", next: "c_persona_dq" },
+      {
+        id: "student_intern",
+        label: "Student, intern, professor, or Design",
+        next: "c_persona_dq",
+      },
+      { id: "other_workable", label: "Other — but still HR-adjacent / workable", next: "seniority" },
+      { id: "other_irrelevant", label: "Other — unrelated to HR buying center", next: "seniority" },
+    ],
+  },
+  {
+    id: "seniority",
+    question: "What is the lead's seniority level?",
+    helper: "Champion seniority (C-level, VP, Director) unlocks A/B on ICP or non-ICP HR paths.",
+    options: [
+      { id: "cvp_director", label: "C-level or Director", next: "marketo_grade" },
+      { id: "vp", label: "VP / Head of", next: "marketo_grade" },
+      { id: "manager", label: "Manager / senior manager", next: "marketo_grade" },
+      { id: "individual", label: "Individual contributor (non-manager)", next: "marketo_grade" },
+      { id: "entry", label: "Coordinator, assistant, or entry-level", next: "marketo_grade" },
+    ],
+  },
+  {
+    id: "marketo_grade",
+    question: "What demographic grade does Marketo or Salesforce show right now?",
+    helper: "We'll compare this to the grade implied by employee size + ICP + function + seniority.",
+    options: [
+      { id: "a", label: "Grade A", next: "__grade_route__" },
+      { id: "b", label: "Grade B", next: "__grade_route__" },
+      { id: "c", label: "Grade C", next: "__grade_route__" },
+      { id: "d", label: "Grade D", next: "__grade_route__" },
+    ],
+  },
+  {
+    id: "points_after_d",
+    question: "Even with grade D—roughly how many behavioral points?",
+    options: [
+      { id: "low", label: "Under 100 points", next: "c_grade_d_low" },
+      { id: "high", label: "100+ points", next: "source_after_d" },
+    ],
+  },
+  {
+    id: "source_after_d",
+    question: "What was the highest-intent action?",
+    options: [
+      { id: "hand", label: "Hand raiser (demo, pricing, contact sales)", next: "c_hand_on_d" },
+      { id: "other", label: "WAD, content, event, or other", next: "c_grade_d" },
+    ],
+  },
+  {
+    id: "points",
+    question: `Are behavioral points at or above ${MQL_POINT_THRESHOLD}?`,
+    helper: "Behavioral Score Calculation field in Marketo.",
+    options: [
+      { id: "no", label: `No — under ${MQL_POINT_THRESHOLD} points`, next: "c_low_points" },
+      { id: "yes", label: `${MQL_POINT_THRESHOLD}+ points`, next: "source" },
+    ],
+  },
+  {
+    id: "source",
+    question: "What path best describes how they engaged?",
+    options: [
+      { id: "hand", label: "Hand raiser — demo, pricing, or contact sales", next: "c_should_mql" },
+      { id: "wad", label: "WAD / product tour / BOFU asset", next: "code_wad" },
+      { id: "activity", label: "Activity only — no hand-raise form", next: "code_activity" },
+      { id: "roi", label: "ROI calculator submission", next: "c_excluded_roi" },
+      { id: "movers", label: "New Movers / high-value asset", next: "c_excluded_movers" },
+      { id: "event", label: "Event or booth — no demo/pricing form", next: "c_event" },
+    ],
+  },
+  {
+    id: "code_wad",
+    question: "What is the score code on the WAD path?",
+    helper: "Demographic letter + behavioral tier (e.g. B2, C3, D3).",
+    options: [
+      { id: "allowed", label: "A1–A4, B1–B3, or C1", next: "c_should_mql" },
+      { id: "c3", label: "C3", next: "c_wad_c3" },
+      { id: "d3", label: "D3", next: "c_wad_d3" },
+      { id: "d_other", label: "D1, D2, or D4", next: "c_wad_d_blocked" },
+      { id: "other", label: "Other / not sure", next: "c_wad_check" },
+    ],
+  },
+  {
+    id: "code_activity",
+    question: "What is the score code on the activity-based path?",
+    options: [
+      { id: "a1b1", label: "A1 or B1", next: "c_should_mql" },
+      { id: "other", label: "Any other code (A2, B2, C1, C3, D*, etc.)", next: "c_activity_blocked" },
+    ],
+  },
+];
+
+export const MQL_DIAGNOSTIC_CONCLUSIONS: Record<string, MqlDiagnosticConclusion> = {
+  c_ee_dq: {
+    id: "c_ee_dq",
+    title: "Expected — employee size blocks auto-MQL",
+    tone: "policy",
+    summary:
+      "Accounts under 20 or over 8,000 employees with Update MQL Process = FALSE do not follow standard auto-MQL. This is an account-level rule, not a points issue.",
+    reasons: [
+      "Standard ICP employee band is 100–5,000; 5,000–8,000 may still MQL under separate policy.",
+      "Small (<20) or very large (>8,000) accounts are intentionally excluded unless Ops enables exceptions.",
+    ],
+    nextSteps: [
+      "Confirm employee count and Update MQL Process in Salesforce.",
+      "Do not expect auto-MQL unless RevOps confirms an override for that account band.",
+    ],
+  },
+  c_account_dq: {
+    id: "c_account_dq",
+    title: "Expected — competitor or customer",
+    tone: "policy",
+    summary: "Competitor and Customer accounts are disqualified regardless of persona seniority or points.",
+    reasons: ["Account status overrides champion personas.", "Engagement may still be tracked for reporting."],
+    nextSteps: ["Verify account status in SFDC.", "Route to nurture or competitive programs—not sales MQL."],
+  },
+  c_persona_dq: {
+    id: "c_persona_dq",
+    title: "Expected — persona disqualifier",
+    tone: "policy",
+    summary:
+      "Sales function, student/intern/design titles, and unrelated buying-center roles score Grade D before channel rules run.",
+    reasons: [
+      "Sales job function is always Grade D in Marketo demographic logic.",
+      "Student, Design, intern, and professor titles are hard person-level DQs.",
+    ],
+    nextSteps: [
+      "Confirm Job Function and Title in Marketo/SFDC.",
+      "If persona is actually HR champion, open RevOps to fix persona attribution—not a manual MQL.",
+    ],
+  },
+  c_grade_system_lower: {
+    id: "c_grade_system_lower",
+    title: "Scoring mismatch — system grade is lower than fit",
+    tone: "review",
+    summary:
+      "Based on employee size, ICP, function, and seniority, this lead should grade higher than what Marketo shows. A depressed grade often explains a missing MQL.",
+    reasons: [
+      "Demographic grade may be stale after a recent ICP, EE, or persona update.",
+      "SFDC ICP can lag ~24h; Marketo may still use older account/person data.",
+    ],
+    nextSteps: [
+      "Compare SFDC ICP, employee count, Job Function, and Seniority to Marketo fields.",
+      "Ask RevOps to refresh scoring or re-run flows after data correction.",
+      "If grade should be A/B with qualifying engagement, submit the manual MQL review form (link on this page) with before/after field values.",
+    ],
+  },
+  c_grade_system_higher: {
+    id: "c_grade_system_higher",
+    title: "Scoring mismatch — system grade is higher than fit",
+    tone: "info",
+    summary:
+      "Marketo shows a stronger grade (A/B) than employee size + persona logic suggests. Engagement paths may still fail if true fit is weaker (e.g. activity-only with code B2).",
+    reasons: [
+      "Grade may not have refreshed down after account fell out of ICP or persona changed.",
+      "High points with a non-qualifying code still fail activity-based and some WAD rules.",
+    ],
+    nextSteps: [
+      "Continue to score code and channel checks below.",
+      "If true fit is C/D, no-MQL may still be correct despite a generous grade field.",
+    ],
+  },
+  c_junk: {
+    id: "c_junk",
+    title: "Likely intentional — junk or data quality",
+    tone: "policy",
+    summary: "Junk and disqualifier rules run before or regardless of engagement. These leads are usually suppressed from auto-MQL.",
+    reasons: [
+      "Test/fake data, invalid or bounced email, or QA/UAT traffic.",
+      "Ops junk flags, failed qualification, or grade-D person/account disqualifiers.",
+    ],
+    nextSteps: [
+      "Confirm junk/DQ fields in Marketo and Salesforce.",
+      "If the flag is wrong, ask RevOps to correct data and re-run scoring—not a standard MQL override.",
+    ],
+  },
+  c_grade_d_low: {
+    id: "c_grade_d_low",
+    title: "Expected — grade D with low engagement",
+    tone: "policy",
+    summary: "Grade D reflects poor fit. Without 100+ points, the lead stays below the MQL engagement bar.",
+    reasons: [
+      "Demographic grade D (irrelevant persona, competitor, customer, geo, or EE rules).",
+      `Behavioral points under ${MQL_POINT_THRESHOLD}.`,
+    ],
+    nextSteps: [
+      "Keep in nurture or suppression per policy.",
+      "Re-score only if ICP, persona, or account data materially changes.",
+    ],
+  },
+  c_grade_d: {
+    id: "c_grade_d",
+    title: "Expected — grade D blocks standard auto-MQL",
+    tone: "policy",
+    summary: "Even with strong engagement, grade D is excluded from most WAD and activity auto-MQL paths.",
+    reasons: [
+      "WAD explicitly blocks D3; other D combos rarely auto-MQL.",
+      "Activity-based path allows only A1 and B1.",
+    ],
+    nextSteps: [
+      "Check MQL policy for the exact channel.",
+      "Do not expect auto-MQL unless RevOps confirms an approved exception.",
+    ],
+  },
+  c_hand_on_d: {
+    id: "c_hand_on_d",
+    title: "Unusual — hand raiser with grade D",
+    tone: "review",
+    summary:
+      "Hand-raiser forms normally always MQL when valid. Grade D plus a demo/pricing request may mean bad data, junk flags, or a scoring sync issue.",
+    reasons: [
+      "Hand raiser should bypass most combo rules when the record is clean.",
+      "Grade D may indicate competitor, customer, junk, or stale ICP/persona data.",
+    ],
+    nextSteps: [
+      "Verify junk/DQ flags and that the form was Request Demo, Pricing, or Contact Sales.",
+      "Allow ~24h for ICP sync, then submit the Marketing Ops manual MQL review form if still not MQL.",
+      "Include lead IDs, points, grade, form name, and activity dates in the form.",
+    ],
+  },
+  c_low_points: {
+    id: "c_low_points",
+    title: "Expected — below the MQL point threshold",
+    tone: "policy",
+    summary: `Leads need ${MQL_POINT_THRESHOLD}+ points in Behavioral Score Calculation for tier 1—and must still pass fit and channel rules.`,
+    reasons: [
+      "TOFU-only activity (light pages, newsletters) without BOFU or hand-raise actions.",
+      "Email clicks alone (+5, max 3×/month) cannot reach 100 points.",
+    ],
+    nextSteps: [
+      "Review recent activities in Marketo.",
+      "If a high-intent form exists, confirm it was attributed to the right program.",
+    ],
+  },
+  c_should_mql: {
+    id: "c_should_mql",
+    title: "This lead should have MQL'd — request a review",
+    tone: "review",
+    summary:
+      "Based on your answers, the lead matches a path that usually auto-MQLs. If it did not, suspect timing, attribution, or data sync—not policy intent.",
+    reasons: [
+      "Passes junk screening with workable fit and qualifying channel/code.",
+      "Hand raiser always MQLs when valid; WAD allows your code band; activity allows A1/B1.",
+    ],
+    nextSteps: [
+      "Confirm Marketo program membership and that scoring ran after the last activity.",
+      "Allow ~24h for Salesforce ICP updates if account data just changed.",
+      "Submit the Marketing Ops manual MQL review form with SFDC + Marketo IDs, points, code, source, and expected rule.",
+    ],
+  },
+  c_excluded_roi: {
+    id: "c_excluded_roi",
+    title: "Expected — ROI calculator excluded",
+    tone: "policy",
+    summary: "March 2025 policy removed auto-MQL for ROI calculator submissions regardless of points.",
+    reasons: ["Listed under Other channels in MQL policy.", "Points may still accrue for nurture and reporting."],
+    nextSteps: ["Route through nurture.", "Use hand-raiser or WAD paths for sales-ready intent."],
+  },
+  c_excluded_movers: {
+    id: "c_excluded_movers",
+    title: "Expected — New Movers asset excluded",
+    tone: "policy",
+    summary: "High-value “New Movers” asset leads do not auto-MQL under current policy.",
+    reasons: ["Excluded source in MQL policy Other channel rules."],
+    nextSteps: ["Confirm asset/program in Marketo.", "Pursue MQL only via qualifying forms or approved review."],
+  },
+  c_event: {
+    id: "c_event",
+    title: "Expected — event / booth alone rarely MQLs",
+    tone: "policy",
+    summary: "ICP booth attendance does not guarantee MQL. Only A + 6Sense Decision/Purchase gets the booth bonus.",
+    reasons: [
+      "Attendance (+15) plus bonus still requires junk/DQ clearance and channel combo rules.",
+      "Most booth traffic is nurtured to protect SQA conversion.",
+    ],
+    nextSteps: [
+      "Check demographic grade and whether a hand-raiser form was submitted.",
+      "See Events & booth under Why not MQL for detail.",
+    ],
+  },
+  c_wad_c3: {
+    id: "c_wad_c3",
+    title: "Selective — C3 on WAD is region-limited",
+    tone: "info",
+    summary: "C3 may MQL in Americas, UK, and APJ only—not Micro segment. Other regions stay nurture.",
+    reasons: ["WAD combo rules exclude blanket C3 auto-MQL.", "Demographic C + mid engagement is selective by design."],
+    nextSteps: [
+      "Confirm region and segment in Salesforce.",
+      "If region qualifies and still no MQL, open RevOps review.",
+    ],
+  },
+  c_wad_d3: {
+    id: "c_wad_d3",
+    title: "Expected — D3 blocked on WAD",
+    tone: "policy",
+    summary: "WAD policy explicitly excludes D3 because of low conversion.",
+    reasons: ["March 2025 WAD allowlist: A1–A4, B1–B3, C1 only.", "D3 is a known non-MQL combo."],
+    nextSteps: ["Keep in nurture.", "Do not escalate unless leadership approves an exception."],
+  },
+  c_wad_d_blocked: {
+    id: "c_wad_d_blocked",
+    title: "Expected — D grade on WAD",
+    tone: "policy",
+    summary: "D1, D2, and D4 on WAD are not auto-MQL paths under current policy.",
+    reasons: ["Poor demographic fit combined with WAD engagement.", "D3 has its own explicit block."],
+    nextSteps: ["Confirm grade and code in Marketo.", "Focus on nurture unless fit improves."],
+  },
+  c_wad_check: {
+    id: "c_wad_check",
+    title: "Check the WAD allowlist for this code",
+    tone: "info",
+    summary: "Auto-MQL on WAD: A1–A4, B1–B3, C1. C3 selective. No D3.",
+    reasons: ["If the code is outside this list, no-MQL is expected.", "If inside the list, treat as a should-have-MQL review."],
+    nextSteps: ["Compare score code to MQL policy WAD tab.", "Escalate only when code is on the allowlist."],
+  },
+  c_activity_blocked: {
+    id: "c_activity_blocked",
+    title: "Expected — activity path is A1 & B1 only",
+    tone: "policy",
+    summary:
+      "Activity-based auto-MQL is limited to A1 and B1. Other codes (A2, B2, C1, C3, etc.) do not MQL on points alone.",
+    reasons: [
+      "March 2025 change cut low-converting activity MQLs (~1,874 → ~86 MQLs).",
+      "100+ points without A1/B1 still fails this channel rule.",
+    ],
+    nextSteps: [
+      "Prioritize nurture or hand-raiser/WAD paths.",
+      "Request review only if you believe the code should be A1/B1.",
+    ],
+  },
+};
+
+export function getMqlDiagnosticStep(id: string): MqlDiagnosticStep | undefined {
+  return MQL_DIAGNOSTIC_STEPS.find((s) => s.id === id);
+}
+
+export function getMqlDiagnosticConclusion(id: string): MqlDiagnosticConclusion | undefined {
+  return MQL_DIAGNOSTIC_CONCLUSIONS[id];
+}
 
 export const MANUAL_MQL_REVIEW_WHEN = [
   "The lead had a clear high-intent action (demo, pricing, contact sales, WAD) but did not MQL within expected timing.",
@@ -300,8 +939,8 @@ export const MANUAL_MQL_REVIEW_STEPS = [
   },
   {
     step: 3,
-    title: "Open a review with Marketing Ops / RevOps",
-    body: "Submit via your team’s Marketing Ops or RevOps intake (Slack channel or ticket queue—use your org’s standard path). Include the gather checklist below.",
+    title: "Request manual MQL review (Marketing Ops)",
+    body: "Submit the Marketing Ops manual MQL review form (link below this guide) with the gather checklist. Ops will review leads that should have MQL’d and can force MQL when appropriate.",
   },
   {
     step: 4,
@@ -375,19 +1014,23 @@ export const ICP_DEFINITION = [
   "OR manually flagged via ICP override field",
 ];
 
+export const ICP_DOC_BUTTON_LABEL = "Open full ICP doc (Google)";
+export const ICP_DOC_BUTTON_NOTE = "full rules maintained by MIS";
+
+/** Accounts in this band may still MQL despite ICP employee ceiling of 5,000. */
+export const ICP_MQL_EE_DISCLAIMER =
+  "Disclaimer: We may still MQL accounts with 5,000–8,000 employees under current policy, even though they fall outside the standard ICP employee range.";
+
 export const DISQUALIFIERS_D = {
   person: [
-    "Junk list: bounced, private, or invalid email",
     "Unsubscribed",
     "Irrelevant titles: Student, Design, intern, professor",
     "Job function: Sales",
     "HiBob employees",
   ],
   account: [
-    "Account status: Not Relevant",
-    "Bad country (see restricted list)",
     "Competitor or Customer",
-    "Update MQL Process = FALSE with EE count <20 or >8,000",
+    "Account has fewer than 20 or more than 8,000 employees, and Update MQL Process = FALSE in Salesforce (standard auto-MQL is off for that size band)",
   ],
   countries: [
     "Iran", "Lebanon", "North Korea (Democratic People's Republic of)", "Somalia", "Cuba", "Syria",

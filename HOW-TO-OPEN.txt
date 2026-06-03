@@ -1,5 +1,5 @@
-HOW TO OPEN THE LEAD SCORING LANDING PAGE
-=========================================
+HOW TO OPEN THE LEAD SCORING GUIDE
+==================================
 
 There is NO separate "install" file. You have two options:
 
@@ -8,15 +8,20 @@ OPTION 1 — EASIEST (no Node, no npm)
 1. Go to this folder in Finder:
    Documents/Cursor/src/scoring-system/
 
-2. Double-click this file:
+2. Double-click:
    OPEN-THIS-FILE.html
+   (redirects to the multi-page site)
 
-3. It opens in Chrome, Safari, or Edge. That is your landing page.
+   Or open the home page directly:
+   site/index.html
+
+3. Use the top navigation bar to move between pages
+   (Home, How it works, Scoring flow, etc.).
 
    Full path:
-   /Users/shai.afriat/Documents/Cursor/src/scoring-system/OPEN-THIS-FILE.html
+   /Users/shai.afriat/Documents/Cursor/src/scoring-system/site/index.html
 
-   To share with colleagues: send them this .html file or upload it to your intranet.
+   To share: send the whole scoring-system folder, or host via GitHub Pages (see DEPLOY.md).
 
 
 OPTION 2 — Developer version (needs Node.js)
@@ -29,13 +34,19 @@ Only if you have Node/npm installed:
 
 Then open: http://localhost:5173
 
-The "install" step for Option 2 is: npm install
-(which reads package.json — not a separate install file).
+Same pages, React + react-router.
+
+
+REBUILD STATIC PAGES (after editing content)
+--------------------------------------------
+   npm run build:site
+   npm run sync:pages    # if deploying to GitHub Pages
 
 
 WHAT'S IN THIS FOLDER
 ---------------------
-OPEN-THIS-FILE.html   ← OPEN THIS (standalone page)
+OPEN-THIS-FILE.html   ← shortcut → site/index.html
+site/                 ← multi-page static site (open index.html)
 HOW-TO-OPEN.txt       ← This file
 package.json          ← Used only for Option 2
 README.md             ← More detail

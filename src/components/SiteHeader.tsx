@@ -1,43 +1,31 @@
-import { useEffect, useState } from "react";
-import { NAV_SECTIONS } from "../data/scoringContent";
+import { Link, useLocation } from "react-router-dom";
+import { SITE_NAV } from "../data/scoringContent";
 import { HiBobLogo } from "./HiBobLogo";
 
 export function SiteHeader() {
-  const [scrolled, setScrolled] = useState(false);
+  const { pathname } = useLocation();
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const isActive = (path: string) => {
+    if (path === "/") return pathname === "/";
+    return pathname === path || pathname.startsWith(path + "/");
+  };
 
   return (
-    <header
-      style={{
-        position: "sticky",
-        top: 0,
-        zIndex: 100,
-        height: "var(--nav-height)",
-        background: scrolled ? "rgba(255, 251, 244, 0.97)" : "var(--bg-warm)",
-        backdropFilter: scrolled ? "blur(10px)" : undefined,
-        borderBottom: `1px solid ${scrolled ? "var(--border)" : "transparent"}`,
-        transition: "background 0.2s, border-color 0.2s",
-      }}
-    >
+    <header className="site-header-sticky">
       <div
         style={{
           maxWidth: 1120,
           margin: "0 auto",
-          padding: "0 1rem",
-          height: "100%",
+          padding: "0.75rem 1rem",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
           gap: "1rem",
+          flexWrap: "wrap",
         }}
       >
-        <a
-          href="#overview"
+        <Link
+          to="/"
           style={{
             textDecoration: "none",
             display: "flex",
@@ -45,7 +33,7 @@ export function SiteHeader() {
             gap: "1rem",
           }}
         >
-          <HiBobLogo height={32} />
+          <HiBobLogo height={35} />
           <span
             style={{
               fontFamily: "var(--font-body)",
@@ -56,13 +44,12 @@ export function SiteHeader() {
               paddingLeft: "1rem",
             }}
           >
-            Lead Scoring Guide
+            Marketing Ops
           </span>
-        </a>
+        </Link>
 
         <nav
-          aria-label="Page sections"
-          className="desktop-nav"
+          aria-label="Main navigation"
           style={{
             display: "flex",
             gap: "0.15rem",
@@ -71,43 +58,26 @@ export function SiteHeader() {
             alignItems: "center",
           }}
         >
-          {NAV_SECTIONS.slice(0, 5).map((s) => (
-            <a
-              key={s.id}
-              href={`#${s.id}`}
+          {SITE_NAV.map((item) => (
+            <Link
+              key={item.path}
+              to={item.path}
               style={{
-                fontSize: "0.8125rem",
+                fontSize: "0.72rem",
                 fontWeight: 700,
                 textDecoration: "none",
-                color: "var(--coffee-muted)",
-                padding: "0.4rem 0.55rem",
+                color: isActive(item.path) ? "var(--dark-wine)" : "var(--coffee-muted)",
+                padding: "0.35rem 0.5rem",
                 borderRadius: 8,
+                background: isActive(item.path) ? "var(--cappuccino-foam)" : "transparent",
+                boxShadow: isActive(item.path)
+                  ? "inset 0 0 0 2px var(--cherry-syrup)"
+                  : undefined,
               }}
             >
-              {s.label}
-            </a>
+              {item.label}
+            </Link>
           ))}
-          <a
-            href="#faq"
-            style={{
-              fontSize: "0.8125rem",
-              fontWeight: 900,
-              color: "var(--cherry-syrup)",
-              textDecoration: "none",
-              padding: "0.4rem 0.55rem",
-            }}
-          >
-            FAQ
-          </a>
-          <a
-            href="https://brand.hibob.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-secondary"
-            style={{ padding: "0.45rem 0.9rem", fontSize: "0.75rem", marginLeft: "0.5rem" }}
-          >
-            Brand portal
-          </a>
         </nav>
       </div>
     </header>

@@ -8,9 +8,12 @@ export function MqlPolicy() {
 
   return (
     <Section
-      id="mql-policy"
-      label="Go-to-market"
-      title="MQL policy & business decisions"
+      id="policy"
+      title={
+        <>
+          MQL policy <span className="heading-date">last updated on March 2025</span>
+        </>
+      }
       subtitle="March 2025 strategy: tighten auto-MQL rules using MQL-to-SQA conversion data while keeping high-intent channels."
     >
       <div

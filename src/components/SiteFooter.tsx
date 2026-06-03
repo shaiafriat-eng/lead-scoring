@@ -23,10 +23,7 @@ export function SiteFooter() {
         <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
           <HiBobLogo height={28} />
           <p style={{ margin: 0, fontSize: "0.8125rem", color: "var(--coffee-muted)" }}>
-            Internal use · Lead Scoring Guide ·{" "}
-            <a href="https://brand.hibob.com/" target="_blank" rel="noopener noreferrer">
-              brand.hibob.com
-            </a>
+            Internal use · Lead Scoring Guide
           </p>
         </div>
         <a href={MIRO_BOARD_URL} target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
