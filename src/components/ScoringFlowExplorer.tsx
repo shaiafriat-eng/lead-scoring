@@ -4,11 +4,13 @@ import {
   SCORING_FLOW_STEPS,
   MQL_POINT_THRESHOLD,
   ENGAGE_TO_TIER,
-  getEngageBranch,
   tierFromEngage,
-  type ScoringFlowStep,
+  getBehaviorBranchByTier,
+  scoreCodeFromChoices,
+  getScoreCodeOutcome,
 } from "../data/scoringContent";
 import { FlowStepBranches } from "./FlowStepBranches";
+import { FlowDerivedResult } from "./FlowDerivedResult";
 import { Section } from "./Section";
 
 export function ScoringFlowExplorer() {
@@ -17,13 +19,13 @@ export function ScoringFlowExplorer() {
 
   const current = SCORING_FLOW_STEPS[step];
   const engageChoice = choices.engage;
-  const displayedStep = getDisplayedFlowStep(current, engageChoice);
+  const demoGrade = choices.demo;
+  const behaviorTier = choices.behavior ?? tierFromEngage(engageChoice);
+  const scoreCode = scoreCodeFromChoices(demoGrade, behaviorTier);
+
   const selectedBranchId = choices[current.id] ?? null;
   const selectedBranch = current.branches?.find((b) => b.id === selectedBranchId);
-  const needsChoice =
-    current.id === "behavior" && !engageChoice
-      ? true
-      : current.branchMode === "choose-one" && !selectedBranchId;
+  const needsChoice = stepNeedsChoice(current.id, choices, behaviorTier, demoGrade);
   const isLastStep = step === SCORING_FLOW_STEPS.length - 1;
 
   const setChoice = (stepId: string, branchId: string) => {
@@ -52,8 +54,6 @@ export function ScoringFlowExplorer() {
     setChoices({});
   };
 
-  const demoGrade = choices.demo;
-  const behaviorTier = choices.behavior ?? tierFromEngage(engageChoice);
   const junkEnd = choices.junk === "yes";
 
   const endSummary = () => {
@@ -64,23 +64,55 @@ export function ScoringFlowExplorer() {
       return `Demographic grade D (persona/account not a fit). Even with ${MQL_POINT_THRESHOLD}+ points, standard auto-MQL paths are usually blocked—see MQL routing.`;
     }
     if (demoGrade && behaviorTier) {
-      const code = `${demoGrade.toUpperCase()}${behaviorTier}`;
-      return `With grade ${demoGrade.toUpperCase()} and behavioral tier ${behaviorTier} → score code ${code}. MQL still depends on channel rules (threshold: ${MQL_POINT_THRESHOLD} pts).`;
-    }
-    if (demoGrade) {
-      const code =
-        demoGrade === "a" ? "A1" : demoGrade === "b" ? "B2" : demoGrade === "c" ? "C3" : "D4";
-      return `Example with grade ${demoGrade.toUpperCase()}: strong engagement could produce ${code}. MQL still depends on channel rules (A1/B1 vs C3 selective vs D blocked).`;
+      const code = scoreCode ?? `${demoGrade.toUpperCase()}${behaviorTier}`;
+      return `Score code ${code} (grade ${demoGrade.toUpperCase()} + tier ${behaviorTier}). MQL still depends on channel rules (threshold: ${MQL_POINT_THRESHOLD} pts).`;
     }
     return `Example: ICP champion with 105 points → A1 → high priority. MQL threshold: ${MQL_POINT_THRESHOLD} points.`;
   };
 
+  const derivedPanel = () => {
+    if (current.id === "behavior") {
+      if (!engageChoice || !behaviorTier) {
+        return (
+          <p style={{ fontSize: "0.875rem", color: "var(--coffee-muted)", marginBottom: "1.25rem" }}>
+            Select a marketing activity on step 4 first.
+          </p>
+        );
+      }
+      const tierBranch = getBehaviorBranchByTier(behaviorTier);
+      return (
+        <FlowDerivedResult
+          label="Behavioral tier"
+          value={`Tier ${behaviorTier}`}
+          outcome={tierBranch?.outcome ?? ""}
+        />
+      );
+    }
+    if (current.id === "code") {
+      if (!demoGrade || !behaviorTier) {
+        return (
+          <p style={{ fontSize: "0.875rem", color: "var(--coffee-muted)", marginBottom: "1.25rem" }}>
+            Complete steps 3 and 4 first — the score code is built from your demographic grade and activity.
+          </p>
+        );
+      }
+      const code = scoreCode ?? `${demoGrade.toUpperCase()}${behaviorTier}`;
+      const gradeClass =
+        demoGrade === "d" ? "flow-derived--grade-D" : `flow-derived--grade-${demoGrade.toUpperCase()}`;
+      return (
+        <FlowDerivedResult
+          label="Score code"
+          value={code}
+          outcome={getScoreCodeOutcome(code)}
+          gradeClass={gradeClass}
+        />
+      );
+    }
+    return null;
+  };
+
   return (
-    <Section
-      id="scoring-flow"
-      title="Explore the scoring flow"
-      alt
-    >
+    <Section id="scoring-flow" title="Explore the scoring flow" alt>
       <div className="scoring-flow-block">
         <p
           className="scoring-flow-block__intro"
@@ -94,16 +126,18 @@ export function ScoringFlowExplorer() {
             width: "100%",
           }}
         >
-          Step through the process below. On branching steps, pick a path—step 4 chooses the activity, step 5
-          maps it to a behavioral tier, including Grade D when persona and account are not a fit.
+          Step through the process below. Steps 4–6 build on each other: activity → tier → score code.
         </p>
-        <p className="scoring-flow-block__miro" style={{ margin: "1rem 0 1.25rem", fontSize: "0.9375rem", color: "var(--coffee-muted)" }}>
+        <p
+          className="scoring-flow-block__miro"
+          style={{ margin: "1rem 0 1.25rem", fontSize: "0.9375rem", color: "var(--coffee-muted)" }}
+        >
           Full diagram:{" "}
           <a href={MIRO_BOARD_URL} target="_blank" rel="noopener noreferrer">
             Open Miro board →
           </a>
         </p>
-      <div className="card scoring-flow-block__card" style={{ padding: 0, overflow: "hidden", marginTop: 0 }}>
+        <div className="card scoring-flow-block__card" style={{ padding: 0, overflow: "hidden", marginTop: 0 }}>
           <div
             style={{
               display: "flex",
@@ -141,16 +175,14 @@ export function ScoringFlowExplorer() {
             <p className="section-label" style={{ marginBottom: "0.35rem" }}>
               Step {step + 1} of {SCORING_FLOW_STEPS.length}
             </p>
-            <h3 style={{ fontSize: "1.2rem", marginBottom: "0.75rem" }}>{displayedStep.title}</h3>
-            <p style={{ color: "var(--coffee-muted)", margin: "0 0 1rem" }}>{displayedStep.body}</p>
+            <h3 style={{ fontSize: "1.2rem", marginBottom: "0.75rem" }}>{current.title}</h3>
+            <p style={{ color: "var(--coffee-muted)", margin: "0 0 1rem" }}>{current.body}</p>
 
-            {current.id === "behavior" && !engageChoice ? (
-              <p style={{ fontSize: "0.875rem", color: "var(--coffee-muted)", marginBottom: "1.25rem" }}>
-                Select a marketing activity on step 4 first — tier 1–4 is derived from that choice.
-              </p>
+            {current.branchMode === "derived" ? (
+              derivedPanel()
             ) : (
               <FlowStepBranches
-                step={displayedStep}
+                step={current}
                 selectedId={selectedBranchId}
                 onSelect={(id) => setChoice(current.id, id)}
               />
@@ -192,20 +224,15 @@ export function ScoringFlowExplorer() {
   );
 }
 
-function getDisplayedFlowStep(step: ScoringFlowStep, engageId: string | undefined): ScoringFlowStep {
-  if (step.id !== "behavior") return step;
-  if (!engageId) {
-    return {
-      ...step,
-      body: "Behavioral tier follows from the activity you chose on step 4.",
-      branchPrompt: undefined,
-    };
-  }
-  const engage = getEngageBranch(engageId);
-  const suggestedTier = tierFromEngage(engageId);
-  return {
-    ...step,
-    body: `From “${engage?.label ?? "your activity"}” (${engage?.outcome?.split("—")[0]?.trim() ?? "points added"}), Marketo maps this lead to behavioral tier ${suggestedTier}.`,
-    branchPrompt: `Suggested tier ${suggestedTier} from step 4 — confirm or pick another tier if points stacked differently:`,
-  };
+function stepNeedsChoice(
+  stepId: string,
+  choices: Record<string, string>,
+  behaviorTier: string | null,
+  demoGrade: string | undefined,
+): boolean {
+  if (stepId === "behavior") return !choices.engage || !behaviorTier;
+  if (stepId === "code") return !demoGrade || !behaviorTier;
+  const step = SCORING_FLOW_STEPS.find((s) => s.id === stepId);
+  if (step?.branchMode === "choose-one") return !choices[stepId];
+  return false;
 }

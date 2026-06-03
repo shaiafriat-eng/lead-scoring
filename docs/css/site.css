@@ -487,6 +487,35 @@ th { background: var(--cappuccino-foam); font-weight: 900; text-transform: upper
 .flow-branches__outcome { margin: 0.35rem 0 0; color: var(--muted); font-size: 0.8125rem; line-height: 1.45; font-weight: 400; }
 .flow-branches__selected { margin-top: 0.75rem; }
 
+.flow-derived {
+  padding: 1.25rem 1.5rem;
+  background: var(--cappuccino-foam);
+  border-radius: 12px;
+  border: 2px solid var(--border);
+}
+.flow-derived__label {
+  margin: 0 0 0.35rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+.flow-derived__value {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-headline, "Archivo Black", sans-serif);
+  font-size: 2rem;
+  line-height: 1.1;
+  color: var(--black-coffee);
+}
+.flow-derived--grade-D .flow-derived__value { color: var(--dark-wine); }
+.flow-derived__outcome {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
 /* MQL diagnostic — conversational guide */
 .mql-diagnostic { padding: 0; overflow: hidden; }
 .mql-diagnostic__progress {

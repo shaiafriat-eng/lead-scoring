@@ -300,8 +300,8 @@ export type ScoringFlowStep = {
   title: string;
   body: string;
   branchPrompt?: string;
-  /** choose-one: pick a path; show-all: display all outcomes (optional highlight) */
-  branchMode?: "choose-one" | "show-all";
+  /** choose-one: pick a path; show-all: display all outcomes; derived: show result from prior steps only */
+  branchMode?: "choose-one" | "show-all" | "derived";
   branches?: ScoringFlowBranch[];
 };
 
@@ -321,6 +321,29 @@ export function tierFromEngage(engageId: string | undefined): string | null {
 export function getEngageBranch(engageId: string | undefined) {
   if (!engageId) return undefined;
   return SCORING_FLOW_STEPS.find((s) => s.id === "engage")?.branches?.find((b) => b.id === engageId);
+}
+
+export function getBehaviorBranchByTier(tierId: string | undefined) {
+  if (!tierId) return undefined;
+  return SCORING_FLOW_STEPS.find((s) => s.id === "behavior")?.branches?.find((b) => b.id === tierId);
+}
+
+export function scoreCodeFromChoices(demoId: string | undefined, tier: string | null | undefined): string | null {
+  if (!demoId || !tier) return null;
+  return `${demoId.toUpperCase()}${tier}`;
+}
+
+export function getScoreCodeOutcome(code: string): string {
+  const match = SCORING_FLOW_STEPS.find((s) => s.id === "code")?.branches?.find(
+    (b) => b.label === code || b.grade === code,
+  );
+  if (match) return match.outcome;
+  const letter = code.charAt(0);
+  if (letter === "D") return "Poor fit combined with engagement level — lowest priority; usually no auto-MQL.";
+  if (letter === "A") return "Best demographic fit with this engagement tier — top of the sales queue.";
+  if (letter === "B") return "Strong fit with this engagement tier — high priority outreach.";
+  if (letter === "C") return "Workable fit with this engagement tier — selective MQL and outreach paths.";
+  return "Used for prioritization, reporting, and MQL combo rules.";
 }
 
 export const SCORING_FLOW_STEPS: ScoringFlowStep[] = [
@@ -427,9 +450,8 @@ export const SCORING_FLOW_STEPS: ScoringFlowStep[] = [
   {
     id: "behavior",
     title: "Behavioral tier (1–4)",
-    body: `Point total maps to tier 1–4. MQL threshold is ${MQL_POINT_THRESHOLD} points; demographic grade still gates auto-MQL.`,
-    branchMode: "choose-one",
-    branchPrompt: "Confirm behavioral tier from your activity:",
+    body: "Based on the activity you selected in step 4, Marketo assigns a behavioral tier (1–4).",
+    branchMode: "derived",
     branches: [
       {
         id: "1",
@@ -464,9 +486,8 @@ export const SCORING_FLOW_STEPS: ScoringFlowStep[] = [
   {
     id: "code",
     title: "Score code",
-    body: "Demographic letter + behavioral number = code (e.g. A1, B3). Used for prioritization, reporting, and MQL combo rules.",
-    branchMode: "show-all",
-    branchPrompt: "Examples:",
+    body: "Your demographic grade and behavioral tier combine into one score code.",
+    branchMode: "derived",
     branches: [
       { id: "a1", label: "A1", grade: "A1", outcome: "Best ICP fit + highest engagement → top sales priority" },
       { id: "b2", label: "B2", grade: "B2", outcome: "Strong fit + high engagement → high priority" },

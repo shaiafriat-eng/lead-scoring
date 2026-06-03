@@ -102,12 +102,8 @@
     {
       id: "behavior",
       title: "Behavioral tier (1–4)",
-      body:
-        "Point total maps to tier 1–4. MQL threshold is " +
-        MQL_THRESHOLD +
-        " points; demographic grade still gates auto-MQL.",
-      branchMode: "choose-one",
-      branchPrompt: "Confirm behavioral tier from your activity:",
+      body: "Based on the activity you selected in step 4, Marketo assigns a behavioral tier (1–4).",
+      branchMode: "derived",
       branches: [
         {
           id: "1",
@@ -142,9 +138,8 @@
     {
       id: "code",
       title: "Score code",
-      body: "Demographic letter + behavioral number = code (e.g. A1, B3). Used for prioritization, reporting, and MQL combo rules.",
-      branchMode: "show-all",
-      branchPrompt: "Examples:",
+      body: "Your demographic grade and behavioral tier combine into one score code.",
+      branchMode: "derived",
       branches: [
         { id: "a1", label: "A1", grade: "A1", outcome: "Best ICP fit + highest engagement → top sales priority" },
         { id: "b2", label: "B2", grade: "B2", outcome: "Strong fit + high engagement → high priority" },
@@ -203,39 +198,43 @@
       : undefined;
   }
 
-  function getDisplayedStep(step) {
-    if (step.id !== "behavior") return step;
-    if (!choices.engage) {
-      return {
-        id: step.id,
-        title: step.title,
-        body: "Behavioral tier follows from the activity you chose on step 4.",
-        branchMode: step.branchMode,
-        branchPrompt: null,
-        branches: step.branches,
-      };
-    }
-    const engage = getEngageBranch(choices.engage);
-    const suggestedTier = ENGAGE_TO_TIER[choices.engage];
-    const pointsPart = engage && engage.outcome ? engage.outcome.split("—")[0].trim() : "points added";
-    return {
-      id: step.id,
-      title: step.title,
-      body:
-        'From "' +
-        (engage ? engage.label : "your activity") +
-        '" (' +
-        pointsPart +
-        "), Marketo maps this lead to behavioral tier " +
-        suggestedTier +
-        ".",
-      branchMode: step.branchMode,
-      branchPrompt:
-        "Suggested tier " +
-        suggestedTier +
-        " from step 4 — confirm or pick another tier if points stacked differently:",
-      branches: step.branches,
-    };
+  function getBehaviorBranchByTier(tierId) {
+    const behaviorStep = FLOW_STEPS.find(function (s) {
+      return s.id === "behavior";
+    });
+    return behaviorStep && behaviorStep.branches
+      ? behaviorStep.branches.find(function (b) {
+          return b.id === tierId;
+        })
+      : undefined;
+  }
+
+  function scoreCodeFromChoices(demoId, tier) {
+    if (!demoId || !tier) return null;
+    return demoId.toUpperCase() + tier;
+  }
+
+  function getScoreCodeOutcome(code) {
+    const codeStep = FLOW_STEPS.find(function (s) {
+      return s.id === "code";
+    });
+    const match =
+      codeStep &&
+      codeStep.branches &&
+      codeStep.branches.find(function (b) {
+        return b.label === code || b.grade === code;
+      });
+    if (match) return match.outcome;
+    var letter = code.charAt(0);
+    if (letter === "D") return "Poor fit combined with engagement level — lowest priority; usually no auto-MQL.";
+    if (letter === "A") return "Best demographic fit with this engagement tier — top of the sales queue.";
+    if (letter === "B") return "Strong fit with this engagement tier — high priority outreach.";
+    if (letter === "C") return "Workable fit with this engagement tier — selective MQL and outreach paths.";
+    return "Used for prioritization, reporting, and MQL combo rules.";
+  }
+
+  function currentBehaviorTier() {
+    return choices.behavior || (choices.engage ? ENGAGE_TO_TIER[choices.engage] : null);
   }
 
   function setChoice(stepId, branchId) {
@@ -256,33 +255,77 @@
         "+ points, standard auto-MQL paths are usually blocked—see MQL routing."
       );
     }
-    if (choices.demo && (choices.behavior || choices.engage)) {
-      const tier = choices.behavior || ENGAGE_TO_TIER[choices.engage] || "?";
-      const code = choices.demo.toUpperCase() + tier;
+    if (choices.demo && currentBehaviorTier()) {
+      var tier = currentBehaviorTier();
+      var code = scoreCodeFromChoices(choices.demo, tier);
       return (
-        "With grade " +
-        choices.demo.toUpperCase() +
-        " and behavioral tier " +
-        tier +
-        " → score code " +
+        "Score code " +
         code +
-        ". MQL still depends on channel rules (threshold: " +
+        " (grade " +
+        choices.demo.toUpperCase() +
+        " + tier " +
+        tier +
+        "). MQL still depends on channel rules (threshold: " +
         MQL_THRESHOLD +
         " pts)."
       );
     }
-    if (choices.demo) {
-      const code =
-        choices.demo === "a" ? "A1" : choices.demo === "b" ? "B2" : choices.demo === "c" ? "C3" : "D4";
-      return (
-        "Example with grade " +
-        choices.demo.toUpperCase() +
-        ": strong engagement could produce " +
-        code +
-        ". MQL still depends on channel rules."
-      );
-    }
     return "Example: ICP champion with 105 points → A1 → high priority. MQL threshold: " + MQL_THRESHOLD + " points.";
+  }
+
+  function renderDerived(step) {
+    var wrap = document.createElement("div");
+    wrap.className = "flow-derived";
+    wrap.style.marginBottom = "1.25rem";
+
+    if (step.id === "behavior") {
+      var tier = currentBehaviorTier();
+      if (!choices.engage || !tier) {
+        var hint = document.createElement("p");
+        hint.style.cssText = "font-size:0.875rem;color:var(--muted);margin:0";
+        hint.textContent = "Select a marketing activity on step 4 first.";
+        wrap.appendChild(hint);
+        return wrap;
+      }
+      var tierBranch = getBehaviorBranchByTier(tier);
+      wrap.className = "flow-derived";
+      appendDerived(wrap, "Behavioral tier", "Tier " + tier, tierBranch ? tierBranch.outcome : "");
+      return wrap;
+    }
+
+    if (step.id === "code") {
+      var behaviorTier = currentBehaviorTier();
+      if (!choices.demo || !behaviorTier) {
+        var hint2 = document.createElement("p");
+        hint2.style.cssText = "font-size:0.875rem;color:var(--muted);margin:0";
+        hint2.textContent = "Complete steps 3 and 4 first — the score code is built from your demographic grade and activity.";
+        wrap.appendChild(hint2);
+        return wrap;
+      }
+      var code = scoreCodeFromChoices(choices.demo, behaviorTier);
+      wrap.className = "flow-derived flow-derived--grade-" + choices.demo.toUpperCase();
+      if (choices.demo === "d") wrap.className = "flow-derived flow-derived--grade-D";
+      appendDerived(wrap, "Score code", code, getScoreCodeOutcome(code));
+      return wrap;
+    }
+
+    return null;
+  }
+
+  function appendDerived(wrap, label, value, outcome) {
+    var lbl = document.createElement("p");
+    lbl.className = "flow-derived__label";
+    lbl.textContent = label;
+    wrap.appendChild(lbl);
+    var val = document.createElement("p");
+    val.className = "flow-derived__value";
+    val.setAttribute("aria-live", "polite");
+    val.textContent = value;
+    wrap.appendChild(val);
+    var out = document.createElement("p");
+    out.className = "flow-derived__outcome";
+    out.textContent = outcome;
+    wrap.appendChild(out);
   }
 
   function renderBranches(step) {
@@ -389,28 +432,25 @@
     if (s.id === "behavior" && choices.engage && ENGAGE_TO_TIER[choices.engage] && !choices.behavior) {
       choices.behavior = ENGAGE_TO_TIER[choices.engage];
     }
-    const displayed = getDisplayedStep(s);
     panel.innerHTML = "";
     const label = document.createElement("p");
     label.className = "label";
     label.textContent = "Step " + (flowStep + 1) + " of " + FLOW_STEPS.length;
     panel.appendChild(label);
     const h = document.createElement("h3");
-    h.textContent = displayed.title;
+    h.textContent = s.title;
     panel.appendChild(h);
     const p = document.createElement("p");
     p.style.color = "var(--muted)";
     p.style.marginBottom = "1rem";
-    p.textContent = displayed.body;
+    p.textContent = s.body;
     panel.appendChild(p);
 
-    if (s.id === "behavior" && !choices.engage) {
-      const hint = document.createElement("p");
-      hint.style.cssText = "font-size:0.875rem;color:var(--muted);margin-bottom:1.25rem";
-      hint.textContent = "Select a marketing activity on step 4 first — tier 1–4 is derived from that choice.";
-      panel.appendChild(hint);
+    if (s.branchMode === "derived") {
+      const derivedEl = renderDerived(s);
+      if (derivedEl) panel.appendChild(derivedEl);
     } else {
-      const branchesEl = renderBranches(displayed);
+      const branchesEl = renderBranches(s);
       if (branchesEl) panel.appendChild(branchesEl);
     }
 
@@ -437,10 +477,10 @@
     };
     nav.appendChild(back);
 
-    const needsChoice =
-      s.id === "behavior" && !choices.engage
-        ? true
-        : s.branchMode === "choose-one" && !choices[s.id];
+    var needsChoice = false;
+    if (s.id === "behavior") needsChoice = !choices.engage || !currentBehaviorTier();
+    else if (s.id === "code") needsChoice = !choices.demo || !currentBehaviorTier();
+    else if (s.branchMode === "choose-one") needsChoice = !choices[s.id];
 
     if (flowStep < FLOW_STEPS.length - 1) {
       const next = document.createElement("button");
