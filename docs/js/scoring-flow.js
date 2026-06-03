@@ -70,13 +70,33 @@
       id: "engage",
       title: "Engagement & point ledger",
       body: "Each marketing activity adds points in Marketo (Behavioral Score Calculation). Points stack until the next activity.",
-      branchMode: "show-all",
-      branchPrompt: "How points accrue (examples):",
+      branchMode: "choose-one",
+      branchPrompt: "Which marketing activity did the lead take?",
       branches: [
-        { id: "p100", label: "+100 pts", outcome: "Demo, pricing, contact sales — immediate high intent" },
-        { id: "p50", label: "+50 pts", outcome: "WAD, product tour, ROI calculator, events" },
-        { id: "p15", label: "+15 pts", outcome: "BOFU visit, content/newsletter/webinar form (daily caps apply)" },
-        { id: "p5", label: "+5 pts", outcome: "Email click — capped; cannot reach MQL threshold alone" },
+        {
+          id: "p100",
+          label: "Demo, pricing, or contact sales",
+          outcome: "+100 pts — immediate high intent (often reaches MQL threshold in one step).",
+          action: "continue",
+        },
+        {
+          id: "p50",
+          label: "WAD, product tour, ROI calculator, or event",
+          outcome: "+50 pts — strong engagement; may need another activity to reach 100+ pts.",
+          action: "continue",
+        },
+        {
+          id: "p15",
+          label: "BOFU visit, content, newsletter, or webinar form",
+          outcome: "+15 pts — mid engagement (daily caps apply on some channels).",
+          action: "continue",
+        },
+        {
+          id: "p5",
+          label: "Email click only",
+          outcome: "+5 pts — capped; cannot reach MQL threshold from email clicks alone.",
+          action: "continue",
+        },
       ],
     },
     {
@@ -146,6 +166,8 @@
   const dotsEl = document.getElementById("flow-dots");
   if (!panel || !dotsEl) return;
 
+  const ENGAGE_TO_TIER = { p100: "1", p50: "2", p15: "3", p5: "4" };
+
   function endSummary() {
     if (choices.junk === "yes") {
       return "Lead stops at Grade D after junk screening—not auto-MQL on standard WAD/activity paths.";
@@ -155,6 +177,19 @@
         "Demographic grade D (persona/account not a fit). Even with " +
         MQL_THRESHOLD +
         "+ points, standard auto-MQL paths are usually blocked—see MQL routing."
+      );
+    }
+    if (choices.demo && choices.engage) {
+      const tier = ENGAGE_TO_TIER[choices.engage] || "?";
+      const code = choices.demo.toUpperCase() + tier;
+      return (
+        "With grade " +
+        choices.demo.toUpperCase() +
+        " and your selected activity → example score code " +
+        code +
+        ". MQL still depends on channel rules (threshold: " +
+        MQL_THRESHOLD +
+        " pts)."
       );
     }
     if (choices.demo) {

@@ -33,7 +33,9 @@ export function ScoringFlowExplorer() {
   };
 
   const demoGrade = choices.demo;
+  const engageChoice = choices.engage;
   const junkEnd = choices.junk === "yes";
+  const engageToTier: Record<string, string> = { p100: "1", p50: "2", p15: "3", p5: "4" };
 
   const endSummary = () => {
     if (junkEnd) {
@@ -41,6 +43,11 @@ export function ScoringFlowExplorer() {
     }
     if (demoGrade === "d") {
       return `Demographic grade D (persona/account not a fit). Even with ${MQL_POINT_THRESHOLD}+ points, standard auto-MQL paths are usually blocked—see MQL routing.`;
+    }
+    if (demoGrade && engageChoice) {
+      const tier = engageToTier[engageChoice] ?? "?";
+      const code = `${demoGrade.toUpperCase()}${tier}`;
+      return `With grade ${demoGrade.toUpperCase()} and your selected activity → example score code ${code}. MQL still depends on channel rules (threshold: ${MQL_POINT_THRESHOLD} pts).`;
     }
     if (demoGrade) {
       const code =
@@ -69,8 +76,8 @@ export function ScoringFlowExplorer() {
             width: "100%",
           }}
         >
-          Step through the process below. On branching steps, pick a path or read every outcome—including
-          Grade D when persona and account are not a fit.
+          Step through the process below. On branching steps, pick a path—including the marketing activity on
+          step 4 and Grade D when persona and account are not a fit.
         </p>
         <p className="scoring-flow-block__miro" style={{ margin: "1rem 0 1.25rem", fontSize: "0.9375rem", color: "var(--coffee-muted)" }}>
           Full diagram:{" "}

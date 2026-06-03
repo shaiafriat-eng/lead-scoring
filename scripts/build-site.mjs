@@ -180,7 +180,7 @@ ${dimensionsSection({ onHome: true, showNav: false })}`,
       <div class="wrap">
         <h1>Explore the scoring flow</h1>
         <div class="scoring-flow-block">
-        <p class="lead scoring-flow-block__intro">Step through the process below. Branching steps show every outcome—including <strong>Grade D</strong> when persona and account are not a fit.</p>
+        <p class="lead scoring-flow-block__intro">Step through the process below. On branching steps, pick a path—including the marketing activity on step 4 and <strong>Grade D</strong> when persona and account are not a fit.</p>
         <p class="scoring-flow-block__miro">Full diagram: <a href="https://miro.com/app/board/uXjVIkUIQp0=/?share_link_id=79974080622" target="_blank" rel="noopener">Open Miro board →</a></p>
         <div class="card scoring-flow-block__card" style="padding:0">
           <div class="flow-step-dots" id="flow-dots"></div>
