@@ -46,7 +46,7 @@ function howItWorksSection({ onHome = false } = {}) {
       <div class="wrap">
         <${h}>How the score works</${h}>
         <div class="intro-grid">
-          <p class="lead">Two dimensions—fit and engagement—combine into a score code used for prioritization and MQL routing.</p>
+          <p class="lead lead--full-width">Two dimensions—fit and engagement—combine into a score code used for prioritization and MQL routing.</p>
           <div class="grid-2">
             <div class="card"><h3>Demographic (A–D)</h3><p style="color:var(--muted)">Person (function, seniority) + Account (ICP, status, geo, EE count) → grade A–D.</p></div>
             <div class="card"><h3>Behavioral (1–4)</h3><p style="color:var(--muted)">Activities earn Marketo points → bucketed into tiers 1 (100+) through 4 (0–14).</p></div>
@@ -229,7 +229,7 @@ ${matrixSection({ embedded: true })}`,
         </div>
         <div class="card tab-panel active" id="tab-hr"><h3>Hand raiser — always auto-MQL</h3><p style="color:var(--muted)">Request Demo, Pricing, Contact Sales · ~18% MQL-to-SQA CVR</p></div>
         <div class="card tab-panel" id="tab-wad"><h3>WAD — combo-based</h3><ul style="color:var(--muted)"><li>Auto-MQL: A1–A4, B1–B3, C1</li><li>C3: Americas, UK, APJ (no Micro)</li><li>No D3</li></ul></div>
-        <div class="card tab-panel" id="tab-act"><h3>Activity-based — A1 & B1 only</h3><p style="color:var(--muted)">1,874 → 86 MQLs; 4% → 17% CR</p></div>
+        <div class="card tab-panel" id="tab-act"><h3>Activity-based</h3><p style="color:var(--muted)">A1 & B1 only</p></div>
         <div class="card tab-panel" id="tab-oth"><h3>Other</h3><ul style="color:var(--muted)"><li>Keep PPL/directories</li><li>No ROI calculator MQL</li></ul></div>
         <div class="card banner" style="margin-top:1.25rem"><h3>Key metric</h3><p style="margin:0">MQL-to-SQA conversion rate drives routing decisions.</p></div>
       </div>
@@ -286,7 +286,6 @@ ${matrixSection({ embedded: true })}`,
           <li>Demographics are rule-based, not ML.</li>
           <li>Confirm live rules in Marketo before major campaigns.</li>
         </ul>
-        <p><a href="https://miro.com/app/board/uXjVIkUIQp0=/?share_link_id=79974080622" target="_blank" rel="noopener">Miro process board →</a></p>
       </div>
     </section>`,
   ),

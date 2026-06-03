@@ -42,7 +42,7 @@ export function heroSection() {
           <span class="guide-hero__benefit-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="12" width="4" height="8" rx="1"/><rect x="10" y="8" width="4" height="12" rx="1"/><rect x="16" y="4" width="4" height="16" rx="1"/></svg>
           </span>
-          <span>Improve sales &amp; marketing alignment</span>
+          <span>Improve sales&nbsp;&amp;&nbsp;marketing alignment</span>
         </li>
         <li>
           <span class="guide-hero__benefit-icon" aria-hidden="true">

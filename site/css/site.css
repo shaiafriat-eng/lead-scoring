@@ -251,6 +251,9 @@ a:hover { color: var(--dark-wine); }
   padding: 0 0.5rem;
   border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
+.guide-hero__benefits li > span:not(.guide-hero__benefit-icon) {
+  white-space: nowrap;
+}
 .guide-hero__benefits li:last-child { border-right: none; }
 .guide-hero__benefit-icon {
   flex-shrink: 0;
@@ -337,6 +340,8 @@ a:hover { color: var(--dark-wine); }
 
 .intro-grid .lead {
   margin: 0;
+  max-width: none;
+  width: 100%;
 }
 
 /* Header / nav — sticky on wrapper for reliable scroll behavior */

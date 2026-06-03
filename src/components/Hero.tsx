@@ -61,7 +61,7 @@ export function Hero() {
               <rect x="16" y="4" width="4" height="16" rx="1" />
             </svg>
           </span>
-          <span>Improve sales & marketing alignment</span>
+          <span>Improve sales&nbsp;&amp;&nbsp;marketing alignment</span>
         </li>
         <li>
           <span className="guide-hero__benefit-icon" aria-hidden>

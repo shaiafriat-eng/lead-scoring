@@ -1206,7 +1206,7 @@ export const MQL_POLICIES = [
     rules: ["Auto-MQL: A1 and B1 only"],
     autoMql: "A1 & B1 only",
     note: "Largest noise reduction; prioritize these for sales follow-up.",
-    impact: { before: "1,874 MQLs @ 4% CR", after: "86 MQLs @ 17% CR", pipeline: "Pipeline intentionally reduced for quality" },
+    impact: null,
   },
   {
     id: "other",

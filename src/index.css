@@ -304,6 +304,9 @@ h3 {
   padding: 0 0.5rem;
   border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
+.guide-hero__benefits li > span:not(.guide-hero__benefit-icon) {
+  white-space: nowrap;
+}
 .guide-hero__benefits li:last-child {
   border-right: none;
 }
@@ -392,7 +395,8 @@ h3 {
 .intro-grid .lead {
   margin: 0;
   color: var(--coffee-muted);
-  max-width: 42rem;
+  max-width: none;
+  width: 100%;
   font-size: 1.0625rem;
   font-weight: 400;
   text-transform: none;

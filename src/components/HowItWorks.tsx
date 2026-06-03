@@ -5,7 +5,7 @@ export function HowItWorks() {
   return (
     <Section id="how-it-works" title="How the score works">
       <div className="intro-grid">
-        <p className="lead">
+        <p className="lead lead--full-width">
           Two dimensions—fit and engagement—combine into a score code used for prioritization and MQL
           routing.
         </p>

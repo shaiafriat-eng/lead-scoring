@@ -1,4 +1,3 @@
-import { MIRO_BOARD_URL } from "../data/scoringContent";
 import { Section } from "./Section";
 
 const LIMITATIONS = [
@@ -56,11 +55,6 @@ export function Methodology() {
             <li>Lead Scoring cheat sheet & multi-dimensional model overview</li>
             <li>New Lead Scoring functional specification (Marketo/SFDC rules)</li>
             <li>New MQL Strategy (March 2025) — conversion-driven policy</li>
-            <li>
-              <a href={MIRO_BOARD_URL} target="_blank" rel="noopener noreferrer">
-                Miro process board
-              </a>
-            </li>
           </ul>
         </div>
       </div>
