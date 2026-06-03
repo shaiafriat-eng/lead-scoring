@@ -138,9 +138,6 @@ function matrixSection({ embedded = false } = {}) {
         <div class="matrix-wrap matrix-wrap--with-hint">
           <div class="matrix-try-hint" id="matrix-try-hint" aria-hidden="true">
             <div class="matrix-try-hint__bubble">
-              <svg class="matrix-try-hint__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M5.5 3.2v12.8l3.2-2.9 2.4 6.1 2.2-0.9-2.4-6.3 4.8 0.1L5.5 3.2z" fill="currentColor" stroke="currentColor" stroke-width="0.5" stroke-linejoin="round"/>
-              </svg>
               <span class="matrix-try-hint__label">Try me</span>
             </div>
             <span class="matrix-try-hint__tail"></span>
@@ -180,7 +177,7 @@ ${dimensionsSection({ onHome: true, showNav: false })}`,
       <div class="wrap">
         <h1>Explore the scoring flow</h1>
         <div class="scoring-flow-block">
-        <p class="lead scoring-flow-block__intro">Step through the process below. Steps 4–7 build on your choices: activity → tier → score code → <strong>MQL decision</strong>, including Grade D when persona and account are not a fit.</p>
+        <p class="lead scoring-flow-block__intro">Step through the process below.</p>
         <p class="scoring-flow-block__miro">Full diagram: <a href="https://miro.com/app/board/uXjVIkUIQp0=/?share_link_id=79974080622" target="_blank" rel="noopener">Open Miro board →</a></p>
         <div class="card scoring-flow-block__card" style="padding:0">
           <div class="flow-step-dots" id="flow-dots"></div>

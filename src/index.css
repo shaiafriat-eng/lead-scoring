@@ -724,8 +724,7 @@ tbody tr:hover {
 .matrix-try-hint__bubble {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.45rem 0.85rem 0.45rem 0.65rem;
+  padding: 0.45rem 0.85rem;
   background: linear-gradient(135deg, #1a5f7a, #2a9d8f);
   color: #fff;
   border-radius: 999px;
@@ -735,11 +734,6 @@ tbody tr:hover {
   text-transform: none;
   box-shadow: 0 10px 28px rgba(26, 95, 122, 0.35);
   animation: matrix-try-pop 1.8s ease-in-out infinite;
-}
-
-.matrix-try-hint__icon {
-  flex-shrink: 0;
-  animation: matrix-try-wiggle 1.1s ease-in-out infinite;
 }
 
 .matrix-try-hint__label {
@@ -774,16 +768,6 @@ tbody tr:hover {
   }
   45% {
     transform: scale(1.06);
-  }
-}
-
-@keyframes matrix-try-wiggle {
-  0%,
-  100% {
-    transform: rotate(-12deg);
-  }
-  50% {
-    transform: rotate(14deg);
   }
 }
 

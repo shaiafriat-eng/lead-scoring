@@ -128,7 +128,7 @@ export function ScoringFlowExplorer() {
             width: "100%",
           }}
         >
-          Step through the process below. Steps 4–7 build on your choices: activity → tier → score code → MQL decision.
+          Step through the process below.
         </p>
         <p
           className="scoring-flow-block__miro"
