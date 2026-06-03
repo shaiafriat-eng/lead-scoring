@@ -150,19 +150,9 @@
     {
       id: "mql",
       title: "MQL decision",
-      body: "Reaching 100+ points is necessary but not sufficient. Hand-raiser, WAD, and activity-based paths each have grade and channel rules.",
-      branchMode: "show-all",
-      branchPrompt: "Typical branches by score code:",
-      branches: [
-        { id: "mql-ab", label: "A1 / B1 + qualifying channel", outcome: "Usually auto-MQL on activity-based paths (March 2025 policy)." },
-        { id: "mql-c", label: "C3 + WAD (selective)", outcome: "May MQL in target regions only; not a blanket pass." },
-        { id: "mql-d", label: "Any D grade", grade: "D", outcome: "Generally no auto-MQL—D3 blocked on WAD; D4 lowest priority." },
-        {
-          id: "mql-block",
-          label: "100+ pts but wrong combo",
-          outcome: "Points alone do not MQL if grade/channel/source is excluded (see MQL routing).",
-        },
-      ],
+      body: "Based on your demographic grade, activity, and score code, this is the expected auto-MQL outcome.",
+      branchMode: "derived",
+      branches: [],
     },
   ];
 
@@ -232,33 +222,130 @@
     }
   }
 
-  function endSummary() {
+  function getMqlDecisionFromFlow() {
     if (choices.junk === "yes") {
-      return "Lead stops at Grade D after junk screening—not auto-MQL on standard WAD/activity paths.";
+      return {
+        value: "Not MQL",
+        tone: "no",
+        outcome:
+          "Lead matched junk/test screening (grade D). Standard auto-MQL paths do not apply—nurture or suppress per ops rules.",
+      };
     }
-    if (choices.demo === "d") {
-      return (
-        "Demographic grade D (persona/account not a fit). Even with " +
-        MQL_THRESHOLD +
-        "+ points, standard auto-MQL paths are usually blocked—see MQL routing."
-      );
+    var tier = currentBehaviorTier();
+    var demo = choices.demo;
+    var engage = choices.engage;
+    if (!demo || !engage || !tier) return null;
+
+    var code = scoreCodeFromChoices(demo, tier);
+    var engageBranch = getEngageBranch(engage);
+    var activityLabel = engageBranch ? engageBranch.label : "Selected activity";
+
+    if (engage === "p100") {
+      if (demo === "d") {
+        return {
+          value: "Review required",
+          tone: "review",
+          outcome:
+            code +
+            " — hand-raiser with grade D is unusual. Verify junk/ICP data or submit a manual MQL review.",
+        };
+      }
+      return {
+        value: "Likely auto-MQL",
+        tone: "yes",
+        outcome:
+          activityLabel + " → " + code + ". Hand-raiser path is always auto-MQL when the record is clean.",
+      };
     }
-    if (choices.demo && currentBehaviorTier()) {
-      var tier = currentBehaviorTier();
-      var code = scoreCodeFromChoices(choices.demo, tier);
-      return (
-        "Score code " +
-        code +
-        " (grade " +
-        choices.demo.toUpperCase() +
-        " + tier " +
-        tier +
-        "). MQL still depends on channel rules (threshold: " +
-        MQL_THRESHOLD +
-        " pts)."
-      );
+
+    if (demo === "d") {
+      if (engage === "p50" && tier === "3") {
+        return {
+          value: "Not auto-MQL",
+          tone: "no",
+          outcome: code + " on WAD — D3 is explicitly blocked. Other D grades rarely auto-MQL.",
+        };
+      }
+      return {
+        value: "Not auto-MQL",
+        tone: "no",
+        outcome: code + " — grade D is excluded from most WAD and activity auto-MQL paths.",
+      };
     }
-    return "Example: ICP champion with 105 points → A1 → high priority. MQL threshold: " + MQL_THRESHOLD + " points.";
+
+    if (engage === "p5") {
+      return {
+        value: "Not auto-MQL",
+        tone: "no",
+        outcome: "Email clicks only (+5 pts) cannot reach the " + MQL_THRESHOLD + "-point threshold alone.",
+      };
+    }
+
+    if (engage === "p15") {
+      return {
+        value: "Not auto-MQL",
+        tone: "no",
+        outcome: code + " — ~15 pts from this activity; below the " + MQL_THRESHOLD + "-point MQL threshold.",
+      };
+    }
+
+    if (engage === "p50") {
+      if (tier === "3" && demo === "c") {
+        return {
+          value: "Selective MQL",
+          tone: "selective",
+          outcome: code + " on WAD — C3 may auto-MQL in Americas, UK, and APJ only. Not a blanket pass.",
+        };
+      }
+      if (demo === "c" && tier === "1") {
+        return {
+          value: "Likely auto-MQL",
+          tone: "yes",
+          outcome: code + " on WAD — C1 is in the allowed WAD auto-MQL list.",
+        };
+      }
+      if (demo === "a" || demo === "b") {
+        return {
+          value: "Likely auto-MQL",
+          tone: "yes",
+          outcome: code + " on WAD — fits allowed combos (A1–A4, B1–B3, and C1).",
+        };
+      }
+      if (demo === "c") {
+        return {
+          value: "Unlikely auto-MQL",
+          tone: "no",
+          outcome: code + " on WAD — only C1 and selective C3 qualify.",
+        };
+      }
+      return { value: "Check WAD rules", tone: "review", outcome: code + " on WAD — confirm allowed combos in MQL policy." };
+    }
+
+    if (tier === "1" && (demo === "a" || demo === "b")) {
+      return {
+        value: "Likely auto-MQL",
+        tone: "yes",
+        outcome: code + " — activity-based auto-MQL allows A1 and B1 only (" + MQL_THRESHOLD + "+ pts).",
+      };
+    }
+
+    if (demo === "a" || demo === "b") {
+      return {
+        value: "Not auto-MQL",
+        tone: "no",
+        outcome: code + " — activity-based path requires A1 or B1; " + code + " does not qualify.",
+      };
+    }
+
+    if (demo === "c") {
+      return {
+        value: "Unlikely auto-MQL",
+        tone: "no",
+        outcome: code + " — grade C only has selective paths (e.g. C3 + WAD in target regions).",
+      };
+    }
+
+    return { value: "Check MQL policy", tone: "review", outcome: code + " — confirm channel rules on the MQL Policy page." };
   }
 
   function renderDerived(step) {
@@ -294,6 +381,20 @@
       wrap.className = "flow-derived flow-derived--grade-" + choices.demo.toUpperCase();
       if (choices.demo === "d") wrap.className = "flow-derived flow-derived--grade-D";
       appendDerived(wrap, "Score code", code, getScoreCodeOutcome(code));
+      return wrap;
+    }
+
+    if (step.id === "mql") {
+      var decision = getMqlDecisionFromFlow();
+      if (!decision) {
+        var hint3 = document.createElement("p");
+        hint3.style.cssText = "font-size:0.875rem;color:var(--muted);margin:0";
+        hint3.textContent = "Complete steps 2–6 first — MQL outcome depends on your path through the flow.";
+        wrap.appendChild(hint3);
+        return wrap;
+      }
+      wrap.className = "flow-derived flow-derived--mql-" + decision.tone;
+      appendDerived(wrap, "MQL decision", decision.value, decision.outcome);
       return wrap;
     }
 
@@ -442,14 +543,6 @@
       if (branchesEl) panel.appendChild(branchesEl);
     }
 
-    if (flowStep === FLOW_STEPS.length - 1) {
-      const end = document.createElement("p");
-      end.style.cssText =
-        "margin:1rem 0;padding:1rem;background:linear-gradient(135deg,var(--dark-wine),var(--cherry-syrup));color:#fff;border-radius:12px;font-size:0.9375rem";
-      end.textContent = endSummary();
-      panel.appendChild(end);
-    }
-
     const nav = document.createElement("div");
     nav.style.cssText = "margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap";
     const back = document.createElement("button");
@@ -468,6 +561,7 @@
     var needsChoice = false;
     if (s.id === "behavior") needsChoice = !choices.engage || !currentBehaviorTier();
     else if (s.id === "code") needsChoice = !choices.demo || !currentBehaviorTier();
+    else if (s.id === "mql") needsChoice = !getMqlDecisionFromFlow();
     else if (s.branchMode === "choose-one") needsChoice = !choices[s.id];
 
     if (flowStep < FLOW_STEPS.length - 1) {

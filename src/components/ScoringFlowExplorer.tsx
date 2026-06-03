@@ -2,12 +2,12 @@ import { useState } from "react";
 import {
   MIRO_BOARD_URL,
   SCORING_FLOW_STEPS,
-  MQL_POINT_THRESHOLD,
   ENGAGE_TO_TIER,
   tierFromEngage,
   getBehaviorBranchByTier,
   scoreCodeFromChoices,
   getScoreCodeOutcome,
+  getMqlDecisionFromFlow,
 } from "../data/scoringContent";
 import { FlowStepBranches } from "./FlowStepBranches";
 import { FlowDerivedResult } from "./FlowDerivedResult";
@@ -54,22 +54,6 @@ export function ScoringFlowExplorer() {
     setChoices({});
   };
 
-  const junkEnd = choices.junk === "yes";
-
-  const endSummary = () => {
-    if (junkEnd) {
-      return "Lead stops at Grade D after junk screening—not auto-MQL on standard WAD/activity paths.";
-    }
-    if (demoGrade === "d") {
-      return `Demographic grade D (persona/account not a fit). Even with ${MQL_POINT_THRESHOLD}+ points, standard auto-MQL paths are usually blocked—see MQL routing.`;
-    }
-    if (demoGrade && behaviorTier) {
-      const code = scoreCode ?? `${demoGrade.toUpperCase()}${behaviorTier}`;
-      return `Score code ${code} (grade ${demoGrade.toUpperCase()} + tier ${behaviorTier}). MQL still depends on channel rules (threshold: ${MQL_POINT_THRESHOLD} pts).`;
-    }
-    return `Example: ICP champion with 105 points → A1 → high priority. MQL threshold: ${MQL_POINT_THRESHOLD} points.`;
-  };
-
   const derivedPanel = () => {
     if (current.id === "behavior") {
       if (!engageChoice || !behaviorTier) {
@@ -108,6 +92,24 @@ export function ScoringFlowExplorer() {
         />
       );
     }
+    if (current.id === "mql") {
+      const decision = getMqlDecisionFromFlow(choices);
+      if (!decision) {
+        return (
+          <p style={{ fontSize: "0.875rem", color: "var(--coffee-muted)", marginBottom: "1.25rem" }}>
+            Complete steps 2–6 first — MQL outcome depends on your path through the flow.
+          </p>
+        );
+      }
+      return (
+        <FlowDerivedResult
+          label="MQL decision"
+          value={decision.value}
+          outcome={decision.outcome}
+          toneClass={`flow-derived--mql-${decision.tone}`}
+        />
+      );
+    }
     return null;
   };
 
@@ -126,7 +128,7 @@ export function ScoringFlowExplorer() {
             width: "100%",
           }}
         >
-          Step through the process below. Steps 4–6 build on each other: activity → tier → score code.
+          Step through the process below. Steps 4–7 build on your choices: activity → tier → score code → MQL decision.
         </p>
         <p
           className="scoring-flow-block__miro"
@@ -188,21 +190,6 @@ export function ScoringFlowExplorer() {
               />
             )}
 
-            {isLastStep && (
-              <div
-                style={{
-                  padding: "1rem",
-                  background: "linear-gradient(135deg, var(--dark-wine), var(--cherry-syrup))",
-                  borderRadius: 12,
-                  color: "#fff",
-                  marginBottom: "1rem",
-                  fontSize: "0.9375rem",
-                }}
-              >
-                {endSummary()}
-              </div>
-            )}
-
             <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
               <button type="button" className="btn btn-secondary" onClick={goPrev} disabled={step === 0}>
                 Back
@@ -232,6 +219,7 @@ function stepNeedsChoice(
 ): boolean {
   if (stepId === "behavior") return !choices.engage || !behaviorTier;
   if (stepId === "code") return !demoGrade || !behaviorTier;
+  if (stepId === "mql") return getMqlDecisionFromFlow(choices) === null;
   const step = SCORING_FLOW_STEPS.find((s) => s.id === stepId);
   if (step?.branchMode === "choose-one") return !choices[stepId];
   return false;

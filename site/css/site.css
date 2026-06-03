@@ -515,6 +515,13 @@ th { background: var(--cappuccino-foam); font-weight: 900; text-transform: upper
   line-height: 1.45;
   color: var(--muted);
 }
+.flow-derived--mql-yes { border-color: #2d6a4f; background: #edf7f0; }
+.flow-derived--mql-yes .flow-derived__value { color: #1b4332; }
+.flow-derived--mql-no { border-color: var(--dark-wine); background: #fdf0f3; }
+.flow-derived--mql-no .flow-derived__value { color: var(--dark-wine); }
+.flow-derived--mql-selective { border-color: var(--orange-juice, #faa32b); background: #fff8ed; }
+.flow-derived--mql-selective .flow-derived__value { color: #9a5b00; }
+.flow-derived--mql-review { border-color: var(--cherry-syrup); }
 
 /* MQL diagnostic — conversational guide */
 .mql-diagnostic { padding: 0; overflow: hidden; }
