@@ -4,34 +4,33 @@ The live site is built from **`docs/`** (multi-page static site copied from `sit
 
 ## One-time setup on GitHub
 
-**Private repos on a free personal account cannot use GitHub Pages.** You must either make the repo **public** or host elsewhere (Netlify, `hibobio` org with Enterprise, etc.).
+**Private repos** may require org-level GitHub Pages access (e.g. GitHub Enterprise for private org repos). Confirm with your org admin if Pages is not available in **Settings → Pages**.
 
-1. **Settings → General → Danger Zone → Change visibility → Public** (required on free accounts).
-2. **Settings → Pages → Build and deployment:**
+1. Open **Settings → Pages → Build and deployment:**
    - **Fastest:** Source = **Deploy from a branch** → Branch **main** → Folder **/docs** → **Save**
-   - **Or:** Source = **GitHub Actions** → click **Configure Static HTML** (uses `deploy-pages.yml`)
-3. Push `main` (see below). If using Actions, confirm **Deploy to GitHub Pages** is green.
+   - **Or:** Source = **GitHub Actions** → enable the workflow (uses `deploy-pages.yml`)
+2. Push `main` (see below). If using Actions, confirm **Deploy to GitHub Pages** is green under **Actions**.
 
 Your site will be at:
 
-`https://shaiafriat-eng.github.io/lead-scoring/`
+`https://hibobio.github.io/marketing-ops-general/`
 
-Repository: https://github.com/shaiafriat-eng/lead-scoring
+Repository: https://github.com/hibobio/marketing-ops-general
 
 ## Push this project to GitHub
 
 From `src/scoring-system`:
 
 ```bash
-git init
-git add .
-git commit -m "Add lead scoring guide for GitHub Pages"
-git branch -M main
-git remote add origin https://github.com/shaiafriat-eng/lead-scoring.git
-git push -u origin main
+git remote add hibobio https://github.com/hibobio/marketing-ops-general.git
+git push -u hibobio main
 ```
 
-Replace `<ORG_OR_USER>` and `<REPO>` with your GitHub org/user and repository name.
+Or use the helper script:
+
+```bash
+bash scripts/push-github.sh
+```
 
 ## After you edit content
 
@@ -42,10 +41,10 @@ npm run build:site    # or: node scripts/build-site.mjs
 bash scripts/sync-docs.sh
 git add docs/ site/
 git commit -m "Update live site"
-git push
+git push hibobio main
 ```
 
-GitHub Actions will redeploy automatically.
+GitHub Actions will redeploy automatically when Pages source is set to **GitHub Actions**.
 
 ## Alternative (no Actions)
 
