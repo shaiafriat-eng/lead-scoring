@@ -3,20 +3,25 @@ import { cpSync, mkdirSync, writeFileSync, existsSync } from "fs";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import { heroSection } from "./hero-html.mjs";
+import { DEFAULT_DESCRIPTION, socialMeta, SITE_NAME } from "./site-meta.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const siteDir = join(root, "site");
 
-function page(title, body, scripts = []) {
+function page(title, body, scripts = [], meta = {}) {
   const scriptTags = ["js/site-shell.js", ...scripts]
     .map((s) => `  <script src="${s}"></script>`)
     .join("\n");
+  const file = meta.path ?? "";
+  const description = meta.description ?? DEFAULT_DESCRIPTION;
+  const shareTitle = meta.shareTitle;
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>${title} | HiBob Lead Scoring</title>
+  <title>${title} | ${SITE_NAME}</title>
+${socialMeta({ title, shareTitle, description, path: file })}
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -150,8 +155,10 @@ function matrixSection({ embedded = false } = {}) {
 }
 
 const pages = {
-  "index.html": page(
-    "Home",
+  "index.html": {
+    title: "Home",
+    shareTitle: "The Ultimate Guide to Lead Scoring",
+    body:
     heroSection() +
     `    <section class="page">
       <div class="wrap overview-columns">
@@ -167,12 +174,13 @@ const pages = {
     </section>
 ${howItWorksSection({ onHome: true })}
 ${dimensionsSection({ onHome: true, showNav: false })}`,
-  ),
+  },
 
-  "how-it-works.html": page("How it works", howItWorksSection()),
+  "how-it-works.html": { title: "How it works", body: howItWorksSection() },
 
-  "scoring-flow.html": page(
-    "Scoring flow",
+  "scoring-flow.html": {
+    title: "Scoring flow",
+    body:
     `    <section class="page page--alt">
       <div class="wrap">
         <h1>Explore the scoring flow</h1>
@@ -187,11 +195,12 @@ ${dimensionsSection({ onHome: true, showNav: false })}`,
       </div>
     </section>
 ${matrixSection({ embedded: true })}`,
-    ["js/scoring-flow.js", "js/matrix.js"],
-  ),
+    scripts: ["js/scoring-flow.js", "js/matrix.js"],
+  },
 
-  "mqling-flow.html": page(
-    "ICP definition",
+  "mqling-flow.html": {
+    title: "ICP definition",
+    body:
     `    <section class="page">
       <div class="wrap">
         <h1>ICP definition</h1>
@@ -210,14 +219,15 @@ ${matrixSection({ embedded: true })}`,
         </div>
       </div>
     </section>`,
-  ),
+  },
 
-  "dimensions.html": page("Fit & behavior", dimensionsSection()),
+  "dimensions.html": { title: "Fit & behavior", body: dimensionsSection() },
 
-  "matrix.html": page("Score matrix", matrixSection()),
+  "matrix.html": { title: "Score matrix", body: matrixSection() },
 
-  "mql-routing.html": page(
-    "MQL Policy",
+  "mql-routing.html": {
+    title: "MQL Policy",
+    body:
     `    <section class="page" id="policy">
       <div class="wrap">
         <h1>MQL policy <span class="heading-date">last updated on March 2025</span></h1>
@@ -261,11 +271,12 @@ ${matrixSection({ embedded: true })}`,
         <p style="margin:0.75rem 0 0;font-size:0.875rem;color:var(--muted);max-width:52rem">Use this form when the guide shows the lead should have MQL'd but did not—Marketing Ops can review and force MQL if appropriate.</p>
       </div>
     </section>`,
-    ["js/mql-policy.js", "js/mql-diagnostic.js"],
-  ),
+    scripts: ["js/mql-policy.js", "js/mql-diagnostic.js"],
+  },
 
-  "guide.html": page(
-    "Support and Trust",
+  "guide.html": {
+    title: "Support and Trust",
+    body:
     `    <section class="page">
       <div class="wrap">
         <p class="label">Support</p>
@@ -288,15 +299,22 @@ ${matrixSection({ embedded: true })}`,
         </ul>
       </div>
     </section>`,
-  ),
+  },
 };
 
 mkdirSync(join(siteDir, "assets"), { recursive: true });
 cpSync(join(root, "assets"), join(siteDir, "assets"), { recursive: true });
 writeFileSync(join(siteDir, ".nojekyll"), "");
 
-for (const [file, html] of Object.entries(pages)) {
-  writeFileSync(join(siteDir, file), html);
+for (const [file, spec] of Object.entries(pages)) {
+  writeFileSync(
+    join(siteDir, file),
+    page(spec.title, spec.body, spec.scripts ?? [], {
+      path: file,
+      description: spec.description,
+      shareTitle: spec.shareTitle,
+    }),
+  );
 }
 
 // Legacy single-file redirect

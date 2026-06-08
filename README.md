@@ -1,6 +1,8 @@
 # HiBob Lead Scoring — Internal Stakeholder Guide
 
-A multi-page internal site explaining HiBob's two-dimensional lead scoring system (demographic A–D × behavioral 1–4), MQL policy, and interpretation guidance.
+**The ultimate guide to lead scoring at HiBob** — demographic fit (A–D) × behavioral engagement (1–4), MQL policy, and routing for Marketing, Sales, and RevOps.
+
+Live site: https://hibobio.github.io/marketing-ops-general/
 
 ## Favicon
 
