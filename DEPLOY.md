@@ -13,7 +13,7 @@ The live site is built from **`docs/`** (multi-page static site copied from `sit
 
 Your site will be at:
 
-`https://hibobio.github.io/marketing-ops-general/`
+`https://hibobio.github.io/marketing-ops-general/lead-scoring-guide/`
 
 Repository: https://github.com/hibobio/marketing-ops-general
 

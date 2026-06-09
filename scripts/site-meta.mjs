@@ -1,5 +1,7 @@
 /** Shared metadata for static HTML and social link previews. */
-export const SITE_URL = "https://hibobio.github.io/marketing-ops-general";
+export const SITE_BASE = "https://hibobio.github.io/marketing-ops-general";
+export const SITE_SLUG = "lead-scoring-guide";
+export const SITE_URL = `${SITE_BASE}/${SITE_SLUG}`;
 
 export const SITE_NAME = "HiBob Lead Scoring";
 

@@ -34,4 +34,4 @@ git push -u "$REMOTE_NAME" main
 
 echo ""
 echo "Done. Enable Pages: repo Settings → Pages → Source: GitHub Actions (or branch main /docs)"
-echo "Live URL: https://hibobio.github.io/marketing-ops-general/"
+echo "Live URL: https://hibobio.github.io/marketing-ops-general/lead-scoring-guide/"

@@ -2,7 +2,7 @@
 
 **The ultimate guide to lead scoring at HiBob** — demographic fit (A–D) × behavioral engagement (1–4), MQL policy, and routing for Marketing, Sales, and RevOps.
 
-Live site: https://hibobio.github.io/marketing-ops-general/
+Live site: https://hibobio.github.io/marketing-ops-general/lead-scoring-guide/
 
 ## Favicon
 

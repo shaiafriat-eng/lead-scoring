@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Scoring flow | HiBob Lead Scoring</title>
+  <title>Score matrix | HiBob Lead Scoring</title>
   <meta name="description" content="The ultimate guide to HiBob lead scoring: demographic fit (A–D) × behavioral engagement (1–4), MQL policy, and routing for Marketing, Sales, and RevOps." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="HiBob Lead Scoring" />
-  <meta property="og:title" content="Scoring flow | HiBob Lead Scoring" />
+  <meta property="og:title" content="Score matrix | HiBob Lead Scoring" />
   <meta property="og:description" content="The ultimate guide to HiBob lead scoring: demographic fit (A–D) × behavioral engagement (1–4), MQL policy, and routing for Marketing, Sales, and RevOps." />
-  <meta property="og:url" content="https://hibobio.github.io/marketing-ops-general/scoring-flow.html" />
-  <meta property="og:image" content="https://hibobio.github.io/marketing-ops-general/assets/hero-banner.png" />
+  <meta property="og:url" content="https://hibobio.github.io/marketing-ops-general/lead-scoring-guide/matrix.html" />
+  <meta property="og:image" content="https://hibobio.github.io/marketing-ops-general/lead-scoring-guide/assets/hero-banner.png" />
   <meta property="og:image:alt" content="HiBob lead scoring guide" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Scoring flow | HiBob Lead Scoring" />
+  <meta name="twitter:title" content="Score matrix | HiBob Lead Scoring" />
   <meta name="twitter:description" content="The ultimate guide to HiBob lead scoring: demographic fit (A–D) × behavioral engagement (1–4), MQL policy, and routing for Marketing, Sales, and RevOps." />
-  <meta name="twitter:image" content="https://hibobio.github.io/marketing-ops-general/assets/hero-banner.png" />
+  <meta name="twitter:image" content="https://hibobio.github.io/marketing-ops-general/lead-scoring-guide/assets/hero-banner.png" />
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,22 +25,9 @@
 <body>
   <div id="site-header"></div>
   <main>
-    <section class="page page--alt">
+    <section class="page page--alt" id="matrix">
       <div class="wrap">
-        <h1>Explore the scoring flow</h1>
-        <div class="scoring-flow-block">
-        <p class="lead scoring-flow-block__intro">Step through the process below.</p>
-        <p class="scoring-flow-block__miro">Full diagram: <a href="https://miro.com/app/board/uXjVIkUIQp0=/?share_link_id=79974080622" target="_blank" rel="noopener">Open Miro board →</a></p>
-        <div class="card scoring-flow-block__card" style="padding:0">
-          <div class="flow-step-dots" id="flow-dots"></div>
-          <div class="flow-panel" id="flow-panel"></div>
-        </div>
-        </div>
-      </div>
-    </section>
-    <section class="page" id="matrix">
-      <div class="wrap">
-        <h2>Score matrix</h2>
+        <h1>Score matrix</h1>
         <p class="lead">Darker = higher priority. A1 top → D4 lowest. <br>Hover a cell for an example lead.</p>
         <div class="matrix-wrap matrix-wrap--with-hint">
           <div class="matrix-try-hint" id="matrix-try-hint" aria-hidden="true">
@@ -51,13 +38,11 @@
           </div>
           <div class="card matrix" id="matrix-grid"></div>
         </div>
-        
+        <div class="page-nav-links"><a class="btn btn-secondary" href="mql-routing.html">MQL Policy →</a></div>
       </div>
     </section>
   </main>
   <div id="site-footer"></div>
   <script src="js/site-shell.js"></script>
-  <script src="js/scoring-flow.js"></script>
-  <script src="js/matrix.js"></script>
 </body>
 </html>
