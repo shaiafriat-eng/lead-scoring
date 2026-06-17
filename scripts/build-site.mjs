@@ -88,7 +88,7 @@ function dimensionsFitBlock({ onHome = false } = {}) {
             <li>Low-quality email validation signals</li>
           </ul>
           </div></details></li>
-          <li>Unsubscribed</li><li>Student, Design, intern, professor</li><li>Job function: Sales</li><li>HiBob employees</li></ul></div></details>
+          <li>Student, Design, intern, professor</li><li>Job function: Sales</li><li>HiBob employees</li></ul></div></details>
         <details><summary>Account-level disqualifiers</summary><div class="inner"><ul class="dq-person-list">
           <li>Account status is Not Relevant</li>
           <li><details class="details-in-list"><summary>Bad country</summary><div class="details-in-list__body"><p style="margin:0;font-size:0.875rem;line-height:1.8;color:var(--muted)">Iran, Lebanon, North Korea, Somalia, Cuba, Syria, Sudan, Libya, Pakistan, India, Iraq, Palestine, Syrian Arab Republic, China, Palestinian Territory (Occupied), Palestinian Territory</p></div></details></li>

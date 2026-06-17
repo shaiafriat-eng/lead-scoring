@@ -1243,7 +1243,6 @@ export const ICP_MQL_EE_DISCLAIMER =
 
 export const DISQUALIFIERS_D = {
   person: [
-    "Unsubscribed",
     "Irrelevant titles: Student, Design, intern, professor",
     "Job function: Sales",
     "HiBob employees",
