@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Post-MQL Journey</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/pre-mql.css" />
+    <link rel="stylesheet" href="/post-mql.css" />
+    <link rel="stylesheet" href="/hibob-theme.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="app postmql-app">
+      <header class="header card">
+        <div class="header-top">
+          <div class="header-brand">
+            <img class="hibob-logo" src="/hibob-logo.png" alt="HiBob" width="44" height="44" />
+            <div>
+              <h1>Post-MQL Journey</h1>
+              <p class="subtitle">After MQL → return visits → buying intent → outreach priority</p>
+            </div>
+          </div>
+          <nav class="header-nav" id="dashboardNav" aria-label="Dashboard navigation"></nav>
+        </div>
+
+        <div class="kpi-row premql-kpi-primary postmql-kpi-primary" id="headerStats" hidden>
+          <div class="kpi-card kpi-card--primary kpi-card--stat">
+            <span class="kpi-label-row">
+              <span class="kpi-label">Returning MQL contacts</span>
+              <span class="kpi-info-btn" role="button" tabindex="0" data-kpi-tip="post-mql-contacts" aria-label="About Returning MQL contacts"></span>
+            </span>
+            <span class="kpi-value" id="statContacts">—</span>
+            <span class="kpi-foot">Returned after MQL</span>
+          </div>
+          <div class="kpi-card kpi-card--primary kpi-card--stat">
+            <span class="kpi-label-row">
+              <span class="kpi-label">Return visits</span>
+              <span class="kpi-info-btn" role="button" tabindex="0" data-kpi-tip="return-visits" aria-label="About Return visits"></span>
+            </span>
+            <span class="kpi-value" id="statReturns">—</span>
+            <span class="kpi-foot">Post-MQL sessions</span>
+          </div>
+          <div class="kpi-card kpi-card--primary kpi-card--stat">
+            <span class="kpi-label-row">
+              <span class="kpi-label">Page views</span>
+              <span class="kpi-info-btn" role="button" tabindex="0" data-kpi-tip="page-views" aria-label="About Page views"></span>
+            </span>
+            <span class="kpi-value" id="statPageViews">—</span>
+            <span class="kpi-foot">After MQL</span>
+          </div>
+          <div class="kpi-card kpi-card--primary kpi-card--stat">
+            <span class="kpi-label-row">
+              <span class="kpi-label">Avg return visits</span>
+              <span class="kpi-info-btn" role="button" tabindex="0" data-kpi-tip="avg-return-visits" aria-label="About Avg return visits"></span>
+            </span>
+            <span class="kpi-value" id="statAvgReturns">—</span>
+            <span class="kpi-foot" id="statAvgReturnsFoot">Per returning contact</span>
+          </div>
+          <div class="kpi-card kpi-card--primary kpi-card--stat">
+            <span class="kpi-label-row">
+              <span class="kpi-label">High-intent returners</span>
+              <span class="kpi-info-btn" role="button" tabindex="0" data-kpi-tip="high-intent-returners" aria-label="About High-intent returners"></span>
+            </span>
+            <span class="kpi-value" id="statHighIntent">—</span>
+            <span class="kpi-foot">Pricing/demo/product intent</span>
+          </div>
+          <div class="kpi-card kpi-card--primary kpi-card--stat">
+            <span class="kpi-label-row">
+              <span class="kpi-label">Needs outreach</span>
+              <span class="kpi-info-btn" role="button" tabindex="0" data-kpi-tip="immediate-outreach" aria-label="About Needs outreach"></span>
+            </span>
+            <span class="kpi-value" id="statOutreach">—</span>
+            <span class="kpi-foot" id="statOutreachFoot">Score ≥ 55</span>
+          </div>
+        </div>
+
+        <div class="header-filters">
+          <div class="premql-filter-bar filters-grid postmql-filters">
+            <div class="filter-field">
+              <label for="filterRegion" class="filter-label-with-tip">
+                Region
+                <span class="kpi-info-btn kpi-info-btn--compact" tabindex="0" role="button" id="regionFilterTip" aria-label="About Region filter"></span>
+              </label>
+              <select id="filterRegion"><option value="">All regions</option></select>
+            </div>
+            <div class="filter-field">
+              <label for="filterSegment">Segment</label>
+              <select id="filterSegment"><option value="">All segments</option></select>
+            </div>
+            <div class="filter-field">
+              <label for="filterStatus">Lead status</label>
+              <select id="filterStatus"><option value="">All statuses</option></select>
+            </div>
+            <div class="filter-field">
+              <label for="filterOwner">Owner</label>
+              <select id="filterOwner"><option value="">All owners</option></select>
+            </div>
+            <div class="filter-field">
+              <label for="filterScore">Intent score band</label>
+              <select id="filterScore"><option value="">All intent scores</option></select>
+            </div>
+            <div class="filter-field">
+              <label for="filterPage">Page category</label>
+              <select id="filterPage"><option value="">All pages</option></select>
+            </div>
+            <div class="filter-field">
+              <label for="filterMqlFrom">MQL from</label>
+              <input type="date" id="filterMqlFrom" />
+            </div>
+            <div class="filter-field">
+              <label for="filterMqlTo">MQL to</label>
+              <input type="date" id="filterMqlTo" />
+            </div>
+            <div class="filter-field">
+              <label for="filterReturnFrom">Latest return from</label>
+              <input type="date" id="filterReturnFrom" />
+            </div>
+            <div class="filter-field">
+              <label for="filterReturnTo">Latest return to</label>
+              <input type="date" id="filterReturnTo" />
+            </div>
+          </div>
+          <div class="header-filters-actions">
+            <span class="postmql-region-chip" id="regionFilterChip" hidden>
+              Region: <strong id="regionChipLabel"></strong>
+              <button type="button" class="postmql-region-chip-clear" id="regionChipClear" aria-label="Clear region filter">×</button>
+            </span>
+            <div class="premql-filters">
+              <button type="button" class="filter-chip" data-filter="high-intent">High-intent only</button>
+              <button type="button" class="filter-chip" data-filter="outreach">Needs outreach</button>
+              <button type="button" class="filter-chip" data-filter="returned">Has returns</button>
+            </div>
+          </div>
+          <div class="postmql-filter-audience" id="filterAudienceBar" hidden>
+            <p class="postmql-filter-audience-text" id="filterAudienceSummary"></p>
+            <button type="button" class="btn-clear-filters postmql-clear-all-btn" id="clearFiltersBtn" hidden>Clear all filters</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="postmql-layout">
+        <aside class="sidebar card postmql-sidebar">
+          <div class="page-filter-banner" id="pageFilterBanner" hidden>
+            <span id="pageFilterLabel"></span>
+            <button type="button" class="page-filter-clear" id="pageFilterClear">Clear</button>
+          </div>
+          <label class="search-wrap">
+            <span class="sr-only">Search by email</span>
+            <input type="search" id="search" placeholder="Search email…" autocomplete="off" />
+          </label>
+          <div class="sidebar-stats" id="listMeta"><div class="sidebar-stats-hint">Loading…</div></div>
+          <ul class="mql-list postmql-contact-list" id="mqlList" role="listbox" aria-label="Post-MQL contacts"></ul>
+        </aside>
+
+        <section class="postmql-main">
+          <div class="card premql-graph-panel postmql-graph-panel" id="journeyPanel">
+            <div class="panel-head postmql-journey-panel-head">
+              <div class="postmql-journey-title-row">
+                <h2>Post-MQL Activity Journey</h2>
+                <span class="postmql-journey-pills" id="journeyPriorityPills" hidden></span>
+              </div>
+              <p class="panel-sub" id="touchJourneyHint">Select a contact to view post-MQL activity</p>
+            </div>
+            <div class="premql-empty" id="journeyEmpty">
+              Pick a contact from the list to see return activity after MQL.
+            </div>
+            <div id="journeyContent" hidden>
+              <div class="postmql-lead-header" id="leadHeader"></div>
+              <div class="postmql-summary-cards" id="summaryCards"></div>
+              <div class="postmql-chart-wrap">
+                <p class="postmql-chart-note" id="chartLowActivityNote" hidden></p>
+                <div class="postmql-chart">
+                  <div class="postmql-chart-rail" aria-hidden="true">
+                    <div class="postmql-rail-line postmql-rail-line--mql"></div>
+                    <div class="postmql-rail-line postmql-rail-line--latest" id="latestRailLine" hidden></div>
+                  </div>
+                  <div class="postmql-chart-head">
+                    <div class="postmql-chart-head-label">Page path</div>
+                    <div class="postmql-timeline-col postmql-timeline-col--head">
+                      <div class="postmql-timeline-marker postmql-timeline-marker--mql" id="mqlMarker">
+                        <span class="postmql-timeline-marker-title">MQL</span>
+                        <time class="postmql-timeline-marker-date" id="mqlMarkerDate"></time>
+                      </div>
+                      <div class="postmql-timeline-marker postmql-timeline-marker--latest" id="latestMarker" hidden>
+                        <span class="postmql-timeline-marker-title">Latest return</span>
+                        <time class="postmql-timeline-marker-date" id="latestMarkerDate"></time>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="postmql-chart-body">
+                    <div class="postmql-chart-lanes" id="postTouchLanes"></div>
+                  </div>
+                </div>
+                <div class="lane-tooltip" id="postLaneTooltip" hidden></div>
+              </div>
+              <div class="journey-insight-card" id="journeyInsight" hidden>
+                <div class="journey-insight-title">Post-MQL insight</div>
+                <p class="journey-insight-lead" id="journeyOutcome"></p>
+                <ul class="journey-insight-bullets" id="journeyInsightBullets"></ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="card premql-timeline-panel postmql-timeline-panel">
+            <div class="panel-head">
+              <h2>Return visit timeline</h2>
+              <p class="panel-sub">Grouped sessions after MQL</p>
+            </div>
+            <div class="premql-empty" id="timelineEmpty">Timeline appears when you select a contact.</div>
+            <div class="postmql-timeline" id="timeline" hidden></div>
+          </div>
+        </section>
+
+        <aside class="postmql-outreach card" aria-labelledby="outreachHeading">
+          <div class="postmql-outreach-head">
+            <div class="panel-head">
+              <h2 id="outreachHeading">Immediate outreach queue</h2>
+              <p class="panel-sub" id="outreachSummary">Contacts showing strong post-MQL intent</p>
+              <p class="postmql-outreach-helper" id="outreachHelper"></p>
+              <p class="postmql-outreach-scroll-cue" id="outreachScrollCue" hidden></p>
+            </div>
+          </div>
+          <div class="postmql-outreach-body">
+            <div class="postmql-outreach-list" id="outreachList"></div>
+            <button type="button" class="postmql-outreach-show-all" id="outreachShowAll" hidden>Show all</button>
+          </div>
+        </aside>
+      </main>
+
+      <section class="premql-insights-footer card postmql-insights-footer" aria-label="Filtered insights">
+        <div class="panel-head compact">
+          <h2>Filtered insights</h2>
+          <p class="panel-sub">
+            <span id="insightsFilterNote">Based on current filters</span>
+            <span class="insights-note" title="Account count can differ from MQL contact count because one account may include multiple MQL contacts.">ⓘ</span>
+          </p>
+        </div>
+        <div class="premql-insights-grid postmql-insights-grid">
+          <div class="filter-insight-card" data-insight="pages">
+            <h3 class="filter-insight-title">Top return pages</h3>
+            <p class="filter-insight-sub">Post-MQL page views for current filters</p>
+            <div class="filter-insight-rows" id="topPagesList"></div>
+            <button type="button" class="filter-insight-more" id="topPagesListMore" hidden>View all</button>
+          </div>
+          <div class="filter-insight-card" data-insight="status">
+            <h3 class="filter-insight-title">Lead statuses</h3>
+            <p class="filter-insight-sub">Current status after MQL</p>
+            <div class="filter-insight-rows" id="leadStatusList"></div>
+            <button type="button" class="filter-insight-more" id="leadStatusListMore" hidden>View all</button>
+          </div>
+          <div class="filter-insight-card" data-insight="segment">
+            <h3 class="filter-insight-title">Segments</h3>
+            <p class="filter-insight-sub">Main segment</p>
+            <div class="filter-insight-rows" id="segmentList"></div>
+            <button type="button" class="filter-insight-more" id="segmentListMore" hidden>View all</button>
+          </div>
+          <div class="filter-insight-card" data-insight="region">
+            <h3 class="filter-insight-title">Regions</h3>
+            <p class="filter-insight-sub">Returning MQL contacts by region</p>
+            <div class="filter-insight-rows" id="regionList"></div>
+            <button type="button" class="filter-insight-more" id="regionListMore" hidden>View all</button>
+          </div>
+          <div class="filter-insight-card" data-insight="owner">
+            <h3 class="filter-insight-title">Owners</h3>
+            <p class="filter-insight-sub">Main owner</p>
+            <div class="filter-insight-rows" id="ownerList"></div>
+            <button type="button" class="filter-insight-more" id="ownerListMore" hidden>View all</button>
+          </div>
+          <div class="filter-insight-card" data-insight="high-intent">
+            <h3 class="filter-insight-title">High-intent pages</h3>
+            <p class="filter-insight-sub">Pricing, demo, and trial views after MQL</p>
+            <div class="filter-insight-rows" id="highIntentPagesList"></div>
+            <button type="button" class="filter-insight-more" id="highIntentPagesListMore" hidden>View all</button>
+          </div>
+        </div>
+      </section>
+
+      <footer class="premql-validation-footer" aria-label="Validation and data checks">
+        <button type="button" class="validation-toggle-btn" id="validationToggle" aria-expanded="false" aria-controls="validationPanel">
+          <span class="validation-toggle-label">View validation &amp; data checks</span>
+          <svg class="validation-chevron" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+            <path fill="currentColor" d="M4.5 6 8 9.5 11.5 6 12.5 7 8 11.5 3.5 7z"/>
+          </svg>
+        </button>
+        <div class="validation-panel" id="validationPanel" hidden>
+          <p class="validation-panel-intro">
+            Audit and debug only. Post-MQL metrics use return sessions (30-minute gap) and page views after MQL date.
+          </p>
+          <details class="validation-subsection" open>
+            <summary>Post-MQL calculation details</summary>
+            <ul class="validation-notes-list" id="validationCalcNotes"></ul>
+          </details>
+          <details class="validation-subsection">
+            <summary>Outreach scoring assumptions</summary>
+            <ul class="validation-notes-list" id="validationOutreachNotes"></ul>
+          </details>
+          <details class="validation-subsection">
+            <summary>Region validation</summary>
+            <div class="validation-region-block" id="validationRegionNotes"></div>
+          </details>
+          <details class="validation-subsection">
+            <summary>Filter debug</summary>
+            <div class="validation-region-block" id="validationFilterDebug"></div>
+          </details>
+          <details class="validation-subsection">
+            <summary>Score definitions</summary>
+            <div class="validation-region-block" id="validationScoreNotes"></div>
+          </details>
+        </div>
+      </footer>
+    </div>
+    <script type="module">
+      import { mountNav } from "/shared/nav.mjs";
+      mountNav(document.getElementById("dashboardNav"), "post-mql");
+    </script>
+    <script type="module" src="/post-mql-app.js"></script>
+  </body>
+</html>

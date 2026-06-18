@@ -1,0 +1,86 @@
+{
+  "_comment": "Pre-MQL test/internal lead exclusion rules. Edit patterns here; restart the server to pick up changes.",
+  "_exceptionsHelp": "Add full emails to allowedEmails or domains to allowedDomains to override a false positive (e.g. a real customer named Demo Corp).",
+
+  "emailSubstrings": [
+    "test",
+    "demo",
+    "dummy",
+    "fake",
+    "sample",
+    "internal",
+    "qa",
+    "automation",
+    "noreply",
+    "no-reply"
+  ],
+
+  "blockedDomains": [
+    "example.com",
+    "example.org",
+    "test.com",
+    "demo.com",
+    "fake.com",
+    "mailinator.com",
+    "yopmail.com",
+    "guerrillamail.com",
+    "10minutemail.com",
+    "tempmail.com",
+    "throwaway.email"
+  ],
+
+  "internalDomains": [
+    "hibob.com",
+    "bob.com"
+  ],
+
+  "domainSubstrings": [
+    "mailinator",
+    "yopmail",
+    "guerrillamail",
+    "tempmail",
+    "fakename",
+    "demomagic"
+  ],
+
+  "companyWordPatterns": [
+    "\\btest\\b",
+    "\\bdemo\\b",
+    "\\bdummy\\b",
+    "\\bfake\\b",
+    "\\bsample\\b",
+    "\\binternal\\b",
+    "\\bqa\\b",
+    "\\bsandbox\\b"
+  ],
+
+  "emailLocalRegex": [
+    "^test([+._-]|@)",
+    "[+._-]test([+._-]|@)",
+    "^demo([+._-]|@)",
+    "[+._-]demo([+._-]|@)",
+    "^dummy",
+    "^fake",
+    "^sample",
+    "^qa([+._-]|@)",
+    "noreply",
+    "no-reply"
+  ],
+
+  "syntheticEmailRegex": [
+    "^(errr|trty|asdf|qwerty|aaaa|bbbb|testtest|xxxx|zzzz)@"
+  ],
+
+  "invalidTlds": [
+    "gif",
+    "localhost",
+    "invalid",
+    "test"
+  ],
+
+  "allowedEmails": [],
+
+  "allowedDomains": [
+    "sandboxquantum.com"
+  ]
+}

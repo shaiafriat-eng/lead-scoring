@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Full Funnel Journey</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/pre-mql.css" />
+    <link rel="stylesheet" href="/post-mql.css" />
+    <link rel="stylesheet" href="/hibob-theme.css" />
+    <link rel="stylesheet" href="/full-funnel.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="app fullfunnel-app">
+      <header class="header card">
+        <div class="header-top">
+          <div class="header-brand">
+            <img class="hibob-logo" src="/hibob-logo.png" alt="HiBob" width="44" height="44" />
+            <div>
+              <h1>Full Funnel Journey</h1>
+              <p class="subtitle">Before MQL → became MQL → after-MQL return activity</p>
+            </div>
+          </div>
+          <nav class="header-nav" id="dashboardNav" aria-label="Dashboard navigation"></nav>
+        </div>
+
+        <div class="kpi-row premql-kpi-primary postmql-kpi-primary" id="headerStats" hidden>
+          <div class="kpi-card kpi-card--primary kpi-card--stat">
+            <span class="kpi-label-row">
+              <span class="kpi-label">Accounts with pre-MQL data</span>
+              <span class="kpi-info-btn" role="button" tabindex="0" data-kpi-tip="accounts-pre-mql" aria-label="About Accounts with pre-MQL data"></span>
+            </span>
+            <span class="kpi-value" id="statAccounts">—</span>
+            <span class="kpi-foot">Tracked before MQL</span>
+          </div>
+          <div class="kpi-card kpi-card--primary kpi-card--stat">
+            <span class="kpi-label-row">
+              <span class="kpi-label">Became MQL</span>
+              <span class="kpi-info-btn" role="button" tabindex="0" data-kpi-tip="became-mql" aria-label="About Became MQL"></span>
+            </span>
+            <span class="kpi-value" id="statBecameMql">—</span>
+            <span class="kpi-foot">Reached MQL</span>
+          </div>
+          <button
+            type="button"
+            class="kpi-card kpi-card--primary kpi-card--stat kpi-filter-btn"
+            data-chip-filter="returns"
+            title="Click to view accounts with tracked post-MQL return activity."
+            id="kpiFilterReturns"
+          >
+            <span class="kpi-label-row">
+              <span class="kpi-label">Accounts returned post-MQL</span>
+              <span class="kpi-info-btn" role="button" tabindex="0" data-kpi-tip="returned-post-mql" aria-label="About Accounts returned post-MQL"></span>
+            </span>
+            <span class="kpi-value" id="statReturns">—</span>
+            <span class="kpi-foot">Any MQL contact returned</span>
+          </button>
+          <button
+            type="button"
+            class="kpi-card kpi-card--primary kpi-card--stat kpi-filter-btn"
+            data-chip-filter="returns"
+            title="Click to show accounts with tracked post-MQL return activity."
+            id="kpiFilterReturnRate"
+          >
+            <span class="kpi-label-row">
+              <span class="kpi-label">Post-MQL return rate</span>
+              <span class="kpi-info-btn" role="button" tabindex="0" data-kpi-tip="post-mql-return-rate" aria-label="About Post-MQL return rate"></span>
+            </span>
+            <span class="kpi-value" id="statReturnRate">—</span>
+            <span class="kpi-foot">Returned after MQL</span>
+          </button>
+          <div class="kpi-card kpi-card--primary kpi-card--stat">
+            <span class="kpi-label-row">
+              <span class="kpi-label">Avg pre-MQL touches</span>
+              <span class="kpi-info-btn" role="button" tabindex="0" data-kpi-tip="avg-pre-mql-touches" aria-label="About Avg pre-MQL touches"></span>
+            </span>
+            <span class="kpi-value" id="statAvgPre">—</span>
+            <span class="kpi-foot">Before MQL</span>
+          </div>
+          <div class="kpi-card kpi-card--primary kpi-card--stat">
+            <span class="kpi-label-row">
+              <span class="kpi-label">Avg post-MQL views</span>
+              <span class="kpi-info-btn" role="button" tabindex="0" data-kpi-tip="avg-post-mql-views" aria-label="About Avg post-MQL views"></span>
+            </span>
+            <span class="kpi-value" id="statAvgPost">—</span>
+            <span class="kpi-foot">Among returners</span>
+          </div>
+        </div>
+        <p class="fullfunnel-kpi-note" id="kpiCountNote" hidden>
+          Post-MQL tab counts contacts; Full Funnel counts accounts. One account can include multiple returning MQL contacts.
+          <span
+            class="kpi-info-btn kpi-info-btn--compact"
+            tabindex="0"
+            role="button"
+            data-kpi-tip="account-vs-mql"
+            aria-label="About account vs MQL contact counts"
+          ></span>
+        </p>
+
+        <div class="header-filters">
+          <div class="premql-filter-bar filters-grid postmql-filters fullfunnel-filters">
+            <div class="filter-field">
+              <label for="filterRegion" class="filter-label-with-tip">
+                Region
+                <span class="kpi-info-btn kpi-info-btn--compact" tabindex="0" role="button" id="regionFilterTip" aria-label="About Region filter"></span>
+              </label>
+              <select id="filterRegion"><option value="">All regions</option></select>
+            </div>
+            <div class="filter-field">
+              <label for="filterSegment">Segment</label>
+              <select id="filterSegment"><option value="">All segments</option></select>
+            </div>
+            <div class="filter-field">
+              <label for="filterStatus">Lead status</label>
+              <select id="filterStatus"><option value="">All statuses</option></select>
+            </div>
+            <div class="filter-field">
+              <label for="filterOwner">Owner</label>
+              <select id="filterOwner"><option value="">All owners</option></select>
+            </div>
+            <div class="filter-field">
+              <label for="filterScore">Intent score band</label>
+              <select id="filterScore">
+                <option value="">All intent scores</option>
+                <option value="immediate">Immediate outreach</option>
+                <option value="soon">Outreach soon</option>
+                <option value="watch">Watch</option>
+                <option value="none">No post-MQL returns</option>
+              </select>
+            </div>
+            <div class="filter-field">
+              <label for="filterSource">Source</label>
+              <select id="filterSource"><option value="">All sources</option></select>
+            </div>
+            <div class="filter-field">
+              <label for="filterPage">Page category</label>
+              <select id="filterPage"><option value="">All pages</option></select>
+            </div>
+            <div class="filter-field">
+              <label for="filterMqlFrom">MQL from</label>
+              <input type="date" id="filterMqlFrom" />
+            </div>
+            <div class="filter-field">
+              <label for="filterMqlTo">MQL to</label>
+              <input type="date" id="filterMqlTo" />
+            </div>
+          </div>
+          <div class="header-filters-actions">
+            <span class="postmql-region-chip" id="regionFilterChip" hidden>
+              Region: <strong id="regionChipLabel"></strong>
+              <button type="button" class="postmql-region-chip-clear" id="regionChipClear" aria-label="Clear region filter">×</button>
+            </span>
+            <div class="premql-filters">
+              <button type="button" class="filter-chip" data-filter="returns">Has post-MQL returns</button>
+              <button type="button" class="filter-chip" data-filter="outreach">Needs outreach</button>
+              <button type="button" class="filter-chip" data-filter="high-intent">High-intent only</button>
+            </div>
+          </div>
+          <div class="postmql-filter-audience" id="filterAudienceBar" hidden>
+            <p class="postmql-filter-audience-text" id="filterAudienceSummary"></p>
+            <button type="button" class="btn-clear-filters postmql-clear-all-btn" id="clearFiltersBtn" hidden>Clear all filters</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="fullfunnel-layout">
+        <aside class="sidebar card fullfunnel-sidebar">
+          <div class="page-filter-banner" id="listFilterBanner" hidden>
+            <span id="listFilterLabel"></span>
+            <button type="button" class="page-filter-clear" id="listFilterClear">Clear</button>
+          </div>
+          <label class="search-wrap">
+            <span class="sr-only">Search by account</span>
+            <input type="search" id="search" placeholder="Search account…" autocomplete="off" />
+          </label>
+          <div class="sidebar-stats" id="listMeta"><div class="sidebar-stats-hint">Loading…</div></div>
+          <ul class="mql-list fullfunnel-account-list" id="accountList" role="listbox" aria-label="Accounts"></ul>
+        </aside>
+
+        <section class="fullfunnel-main">
+          <div class="card premql-graph-panel fullfunnel-panel" id="journeyPanel">
+            <div class="panel-head fullfunnel-journey-panel-head">
+              <h2>Full funnel journey</h2>
+              <p class="panel-sub" id="journeySubtitle">Select an account to view the full journey</p>
+            </div>
+            <div class="premql-empty" id="journeyEmpty">
+              Pick an account from the list to see pre-MQL touches, MQL, and post-MQL returns on one timeline.
+            </div>
+            <div id="journeyContent" hidden>
+              <div class="fullfunnel-journey-hero">
+                <p class="fullfunnel-journey-eyebrow">Full funnel journey</p>
+                <div class="fullfunnel-journey-pills" id="journeyPills" hidden></div>
+                <div class="fullfunnel-lead-header" id="accountHeader"></div>
+              </div>
+              <div class="fullfunnel-summary-cards" id="summaryCards"></div>
+
+              <div class="fullfunnel-chart-wrap">
+                <div class="fullfunnel-zone-banners" aria-hidden="true">
+                  <span class="fullfunnel-zone-banner fullfunnel-zone-banner--pre">Before MQL</span>
+                  <span class="fullfunnel-zone-banner fullfunnel-zone-banner--mql">Became MQL</span>
+                  <span class="fullfunnel-zone-banner fullfunnel-zone-banner--post">After MQL</span>
+                </div>
+                <div class="fullfunnel-chart">
+                  <div class="fullfunnel-chart-zones">
+                    <div class="fullfunnel-zone fullfunnel-zone--pre">
+                      <div class="fullfunnel-zone-head">
+                        <span class="fullfunnel-zone-label">Before MQL</span>
+                        <span class="fullfunnel-zone-sub" id="preZoneSub"></span>
+                      </div>
+                      <div class="fullfunnel-zone-lanes" id="preTouchLanes"></div>
+                    </div>
+                    <div class="fullfunnel-zone fullfunnel-zone--mql">
+                      <div class="fullfunnel-mql-rail" aria-label="Became MQL">
+                        <div class="fullfunnel-mql-rail-line" aria-hidden="true"></div>
+                        <div class="fullfunnel-mql-rail-mark">
+                          <span class="fullfunnel-mql-rail-title">BECAME MQL</span>
+                          <time class="fullfunnel-mql-rail-date" id="mqlPillarDate"></time>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="fullfunnel-zone fullfunnel-zone--post">
+                      <div class="fullfunnel-zone-head">
+                        <span class="fullfunnel-zone-label" id="postZoneLabel">After MQL</span>
+                        <span class="fullfunnel-zone-sub" id="postZoneSub"></span>
+                      </div>
+                      <div class="fullfunnel-zone-lanes" id="postTouchLanes"></div>
+                      <p class="fullfunnel-zone-empty" id="postZoneEmpty" hidden>No tracked post-MQL return activity in the current dataset.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="lane-tooltip" id="laneTooltip" hidden></div>
+              </div>
+
+              <div class="journey-insight-card fullfunnel-insight-card" id="journeyInsight">
+                <div class="journey-insight-title">Full funnel insight</div>
+                <p class="journey-insight-lead" id="journeyOutcome"></p>
+                <ul class="journey-insight-bullets" id="journeyInsightBullets"></ul>
+              </div>
+
+              <details class="full-funnel-details">
+                <summary>Show full timeline details</summary>
+                <div class="full-funnel-detail-grid">
+                  <div>
+                    <h4>Pre-MQL milestones</h4>
+                    <ol class="premql-timeline" id="preTimeline"></ol>
+                  </div>
+                  <div>
+                    <h4>Post-MQL return visits</h4>
+                    <div class="timeline" id="postTimeline"></div>
+                  </div>
+                </div>
+              </details>
+            </div>
+          </div>
+        </section>
+
+        <aside class="fullfunnel-insights card" aria-labelledby="accountInsightsHeading">
+          <div class="fullfunnel-insights-head">
+            <div class="panel-head compact">
+              <h2 id="accountInsightsHeading">Account insights</h2>
+              <p class="panel-sub" id="accountInsightSub">Select an account</p>
+              <div class="fullfunnel-insight-status-pills" id="accountInsightPills" hidden></div>
+            </div>
+          </div>
+          <div class="fullfunnel-insights-body" id="accountInsightsBody">
+            <div class="premql-empty" id="accountInsightsEmpty">Account-level journey, post-MQL behavior, and ownership appear here.</div>
+            <div id="accountInsightsContent" hidden></div>
+          </div>
+        </aside>
+      </main>
+
+      <section class="premql-insights-footer card fullfunnel-insights-footer" aria-label="Filtered insights">
+        <div class="panel-head compact">
+          <h2>Filtered insights</h2>
+          <p class="panel-sub">
+            <span id="insightsFilterNote">Based on current filters</span>
+            <span class="insights-note" title="Account count can differ from MQL contact count because one account may include multiple MQL contacts.">ⓘ</span>
+          </p>
+        </div>
+        <div class="premql-insights-grid postmql-insights-grid fullfunnel-insights-grid">
+          <div class="filter-insight-card" data-insight="preSource">
+            <h3 class="filter-insight-title">Pre-MQL sources</h3>
+            <p class="filter-insight-sub">Top sources before MQL</p>
+            <div class="filter-insight-rows" id="preSourceList"></div>
+            <button type="button" class="filter-insight-more" id="preSourceListMore" hidden>View all</button>
+          </div>
+          <div class="filter-insight-card" data-insight="postPages">
+            <h3 class="filter-insight-title">Post-MQL pages</h3>
+            <p class="filter-insight-sub">Pages viewed after MQL</p>
+            <div class="filter-insight-rows" id="postPageList"></div>
+            <button type="button" class="filter-insight-more" id="postPageListMore" hidden>View all</button>
+          </div>
+          <div class="filter-insight-card" data-insight="status">
+            <h3 class="filter-insight-title">Lead statuses</h3>
+            <p class="filter-insight-sub">Current lead status</p>
+            <div class="filter-insight-rows" id="leadStatusList"></div>
+            <button type="button" class="filter-insight-more" id="leadStatusListMore" hidden>View all</button>
+          </div>
+          <div class="filter-insight-card" data-insight="region">
+            <h3 class="filter-insight-title">Regions</h3>
+            <p class="filter-insight-sub">Accounts by sales region</p>
+            <div class="filter-insight-rows" id="regionList"></div>
+            <button type="button" class="filter-insight-more" id="regionListMore" hidden>View all</button>
+          </div>
+          <div class="filter-insight-card" data-insight="segment">
+            <h3 class="filter-insight-title">Segments</h3>
+            <p class="filter-insight-sub">Main segment</p>
+            <div class="filter-insight-rows" id="segmentList"></div>
+            <button type="button" class="filter-insight-more" id="segmentListMore" hidden>View all</button>
+          </div>
+          <div class="filter-insight-card" data-insight="owner">
+            <h3 class="filter-insight-title">Owners</h3>
+            <p class="filter-insight-sub">Main owner</p>
+            <div class="filter-insight-rows" id="ownerList"></div>
+            <button type="button" class="filter-insight-more" id="ownerListMore" hidden>View all</button>
+          </div>
+          <div class="filter-insight-card" data-insight="outreach">
+            <h3 class="filter-insight-title">Outreach priority</h3>
+            <p class="filter-insight-sub">Post-MQL outreach tier</p>
+            <div class="filter-insight-rows" id="outreachList"></div>
+            <button type="button" class="filter-insight-more" id="outreachListMore" hidden>View all</button>
+          </div>
+        </div>
+      </section>
+
+      <footer class="premql-validation-footer" aria-label="Validation and data checks">
+        <button type="button" class="validation-toggle-btn" id="validationToggle" aria-expanded="false" aria-controls="validationPanel">
+          <span class="validation-toggle-label">View validation &amp; data checks</span>
+          <svg class="validation-chevron" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+            <path fill="currentColor" d="M4.5 6 8 9.5 11.5 6 12.5 7 8 11.5 3.5 7z"/>
+          </svg>
+        </button>
+        <div class="validation-panel" id="validationPanel" hidden>
+          <p class="validation-panel-intro">
+            Audit and debug only. Full funnel joins pre-MQL account journeys with post-MQL return visits using any-contact account logic.
+          </p>
+          <details class="validation-subsection">
+            <summary>Entity-level validation</summary>
+            <div class="validation-region-block" id="validationEntityLevel"></div>
+          </details>
+          <details class="validation-subsection" open>
+            <summary>Full funnel calculation details</summary>
+            <ul class="validation-notes-list" id="validationCalcNotes"></ul>
+          </details>
+          <details class="validation-subsection">
+            <summary>Outreach scoring assumptions</summary>
+            <ul class="validation-notes-list" id="validationOutreachNotes"></ul>
+          </details>
+          <details class="validation-subsection">
+            <summary>Region validation</summary>
+            <div class="validation-region-block" id="validationRegionNotes"></div>
+          </details>
+          <details class="validation-subsection">
+            <summary>Filter debug</summary>
+            <div class="validation-region-block" id="validationFilterDebug"></div>
+          </details>
+          <details class="validation-subsection">
+            <summary>Score definitions</summary>
+            <div class="validation-region-block" id="validationScoreNotes"></div>
+          </details>
+          <details class="validation-subsection">
+            <summary>Post-MQL return filter validation</summary>
+            <div class="validation-region-block" id="validationReturnFilterNotes"></div>
+          </details>
+        </div>
+      </footer>
+    </div>
+    <script type="module">
+      import { mountNav } from "/shared/nav.mjs";
+      mountNav(document.getElementById("dashboardNav"), "full-funnel");
+    </script>
+    <script type="module" src="/full-funnel-app.js"></script>
+  </body>
+</html>

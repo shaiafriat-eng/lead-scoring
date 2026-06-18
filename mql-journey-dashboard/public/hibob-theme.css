@@ -1,0 +1,373 @@
+/**
+ * HiBob brand theme — warm cream, burgundy accent, serif headlines.
+ * Aligns with weekly-deck tokens and hibob.com marketing aesthetic.
+ */
+
+:root {
+  --hibob-pink: #e2004f;
+  --hibob-pink-hover: #c40044;
+  --hibob-pink-light: #fff0f3;
+  --hibob-pink-border: #ffd2db;
+  --hibob-pink-soft: #f9c8d1;
+  --hibob-cream: #fff9f2;
+  --hibob-cream-deep: #fffdf9;
+  --hibob-maroon: #8b1d41;
+  --hibob-maroon-dark: #7d1038;
+  --hibob-text: #222121;
+  --hibob-muted: #5a5755;
+  --hibob-border: #ebe5d9;
+
+  --bg: var(--hibob-cream);
+  --surface: #ffffff;
+  --surface-hover: #fffdf9;
+  --surface-muted: #fff5eb;
+  --border: var(--hibob-border);
+  --border-strong: #ddd4c4;
+  --text: var(--hibob-text);
+  --text-secondary: var(--hibob-muted);
+  --text-muted: #8a8580;
+  --accent: var(--hibob-pink);
+  --accent-hover: var(--hibob-pink-hover);
+  --accent-bg: var(--hibob-pink-light);
+  --accent-border: var(--hibob-pink-border);
+  --success: #2d8a4e;
+  --success-bg: #edf7f0;
+  --warning: #b86e00;
+  --warning-bg: #fff8eb;
+  --error: #c41e3a;
+  --rank-dark: var(--hibob-maroon-dark);
+  --shadow-sm: 0 1px 3px rgba(34, 33, 33, 0.06), 0 1px 2px rgba(34, 33, 33, 0.04);
+  --shadow-md: 0 8px 24px rgba(34, 33, 33, 0.08), 0 2px 8px rgba(34, 33, 33, 0.04);
+  --radius: 8px;
+  --radius-lg: 16px;
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+body {
+  background: var(--hibob-cream);
+  color: var(--hibob-text);
+}
+
+/* —— Header —— */
+.header {
+  background: var(--surface);
+  border-color: var(--hibob-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.header h1,
+.panel-title,
+.panel-head h2,
+.panel-head h3,
+.premql-graph-panel .panel-head h2,
+.detail-header h2 {
+  font-family: var(--font);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--hibob-text);
+}
+
+.subtitle {
+  color: var(--hibob-muted);
+  font-size: 0.875rem;
+}
+
+.hibob-logo {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--radius);
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.logo {
+  display: none;
+}
+
+.header-top {
+  align-items: center;
+}
+
+.header-nav,
+.header-actions .header-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+/* —— Navigation —— */
+.nav-dashboard-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: 2.125rem;
+  border: 1px solid var(--hibob-border);
+  border-radius: 999px;
+  color: var(--hibob-text);
+  background: var(--surface);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  padding: 0.4rem 0.95rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.nav-dashboard-link:hover {
+  border-color: var(--hibob-pink-border);
+  background: var(--hibob-pink-light);
+  color: var(--hibob-maroon);
+}
+
+.nav-dashboard-link.is-active,
+.nav-dashboard-link[aria-current="page"] {
+  background: var(--hibob-pink-light);
+  border-color: var(--hibob-pink);
+  color: var(--hibob-maroon);
+  font-weight: 500;
+}
+
+/* —— KPI filter cards (pre-MQL) —— */
+.kpi-row--filters {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.kpi-row--four {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.kpi-card.kpi-filter-btn {
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  width: 100%;
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+}
+
+.kpi-card.kpi-filter-btn:hover {
+  border-color: var(--hibob-pink-border);
+  background: var(--hibob-pink-light);
+}
+
+.kpi-card.kpi-filter-btn.is-active {
+  border-color: var(--hibob-pink);
+  background: var(--hibob-pink-light);
+  box-shadow: inset 0 0 0 1px var(--hibob-pink-border);
+}
+
+.kpi-card.kpi-filter-btn:focus-visible {
+  outline: 2px solid var(--hibob-pink);
+  outline-offset: 2px;
+}
+
+@media (max-width: 1100px) {
+  .kpi-row--filters,
+  .kpi-row--four {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .kpi-row--filters,
+  .kpi-row--four {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* —— Cards & KPIs —— */
+.card {
+  border: 1px solid var(--hibob-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.kpi-card {
+  background: var(--surface);
+  border: 1px solid var(--hibob-border);
+  border-radius: var(--radius-lg);
+}
+
+.kpi-card.accent {
+  background: var(--hibob-pink-light);
+  border-color: var(--hibob-pink-border);
+}
+
+.kpi-value {
+  font-family: var(--font);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--hibob-maroon);
+}
+
+.kpi-card.accent .kpi-value {
+  color: var(--hibob-pink);
+}
+
+/* —— Buttons —— */
+.btn-refresh,
+.outreach-filter-all,
+.page-filter-clear,
+.filter-chip {
+  font-family: var(--font);
+  border-radius: var(--radius);
+}
+
+.btn-refresh {
+  background: var(--hibob-pink);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.btn-refresh:hover:not(:disabled) {
+  background: var(--hibob-pink-hover);
+  color: #fff;
+}
+
+.btn-clear-filters {
+  background: var(--hibob-pink-soft);
+  border: none;
+  color: var(--hibob-maroon);
+  font-weight: 600;
+}
+
+.filter-chip.active {
+  background: var(--hibob-pink);
+  border-color: var(--hibob-pink);
+  color: #fff;
+}
+
+/* —— Lists & panels —— */
+.mql-item:hover,
+.mql-item.is-selected,
+.outreach-item.is-selected {
+  border-color: var(--hibob-pink-border);
+  background: var(--hibob-pink-light);
+}
+
+.insight-item.is-filter-active,
+.top-page-item.is-filter-active {
+  background: var(--hibob-pink-light);
+  border-left: 3px solid var(--hibob-pink);
+}
+
+.top-page-bar,
+.insight-panel .top-page-bar {
+  background: linear-gradient(90deg, var(--hibob-pink-soft), var(--hibob-pink));
+}
+
+.rank-badge.top {
+  background: var(--hibob-pink);
+  color: #fff;
+}
+
+.badge-active {
+  background: var(--hibob-pink-light);
+  color: var(--hibob-maroon);
+  border: 1px solid var(--hibob-pink-border);
+}
+
+.visit-dot {
+  background: var(--hibob-pink);
+  box-shadow: 0 0 0 3px var(--hibob-pink-light);
+}
+
+.page-row-highlight {
+  background: var(--hibob-pink-light);
+  border-left: 3px solid var(--hibob-pink);
+}
+
+.search-wrap input {
+  border-color: var(--hibob-border);
+  border-radius: var(--radius);
+}
+
+.search-wrap input:focus {
+  border-color: var(--hibob-pink);
+  outline: 2px solid var(--hibob-pink-light);
+}
+
+.page-filter-banner {
+  background: var(--hibob-pink-light);
+  border-color: var(--hibob-pink-border);
+}
+
+/* —— Tabs (meetings, routing) —— */
+.tab.active {
+  background: var(--hibob-pink);
+  border-color: var(--hibob-pink);
+  color: #fff;
+}
+
+.tab:hover {
+  border-color: var(--hibob-pink-border);
+  color: var(--hibob-maroon);
+}
+
+/* —— Tables —— */
+.data-table th,
+.meetings-table th,
+.rules-table th {
+  background: var(--surface-muted);
+  color: var(--hibob-muted);
+  border-color: var(--hibob-border);
+}
+
+.pill.status-active,
+.pill.active {
+  background: var(--hibob-pink-light);
+  color: var(--hibob-maroon);
+}
+
+.source-link {
+  color: var(--hibob-pink);
+  font-weight: 500;
+}
+
+/* —— Pre-MQL graph —— */
+.premql-lane .lane-dot.active,
+.premql-lane .lane-dot:focus-visible {
+  outline: 2px solid var(--hibob-pink);
+}
+
+.milestone-pill.mql {
+  background: var(--hibob-pink);
+  color: #fff;
+}
+
+.milestone-pill.booked {
+  background: var(--success-bg);
+  color: var(--success);
+  border: 1px solid #b7dfc4;
+}
+
+.milestone-pill.offered {
+  background: var(--warning-bg);
+  color: var(--warning);
+  border: 1px solid #f0d9a8;
+}
+
+/* —— Routing page overrides —— */
+body.routing-page {
+  background: var(--hibob-cream);
+  background-image: none;
+}
+
+.routing-page .tab.active .tab-badge {
+  background: rgba(255, 255, 255, 0.25);
+}

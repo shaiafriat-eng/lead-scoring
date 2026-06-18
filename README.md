@@ -67,6 +67,21 @@ npm run preview
 
 Static output is in `dist/`.
 
+## MQL Journey Dashboard
+
+The interactive MQL analytics dashboards live in [`mql-journey-dashboard/`](./mql-journey-dashboard/).
+
+```bash
+cd mql-journey-dashboard
+cp .env.example .env   # optional: API tokens, CSV paths
+npm install            # if you add dependencies later
+node server.mjs
+```
+
+Open [http://localhost:3847](http://localhost:3847) — tabs include Pre-MQL Journey, Post-MQL Journey, Full Funnel, Meetings, and Lead→Calendar.
+
+See [`mql-journey-dashboard/README.md`](./mql-journey-dashboard/README.md) for data setup and deployment notes.
+
 ## Brand
 
 Styling follows [brand.hibob.com](https://brand.hibob.com/): Cherry Syrup, Cappuccino Foam, Black Coffee, Archivo Black (headlines), Domine (subheads), Lato (body). Official logotype in `assets/hibob-logo.svg`.
@@ -81,6 +96,7 @@ Styling follows [brand.hibob.com](https://brand.hibob.com/): Cherry Syrup, Cappu
 | Path | Purpose |
 |------|---------|
 | `site/` | Multi-page static HTML (primary for stakeholders) |
+| `mql-journey-dashboard/` | MQL journey dashboards (Pre-MQL, Post-MQL, Full Funnel, Meetings, Lead→Calendar) |
 | `scripts/build-site.mjs` | Generates `site/*.html` |
 | `src/data/scoringContent.ts` | Copy, tables, FAQ — React content source |
 | `src/components/` | Section components |

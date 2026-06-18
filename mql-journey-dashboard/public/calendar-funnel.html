@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lead → calendar funnel</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="calendar-funnel.css" />
+    <link rel="stylesheet" href="hibob-theme.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="app">
+      <header class="header card">
+        <div class="header-top">
+          <div class="header-brand">
+            <img class="hibob-logo" src="hibob-logo.png" alt="HiBob" width="44" height="44" />
+            <div>
+              <h1>Lead → calendar funnel</h1>
+              <p class="subtitle" id="metaLine">May form submissions → Chili Piper calendar</p>
+            </div>
+          </div>
+          <div class="header-actions">
+            <nav class="header-nav" id="dashboardNav" aria-label="Dashboard navigation"></nav>
+            <a
+              class="source-link"
+              id="sheetLink"
+              href="https://docs.google.com/spreadsheets/d/1rIIWPylhVRQKRLBq6bo8tGzCO16xX4wkzwLRaLo9Nbs/edit"
+              target="_blank"
+              rel="noopener"
+              >Source sheet</a
+            >
+            <button type="button" class="btn-refresh" id="refreshBtn">Refresh</button>
+          </div>
+        </div>
+
+        <div class="kpi-row" id="kpiRow">
+          <div class="kpi-card accent">
+            <span class="kpi-label">Leads submitted</span>
+            <span class="kpi-value" id="kpiLeads">—</span>
+            <span class="kpi-foot">Unique emails (submit tab)</span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-label">Calendar presented</span>
+            <span class="kpi-value" id="kpiPresented">—</span>
+            <span class="kpi-foot" id="kpiPresentedFoot">—</span>
+          </div>
+          <div class="kpi-card success">
+            <span class="kpi-label">Booked meeting</span>
+            <span class="kpi-value" id="kpiBooked">—</span>
+            <span class="kpi-foot" id="kpiBookedFoot">—</span>
+          </div>
+          <div class="kpi-card warning">
+            <span class="kpi-label">Saw calendar, did not book</span>
+            <span class="kpi-value" id="kpiNotBooked">—</span>
+            <span class="kpi-foot" id="kpiNotBookedFoot">—</span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-label">No calendar shown</span>
+            <span class="kpi-value" id="kpiNoCalendar">—</span>
+            <span class="kpi-foot" id="kpiNoCalendarFoot">—</span>
+          </div>
+        </div>
+
+        <div class="enrichment-row card" id="enrichmentRow" hidden>
+          <h2 class="section-title">Chili Piper enrichment</h2>
+          <p class="enrichment-desc">
+            <strong>One row per email</strong> — repeat submissions in May are merged. Calendar outcomes use any
+            session for that email. Chili Piper matched on <strong>Guest Email</strong> ↔
+            <strong>EMAIL_FILLED</strong>. Segment falls back to <strong>Number of Employees</strong> when missing.
+          </p>
+          <div class="enrichment-stats" id="enrichmentStats"></div>
+        </div>
+
+        <div class="funnel-viz card" aria-label="Conversion funnel">
+          <h2 class="section-title">Funnel</h2>
+          <div class="funnel-bars" id="funnelBars"></div>
+        </div>
+      </header>
+
+      <section class="filters card" aria-label="Filters">
+        <div class="filters-head">
+          <h2 class="section-title">Filters</h2>
+          <button type="button" class="btn-clear-filters" id="clearFiltersBtn" hidden>
+            Clear filters
+          </button>
+        </div>
+        <p class="filter-summary" id="filterSummary" hidden></p>
+        <div class="filters-grid">
+          <label class="filter-field">
+            <span>Form (CONTAINER_SUBCATEGORY)</span>
+            <select id="filterForm">
+              <option value="">All forms</option>
+            </select>
+          </label>
+          <label class="filter-field">
+            <span>Country</span>
+            <select id="filterCountry">
+              <option value="">All countries</option>
+            </select>
+          </label>
+          <label class="filter-field">
+            <span>Segment</span>
+            <select id="filterSegment">
+              <option value="">All segments</option>
+            </select>
+          </label>
+          <label class="filter-field">
+            <span>Calendar outcome (cp tab)</span>
+            <select id="filterStatus">
+              <option value="">All outcomes</option>
+              <option value="booked">Booked</option>
+              <option value="not_booked">Saw calendar, did not book</option>
+              <option value="no_calendar">No calendar shown</option>
+            </select>
+          </label>
+          <label class="filter-field">
+            <span>Chili Piper status</span>
+            <select id="filterChiliStatus">
+              <option value="">All statuses</option>
+            </select>
+          </label>
+          <label class="filter-field">
+            <span>Chili Piper match</span>
+            <select id="filterChiliMatched">
+              <option value="">Any</option>
+              <option value="yes">Matched</option>
+              <option value="no">Not matched</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <div class="grid-2">
+        <section class="card breakdown-panel">
+          <h2 class="section-title">By form</h2>
+          <div class="table-wrap">
+            <table class="data-table" id="tableByForm">
+              <thead>
+                <tr>
+                  <th>Form</th>
+                  <th>Leads</th>
+                  <th>Calendar</th>
+                  <th>Booked</th>
+                  <th>Did not book</th>
+                  <th>Chili disqualified</th>
+                  <th>Book %</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="card breakdown-panel">
+          <h2 class="section-title">By country</h2>
+          <div class="table-wrap">
+            <table class="data-table" id="tableByCountry">
+              <thead>
+                <tr>
+                  <th>Country</th>
+                  <th>Leads</th>
+                  <th>Calendar</th>
+                  <th>Booked</th>
+                  <th>Did not book</th>
+                  <th>Chili disqualified</th>
+                  <th>Book %</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <section class="card breakdown-panel">
+        <h2 class="section-title">By Chili Piper status</h2>
+        <div class="table-wrap">
+          <table class="data-table" id="tableByChiliStatus">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Leads</th>
+                <th>Calendar</th>
+                <th>Booked</th>
+                <th>Did not book</th>
+                <th>Chili disqualified</th>
+                <th>Book %</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card breakdown-panel">
+        <h2 class="section-title">By segment</h2>
+        <div class="table-wrap">
+          <table class="data-table" id="tableBySegment">
+            <thead>
+              <tr>
+                <th>Segment</th>
+                <th>Leads</th>
+                <th>Calendar</th>
+                <th>Booked</th>
+                <th>Did not book</th>
+                <th>Chili disqualified</th>
+                <th>Book %</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card leads-panel">
+        <div class="leads-head">
+          <h2 class="section-title">Sessions</h2>
+          <span class="leads-count" id="leadsCount"></span>
+        </div>
+        <div class="table-wrap leads-table-wrap">
+          <table class="data-table" id="leadsTable">
+            <thead>
+              <tr>
+                <th>Submitted</th>
+                <th>Form</th>
+                <th>Country</th>
+                <th>Segment</th>
+                <th>CP outcome</th>
+                <th>Chili Piper status</th>
+                <th>Session</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="leads-foot" id="leadsFoot">Showing first 200 rows · no emails in browser</p>
+      </section>
+    </div>
+
+    <script type="module">
+      import { mountNav } from "./shared/nav.mjs";
+      mountNav(document.getElementById("dashboardNav"), "calendar");
+    </script>
+    <script type="module" src="calendar-funnel-app.js"></script>
+  </body>
+</html>

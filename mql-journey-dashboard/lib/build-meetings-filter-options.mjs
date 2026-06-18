@@ -1,0 +1,117 @@
+function parseMeetingDate(value) {
+  if (!value) return null;
+  const d = new Date(value);
+  return Number.isNaN(d.getTime()) ? null : d;
+}
+
+function dateToInputValue(d) {
+  if (!d) return "";
+  return d.toISOString().slice(0, 10);
+}
+
+/** Default filter window: current UTC month, clamped to available data. */
+function defaultMonthRange(minDate, maxDate, now = new Date()) {
+  if (!minDate || !maxDate) {
+    return { from: minDate, to: maxDate };
+  }
+
+  const year = now.getUTCFullYear();
+  const month = now.getUTCMonth();
+  let from = new Date(Date.UTC(year, month, 1));
+  let to = new Date(Date.UTC(year, month + 1, 0));
+
+  if (to < minDate || from > maxDate) {
+    const anchor = maxDate;
+    from = new Date(Date.UTC(anchor.getUTCFullYear(), anchor.getUTCMonth(), 1));
+    to = new Date(Date.UTC(anchor.getUTCFullYear(), anchor.getUTCMonth() + 1, 0));
+  }
+
+  if (from < minDate) from = new Date(minDate);
+  if (to > maxDate) to = new Date(maxDate);
+
+  return { from, to };
+}
+
+/** @param {Map} [rulesIndex] full rule list for filter dropdown */
+export function buildMeetingsFilterOptions(meetings, rulesIndex = null) {
+  let minDate = null;
+  let maxDate = null;
+  const regions = new Set();
+  const meetingTypes = new Set();
+  const countries = new Set();
+  const rulesUsed = new Map();
+  const reps = new Map();
+  const statuses = new Set();
+
+  function addRep(person) {
+    if (!person) return;
+    const id = person.id ?? person.repId;
+    const email = person.email;
+    if (!id && !email) return;
+    const key = id ? `id:${id}` : `email:${email}`;
+    if (reps.has(key)) return;
+    reps.set(key, {
+      key,
+      id: id ?? null,
+      name: person.name ?? null,
+      email: email ?? null,
+    });
+  }
+
+  for (const m of meetings) {
+    const d = parseMeetingDate(m.bookedAt);
+    if (d) {
+      if (!minDate || d < minDate) minDate = d;
+      if (!maxDate || d > maxDate) maxDate = d;
+    }
+    addRep(m.assignedUser);
+    addRep(m.hostUser);
+    if (m.assignedUserName) {
+      const key = `name:${m.assignedUserName}`;
+      if (!reps.has(key)) {
+        reps.set(key, { key, id: null, name: m.assignedUserName, email: null });
+      }
+    }
+    if (m.region) regions.add(m.region);
+    if (m.meetingType) meetingTypes.add(m.meetingType);
+    if (m.country) countries.add(m.country);
+    if (m.routingRuleId && m.routingRuleName) {
+      rulesUsed.set(m.routingRuleId, {
+        id: m.routingRuleId,
+        name: m.routingRuleName,
+        region: m.routingRule?.region ?? m.routingRuleRegion ?? m.region ?? null,
+        segment: m.routingRule?.segment ?? null,
+        size: m.routingRule?.size ?? null,
+      });
+    } else if (m.routingRuleName) {
+      const key = `name:${m.routingRuleName}`;
+      rulesUsed.set(key, {
+        id: key,
+        name: m.routingRuleName,
+        region: m.routingRule?.region ?? m.routingRuleRegion ?? m.region ?? null,
+        segment: m.routingRule?.segment ?? null,
+        size: m.routingRule?.size ?? null,
+      });
+    }
+    if (m.websiteStatus) statuses.add(m.websiteStatus);
+  }
+
+  const routingRules = [...rulesUsed.values()].sort((a, b) => a.name.localeCompare(b.name));
+  const { from: defaultFrom, to: defaultTo } = defaultMonthRange(minDate, maxDate);
+
+  return {
+    dateFrom: dateToInputValue(defaultFrom),
+    dateTo: dateToInputValue(defaultTo),
+    dateRangeMin: dateToInputValue(minDate),
+    dateRangeMax: dateToInputValue(maxDate),
+    reps: [...reps.values()].sort((a, b) =>
+      (a.name ?? a.email ?? "").localeCompare(b.name ?? b.email ?? ""),
+    ),
+    regions: [...regions].sort((a, b) => a.localeCompare(b)),
+    meetingTypes: [...meetingTypes].sort(),
+    countries: [...countries].sort((a, b) => a.localeCompare(b)),
+    routingRules,
+    websiteStatuses: [...statuses].sort((a, b) => a.localeCompare(b)),
+    allRoutingRuleCount: rulesIndex?.size ?? routingRules.length,
+  };
+}

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pre-MQL Journey</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/pre-mql.css" />
+    <link rel="stylesheet" href="/hibob-theme.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="app premql-app">
+      <header class="header card">
+        <div class="header-top">
+          <div class="header-brand">
+            <img class="hibob-logo" src="/hibob-logo.png" alt="HiBob" width="44" height="44" />
+            <div>
+              <h1>Pre-MQL Journey</h1>
+              <p class="subtitle">
+                Before MQL → key touches → became MQL
+              </p>
+            </div>
+          </div>
+          <nav class="header-nav" id="dashboardNav" aria-label="Dashboard navigation"></nav>
+        </div>
+        <div class="kpi-row premql-kpi-primary" id="headerStats">
+          <button type="button" class="kpi-card kpi-card--primary kpi-filter-btn" data-filter="all" id="kpiFilterAll">
+            <span class="kpi-label-row">
+              <span class="kpi-label">MQL contacts</span>
+              <span class="kpi-info-btn" role="button" tabindex="0" data-kpi-tip="mql-contacts" aria-label="About MQL contacts"></span>
+            </span>
+            <span class="kpi-value" id="statMqls">—</span>
+            <span class="kpi-foot">Unique MQL contacts</span>
+          </button>
+          <button type="button" class="kpi-card kpi-card--primary kpi-filter-btn" data-filter="offered" id="kpiFilterOffered">
+            <span class="kpi-label-row">
+              <span class="kpi-label">Calendar presented</span>
+              <span class="kpi-info-btn" role="button" tabindex="0" data-kpi-tip="calendar-presented" aria-label="About Calendar presented"></span>
+            </span>
+            <span class="kpi-value" id="statOffered">—</span>
+            <span class="kpi-foot" id="statOfferedFoot">—</span>
+          </button>
+          <div class="kpi-card kpi-card--primary kpi-card--stat" id="kpiBookedAfterOffer">
+            <span class="kpi-label-row">
+              <span class="kpi-label">Meeting scheduled</span>
+              <span class="kpi-info-btn" role="button" tabindex="0" data-kpi-tip="meeting-scheduled-after-calendar" aria-label="About Meeting scheduled"></span>
+            </span>
+            <span class="kpi-value" id="statBookedAfterOffer">—</span>
+            <span class="kpi-foot" id="statBookedAfterOfferFoot">—</span>
+          </div>
+          <div class="kpi-card kpi-card--primary kpi-card--stat">
+            <span class="kpi-label-row">
+              <span class="kpi-label">Did not book</span>
+              <span class="kpi-info-btn" role="button" tabindex="0" data-kpi-tip="offered-not-booked" aria-label="About Did not book"></span>
+            </span>
+            <span class="kpi-value" id="statOfferedNotBooked">—</span>
+            <span class="kpi-foot">Saw calendar, no booking</span>
+          </div>
+          <button type="button" class="kpi-card kpi-card--primary kpi-filter-btn" data-filter="discovery" id="kpiFilterDiscovery">
+            <span class="kpi-label-row">
+              <span class="kpi-label">Discovery Call</span>
+              <span class="kpi-info-btn" role="button" tabindex="0" data-kpi-tip="discovery-call" aria-label="About Discovery Call"></span>
+            </span>
+            <span class="kpi-value" id="statDiscovery">—</span>
+            <span class="kpi-foot">Current lead status</span>
+          </button>
+          <div class="kpi-card kpi-card--primary kpi-card--stat">
+            <span class="kpi-label-row">
+              <span class="kpi-label">Avg touches</span>
+              <span class="kpi-info-btn" role="button" tabindex="0" data-kpi-tip="avg-premql-touches" aria-label="About Avg touches"></span>
+            </span>
+            <span class="kpi-value" id="statTouches">—</span>
+            <span class="kpi-foot">Before MQL</span>
+          </div>
+        </div>
+        <div class="premql-kpi-exceptions" aria-label="Chili Piper exceptions">
+          <span class="premql-kpi-exceptions-title-row">
+            <span class="premql-kpi-exceptions-title">Chili Piper exceptions</span>
+            <span class="kpi-info-btn kpi-info-btn--compact" role="button" tabindex="0" data-kpi-tip="cp-exceptions-strip" aria-label="About Chili Piper exceptions"></span>
+          </span>
+          <div class="premql-kpi-exceptions-items">
+            <span class="premql-exception-chip">
+              <span class="premql-exception-chip-label">Disqualified</span>
+              <span class="kpi-info-btn kpi-info-btn--compact" role="button" tabindex="0" data-kpi-tip="concierge-disqualified" aria-label="About Disqualified"></span>
+              <span class="premql-exception-chip-value" id="statConciergeDisqualified">—</span>
+            </span>
+            <span class="premql-exception-sep" aria-hidden="true">·</span>
+            <span class="premql-exception-chip">
+              <span class="premql-exception-chip-label">Cancelled</span>
+              <span class="kpi-info-btn kpi-info-btn--compact" role="button" tabindex="0" data-kpi-tip="booking-cancelled" aria-label="About Cancelled"></span>
+              <span class="premql-exception-chip-value" id="statBookingCancelled">—</span>
+            </span>
+          </div>
+        </div>
+        <div class="header-filters">
+          <div class="premql-filter-bar filters-grid">
+            <div class="filter-field">
+              <label for="filterSource">Source</label>
+              <select id="filterSource">
+                <option value="">All sources</option>
+              </select>
+            </div>
+            <div class="filter-field">
+              <label for="filterSegment">Segment</label>
+              <select id="filterSegment">
+                <option value="">All segments</option>
+              </select>
+            </div>
+            <div class="filter-field">
+              <label for="filterCountry" title="Joined from Chili Piper meetings &amp; lead-calendar data — not in MQL CSV">Country</label>
+              <select id="filterCountry">
+                <option value="">All countries</option>
+              </select>
+            </div>
+            <div class="filter-field">
+              <label for="filterOwner">Owner</label>
+              <select id="filterOwner">
+                <option value="">All owners</option>
+              </select>
+            </div>
+            <div class="filter-field">
+              <label for="filterScore">Fit score band</label>
+              <select id="filterScore">
+                <option value="">All fit scores</option>
+              </select>
+            </div>
+            <div class="filter-field">
+              <label for="filterCampaign">Campaign</label>
+              <select id="filterCampaign">
+                <option value="">All campaigns</option>
+              </select>
+            </div>
+            <div class="filter-field">
+              <label for="filterStatus">Lead status</label>
+              <select id="filterStatus">
+                <option value="">All statuses</option>
+              </select>
+            </div>
+            <div class="filter-field">
+              <label for="filterForm">Form category</label>
+              <select id="filterForm">
+                <option value="">All forms</option>
+              </select>
+            </div>
+            <div class="filter-field">
+              <label for="filterMqlFrom">MQL from</label>
+              <input type="date" id="filterMqlFrom" />
+            </div>
+            <div class="filter-field">
+              <label for="filterMqlTo">MQL to</label>
+              <input type="date" id="filterMqlTo" />
+            </div>
+          </div>
+          <div class="header-filters-actions">
+            <div class="premql-filters">
+              <button type="button" class="filter-chip" data-filter="offered">Offered meeting</button>
+              <button type="button" class="filter-chip" data-filter="booked">Booked meeting</button>
+              <button type="button" class="filter-chip" data-filter="discovery">Discovery Call</button>
+            </div>
+            <button type="button" class="btn-clear-filters" id="clearFiltersBtn" hidden>Clear filters</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="premql-layout">
+        <aside class="sidebar card premql-sidebar">
+          <label class="search-wrap">
+            <span class="sr-only">Search by account</span>
+            <input
+              type="search"
+              id="search"
+              placeholder="Search account…"
+              autocomplete="off"
+            />
+          </label>
+          <div class="sidebar-stats" id="listMeta">Loading…</div>
+          <ul class="mql-list" id="accountList" role="list"></ul>
+        </aside>
+
+        <section class="premql-main">
+          <div class="card premql-graph-panel" id="graphPanel">
+            <div class="panel-head">
+              <h2>Pre-MQL Journey</h2>
+              <p class="panel-sub" id="graphSubtitle">Select an account to view their path to MQL</p>
+            </div>
+            <div class="premql-empty" id="graphEmpty">
+              Pick an account to see first touch → key touches → became MQL.
+            </div>
+            <div id="graphContent" hidden>
+              <div class="premql-account-header" id="accountHeader"></div>
+
+              <div class="premql-account-details" id="leadMeta"></div>
+
+              <div class="premql-lanes-wrap">
+                <div class="premql-axis">
+                  <span class="premql-axis-start">First touch</span>
+                </div>
+                <div class="premql-lanes-shell">
+                  <div class="premql-lanes" id="touchLanes"></div>
+                  <div class="premql-mql-marker" id="mqlMarker" aria-hidden="true">
+                    <div class="premql-mql-marker-label">
+                      <div class="premql-mql-marker-label-top">BECAME MQL</div>
+                      <time class="premql-mql-marker-label-date" id="mqlMarkerDate"></time>
+                    </div>
+                    <div class="premql-mql-marker-line"></div>
+                  </div>
+                </div>
+                <div class="lane-tooltip" id="laneTooltip" hidden></div>
+              </div>
+
+              <div class="premql-milestones" id="milestones"></div>
+
+              <div class="journey-insight-card" id="journeyInsight" hidden>
+                <div class="journey-insight-title">Journey insight</div>
+                <p class="journey-insight-lead" id="journeyOutcome"></p>
+                <ul class="journey-insight-bullets" id="journeyInsightBullets"></ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="card premql-timeline-panel">
+            <div class="panel-head">
+              <h2>Journey timeline</h2>
+              <p class="panel-sub">Key milestones from first touch to current status</p>
+            </div>
+            <div class="timeline-actions">
+              <button type="button" class="timeline-toggle" id="timelineToggle" hidden>Show all events</button>
+            </div>
+            <div class="premql-empty" id="timelineEmpty">
+              Timeline appears when you select an account.
+            </div>
+            <div class="premql-timeline" id="timeline" hidden></div>
+          </div>
+        </section>
+      </main>
+
+      <section class="premql-insights-footer card" aria-label="Filtered insights">
+        <div class="panel-head compact">
+          <h2>Filtered insights</h2>
+          <p class="panel-sub">
+            <span id="insightsFilterNote">Based on current filters across — accounts</span>
+            <span class="insights-note" title="Account count can differ from MQL contact count because one account may include multiple MQL contacts.">ⓘ</span>
+          </p>
+        </div>
+        <div class="premql-insights-grid">
+          <div class="filter-insight-card" data-insight="source">
+            <h3 class="filter-insight-title">Top sources</h3>
+            <p class="filter-insight-sub">Where filtered accounts came from</p>
+            <div class="filter-insight-rows" id="sourceList"></div>
+            <button type="button" class="filter-insight-more" id="sourceListMore" hidden>View all</button>
+          </div>
+          <div class="filter-insight-card" data-insight="form">
+            <h3 class="filter-insight-title">Form categories</h3>
+            <p class="filter-insight-sub">Forms submitted before MQL</p>
+            <div class="filter-insight-rows" id="formCategoryList"></div>
+            <button type="button" class="filter-insight-more" id="formCategoryListMore" hidden>View all</button>
+          </div>
+          <div class="filter-insight-card" data-insight="status">
+            <h3 class="filter-insight-title">Lead statuses</h3>
+            <p class="filter-insight-sub">Current status after MQL</p>
+            <div class="filter-insight-rows" id="statusList"></div>
+            <button type="button" class="filter-insight-more" id="statusListMore" hidden>View all</button>
+          </div>
+        </div>
+      </section>
+
+      <footer class="premql-validation-footer" aria-label="Validation and data checks">
+        <button
+          type="button"
+          class="validation-toggle-btn"
+          id="validationToggle"
+          aria-expanded="false"
+          aria-controls="validationPanel"
+        >
+          <span class="validation-toggle-label">View validation &amp; data checks</span>
+          <svg class="validation-chevron" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+            <path fill="currentColor" d="M4.5 6 8 9.5 11.5 6 12.5 7 8 11.5 3.5 7z"/>
+          </svg>
+        </button>
+        <div class="validation-panel" id="validationPanel" hidden>
+          <p class="validation-panel-intro">
+            Audit and debug only. Meeting KPIs use Chili Piper concierge data (calendar-to-meeting flow, not all booking channels).
+            Test/internal records are excluded from dashboard calculations.
+          </p>
+
+          <details class="validation-subsection" id="kpiValidation">
+            <summary>KPI calculation details</summary>
+            <div class="kpi-validation-notes" id="kpiValidationNotes"></div>
+            <div class="kpi-validation-table-wrap">
+              <table class="kpi-validation-table" id="kpiValidationTable">
+                <thead>
+                  <tr>
+                    <th>KPI</th>
+                    <th>Source</th>
+                    <th>Matching key</th>
+                    <th>Timestamp rule</th>
+                    <th>Included statuses</th>
+                    <th>Excluded statuses</th>
+                    <th>Count</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </details>
+
+          <details class="validation-subsection" id="cpKpiValidation">
+            <summary>Chili Piper KPI validation</summary>
+            <div class="kpi-validation-notes" id="cpKpiValidationNotes"></div>
+            <div class="validation-dq-metrics" id="validationDataQuality">
+              <p><strong>Data coverage checks</strong> (not shown in main KPIs)</p>
+              <ul>
+                <li>Scheduled without calendar found: <span id="valBookedWithoutOffer">—</span></li>
+                <li>No CP session found: <span id="valCpUnmatched">—</span></li>
+              </ul>
+            </div>
+            <h3 class="kpi-validation-subhead">CSV field semantics (validated against Chili Piper)</h3>
+            <div class="kpi-validation-table-wrap">
+              <table class="kpi-validation-table" id="cpFieldSemanticsTable">
+                <thead>
+                  <tr>
+                    <th>Field</th>
+                    <th>Meaning</th>
+                    <th>Chili Piper source</th>
+                    <th>Caveats</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <h3 class="kpi-validation-subhead">Sample records (10)</h3>
+            <div class="kpi-validation-table-wrap">
+              <table class="kpi-validation-table kpi-validation-samples" id="kpiValidationSamples">
+                <thead>
+                  <tr>
+                    <th>Email</th>
+                    <th>Account</th>
+                    <th>MQL date</th>
+                    <th>CP offer / calendar</th>
+                    <th>CP booking</th>
+                    <th>CP status</th>
+                    <th>Offer result</th>
+                    <th>Concierge status</th>
+                    <th>Calendar presented</th>
+                    <th>Meeting booked</th>
+                    <th>Booked after presented</th>
+                    <th>Booked w/o presented</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </details>
+
+          <details class="validation-subsection" id="testLeadExclusions">
+            <summary>Excluded test leads</summary>
+            <div class="kpi-validation-notes" id="testLeadExclusionNotes"></div>
+            <div class="kpi-validation-table-wrap">
+              <table class="kpi-validation-table" id="testLeadImpactTable">
+                <thead>
+                  <tr>
+                    <th>KPI</th>
+                    <th>Before</th>
+                    <th>After</th>
+                    <th>Excluded</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <h3 class="kpi-validation-subhead">Reason breakdown</h3>
+            <div class="kpi-validation-table-wrap">
+              <table class="kpi-validation-table" id="testLeadReasonTable">
+                <thead>
+                  <tr>
+                    <th>Reason</th>
+                    <th>Count</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <h3 class="kpi-validation-subhead">Sample excluded records (20)</h3>
+            <div class="kpi-validation-table-wrap">
+              <table class="kpi-validation-table kpi-validation-samples" id="testLeadSamplesTable">
+                <thead>
+                  <tr>
+                    <th>Email</th>
+                    <th>Account</th>
+                    <th>Domain</th>
+                    <th>Reason</th>
+                    <th>Source</th>
+                    <th>MQL date</th>
+                    <th>CP status</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </details>
+          <details class="validation-subsection">
+            <summary>Score definitions</summary>
+            <div class="validation-region-block" id="validationScoreNotes"></div>
+          </details>
+        </div>
+      </footer>
+    </div>
+    <script type="module">
+      import { mountNav } from "/shared/nav.mjs";
+      mountNav(document.getElementById("dashboardNav"), "pre-mql");
+    </script>
+    <script type="module" src="/pre-mql-app.js"></script>
+  </body>
+</html>
