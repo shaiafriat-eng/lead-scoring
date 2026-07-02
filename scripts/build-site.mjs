@@ -3,7 +3,8 @@ import { cpSync, mkdirSync, writeFileSync, existsSync } from "fs";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import { heroSection } from "./hero-html.mjs";
-import { DEFAULT_DESCRIPTION, socialMeta, SITE_NAME } from "./site-meta.mjs";
+import { DEFAULT_DESCRIPTION, escapeMeta, socialMeta, SITE_NAME } from "./site-meta.mjs";
+import { FAQ_ITEMS } from "./faq-items.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const siteDir = join(root, "site");
@@ -119,6 +120,13 @@ function dimensionsBehaviorBlock({ onHome = false, showNav = true } = {}) {
         </div>
 ${nav}
         </div>`;
+}
+
+function faqSection() {
+  return FAQ_ITEMS.map(
+    (item) =>
+      `<details><summary>${escapeMeta(item.q)}</summary><div class="inner">${item.a}</div></details>`,
+  ).join("\n        ");
 }
 
 function dimensionsSection({ onHome = false, showNav = true } = {}) {
@@ -281,10 +289,7 @@ ${matrixSection({ embedded: true })}`,
       <div class="wrap">
         <p class="label">Support</p>
         <h1>FAQ</h1>
-        <details><summary>What is lead scoring?</summary><div class="inner">Fit (A–D) + engagement (1–4) for prioritization and MQL routing—not points alone.</div></details>
-        <details><summary>What is the MQL point threshold?</summary><div class="inner">100 points in Behavioral Score Calculation, plus demographic grade and channel-specific auto-MQL rules.</div></details>
-        <details><summary>Why wasn't my lead MQL'd?</summary><div class="inner">See <a href="mql-routing.html">MQL routing</a>. Still wrong? <a href="mql-routing.html#manual-review">Manual MQL review</a>.</div></details>
-        <details><summary>ICP shows FALSE for new contacts?</summary><div class="inner">SFDC ICP can take ~24h; Marketo ICP used interim.</div></details>
+        ${faqSection()}
       </div>
     </section>
     <section class="page page--alt">
