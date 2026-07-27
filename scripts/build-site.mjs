@@ -123,9 +123,7 @@ ${nav}
 function scoreReductionSection() {
   const rows = SCORE_REDUCTION_RULES.flatMap((rule) => {
     const base = `<tr>
-              <td><strong>${escapeMeta(rule.scenario)}</strong>${
-                rule.reasons?.length ? `<span class="score-reduction__sub">Default</span>` : ""
-              }</td>
+              <td><strong>${escapeMeta(rule.scenario)}</strong></td>
               <td><span class="score-reduction__pts">→ ${rule.points ?? 0}</span></td>
               <td>${escapeMeta(rule.why)}</td>
             </tr>`;
@@ -133,7 +131,7 @@ function scoreReductionSection() {
     return [
       base,
       `<tr class="score-reduction__group">
-              <td colspan="3"><span class="score-reduction__group-label">Nurture reasons — score set to 10 or 20</span></td>
+              <td colspan="3"><span class="score-reduction__group-label">Nurture reasons — Migration / Unresponsive → 10; Changes in personnel / No internal capacity → 20</span></td>
             </tr>`,
       ...rule.reasons.map(
         (item) =>

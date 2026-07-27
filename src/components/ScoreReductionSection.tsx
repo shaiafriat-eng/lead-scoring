@@ -25,9 +25,6 @@ export function ScoreReductionSection() {
                 <tr key={rule.id}>
                   <td>
                     <strong>{rule.scenario}</strong>
-                    {rule.reasons?.length ? (
-                      <span className="score-reduction__sub">Default</span>
-                    ) : null}
                   </td>
                   <td>
                     <span className="score-reduction__pts">→ {rule.points ?? 0}</span>
@@ -43,7 +40,8 @@ export function ScoreReductionSection() {
                 <tr key={`${rule.id}-reasons-label`} className="score-reduction__group">
                   <td colSpan={3}>
                     <span className="score-reduction__group-label">
-                      Nurture reasons — score set to 10 or 20
+                      Nurture reasons — Migration / Unresponsive → 10; Changes in personnel / No
+                      internal capacity → 20
                     </span>
                   </td>
                 </tr>,
