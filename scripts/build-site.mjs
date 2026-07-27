@@ -130,9 +130,6 @@ function scoreReductionSection() {
     if (!rule.reasons?.length) return [base];
     return [
       base,
-      `<tr class="score-reduction__group">
-              <td colspan="3"><span class="score-reduction__group-label">Nurture reasons — Migration / Unresponsive → 10; Changes in personnel / No internal capacity → 20</span></td>
-            </tr>`,
       ...rule.reasons.map(
         (item) =>
           `<tr class="score-reduction__exception">
