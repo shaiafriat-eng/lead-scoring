@@ -125,7 +125,7 @@ function scoreReductionSection() {
     const base = `<tr>
               <td><strong>${escapeMeta(rule.scenario)}</strong>${
                 rule.reasons?.length
-                  ? `<span class="score-reduction__sub">Default (any other nurture reason)</span>`
+                  ? `<span class="score-reduction__sub">Default</span><span class="score-reduction__sub">(any other nurture reason)</span>`
                   : ""
               }</td>
               <td><span class="score-reduction__pts">→ ${rule.points ?? 0}</span></td>

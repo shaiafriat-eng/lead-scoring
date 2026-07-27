@@ -26,7 +26,10 @@ export function ScoreReductionSection() {
                   <td>
                     <strong>{rule.scenario}</strong>
                     {rule.reasons?.length ? (
-                      <span className="score-reduction__sub">Default (any other nurture reason)</span>
+                      <>
+                        <span className="score-reduction__sub">Default</span>
+                        <span className="score-reduction__sub">(any other nurture reason)</span>
+                      </>
                     ) : null}
                   </td>
                   <td>

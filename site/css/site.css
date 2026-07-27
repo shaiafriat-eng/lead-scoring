@@ -1053,6 +1053,9 @@ details.details-in-list .details-in-list__body {
   width: 4.5rem;
   white-space: nowrap;
 }
+.score-reduction__table td strong {
+  display: block;
+}
 .score-reduction__sub {
   display: block;
   margin-top: 0.15rem;
