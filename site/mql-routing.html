@@ -69,8 +69,18 @@
             </tr>
             <tr>
               <td><strong>Inactivity</strong></td>
-              <td><span class="score-reduction__pts">→ 0</span></td>
-              <td>No meaningful engagement for 3 months — no form submission, no LGF, and the behavioral score has not changed. Stale points are cleared so old activity cannot keep the lead MQL-eligible.</td>
+              <td><span class="score-reduction__pts">By rule</span></td>
+              <td>No meaningful engagement for 3 months — no form submission, no LGF, and the behavioral score has not changed. Stale engagement is stepped down so old activity cannot keep a high MQL-eligible score.</td>
+            </tr>
+            <tr class="score-reduction__exception">
+              <td><span class="score-reduction__sub">Current score greater than 15</span></td>
+              <td><span class="score-reduction__pts">→ 15</span></td>
+              <td>Cap the score at 15 so the lead falls out of high-intent tiers but keeps a residual mid/low signal.</td>
+            </tr>
+            <tr class="score-reduction__exception">
+              <td><span class="score-reduction__sub">Current score 15 or less</span></td>
+              <td><span class="score-reduction__pts">→ 5</span></td>
+              <td>Already low engagement — reduce further to 5 so the lead sits in the lowest behavioral band until they re-engage.</td>
             </tr>
             <tr>
               <td><strong>Nurture</strong></td>

@@ -21,8 +21,20 @@ export const SCORE_REDUCTION_RULES = [
   {
     id: "inactivity",
     scenario: "Inactivity",
-    points: 0,
-    why: "No meaningful engagement for 3 months — no form submission, no LGF, and the behavioral score has not changed. Stale points are cleared so old activity cannot keep the lead MQL-eligible.",
+    points: null,
+    why: "No meaningful engagement for 3 months — no form submission, no LGF, and the behavioral score has not changed. Stale engagement is stepped down so old activity cannot keep a high MQL-eligible score.",
+    tiers: [
+      {
+        condition: "Current score greater than 15",
+        points: 15,
+        why: "Cap the score at 15 so the lead falls out of high-intent tiers but keeps a residual mid/low signal.",
+      },
+      {
+        condition: "Current score 15 or less",
+        points: 5,
+        why: "Already low engagement — reduce further to 5 so the lead sits in the lowest behavioral band until they re-engage.",
+      },
+    ],
   },
   {
     id: "nurture",

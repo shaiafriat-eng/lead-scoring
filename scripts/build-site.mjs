@@ -122,15 +122,25 @@ ${nav}
 
 function scoreReductionSection() {
   const rows = SCORE_REDUCTION_RULES.flatMap((rule) => {
+    const hasChildren = Boolean(rule.reasons?.length || rule.tiers?.length);
+    const scoreLabel = rule.points === null ? "By rule" : `→ ${rule.points}`;
     const base = `<tr>
               <td><strong>${escapeMeta(rule.scenario)}</strong></td>
-              <td><span class="score-reduction__pts">→ ${rule.points ?? 0}</span></td>
+              <td><span class="score-reduction__pts">${scoreLabel}</span></td>
               <td>${escapeMeta(rule.why)}</td>
             </tr>`;
-    if (!rule.reasons?.length) return [base];
+    if (!hasChildren) return [base];
     return [
       base,
-      ...rule.reasons.map(
+      ...(rule.tiers ?? []).map(
+        (item) =>
+          `<tr class="score-reduction__exception">
+              <td><span class="score-reduction__sub">${escapeMeta(item.condition)}</span></td>
+              <td><span class="score-reduction__pts">→ ${item.points}</span></td>
+              <td>${escapeMeta(item.why)}</td>
+            </tr>`,
+      ),
+      ...(rule.reasons ?? []).map(
         (item) =>
           `<tr class="score-reduction__exception">
               <td><span class="score-reduction__sub">Nurture reason · ${escapeMeta(item.reason)}</span></td>

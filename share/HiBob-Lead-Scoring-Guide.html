@@ -1533,8 +1533,18 @@ footer img { height: 28px; }
             </tr>
             <tr>
               <td><strong>Inactivity</strong></td>
-              <td><span class="score-reduction__pts">→ 0</span></td>
-              <td>No meaningful engagement for 3 months — no form submission, no LGF, and the behavioral score has not changed. Stale points are cleared so old activity cannot keep the lead MQL-eligible.</td>
+              <td><span class="score-reduction__pts">By rule</span></td>
+              <td>No meaningful engagement for 3 months — no form submission, no LGF, and the behavioral score has not changed. Stale engagement is stepped down so old activity cannot keep a high MQL-eligible score.</td>
+            </tr>
+            <tr class="score-reduction__exception">
+              <td><span class="score-reduction__sub">Current score greater than 15</span></td>
+              <td><span class="score-reduction__pts">→ 15</span></td>
+              <td>Cap the score at 15 so the lead falls out of high-intent tiers but keeps a residual mid/low signal.</td>
+            </tr>
+            <tr class="score-reduction__exception">
+              <td><span class="score-reduction__sub">Current score 15 or less</span></td>
+              <td><span class="score-reduction__pts">→ 5</span></td>
+              <td>Already low engagement — reduce further to 5 so the lead sits in the lowest behavioral band until they re-engage.</td>
             </tr>
             <tr>
               <td><strong>Nurture</strong></td>
@@ -1609,7 +1619,7 @@ footer img { height: 28px; }
         <details><summary>How are junk or fake leads identified?</summary><div class="inner">Leads are screened for test/fake data, invalid emails, QA/UAT records, restricted countries, failed qualification, and low-quality email signals—with exceptions for approved domains and reviewed records.</div></details>
         <details><summary>Why didn't every ICP booth attendee become an MQL?</summary><div class="inner">After a 2023 pilot overload, only top booth attendees qualify: demographic A plus 6Sense Decision/Purchase stage receive a +35 bonus (with attendance points) to surface the top ~5% of booth traffic.</div></details>
         <details><summary>Why does ICP sometimes show FALSE for new contacts?</summary><div class="inner">Salesforce ICP can take ~24 hours to calculate. Marketo ICP scoring is used interim until SFDC updates.</div></details>
-        <details><summary>Can a lead score decrease?</summary><div class="inner">Yes. Behavioral Score Calculation is reduced in specific ops scenarios: Blacklisted country, Not Relevant, Unsubscribe, Inactivity (no form submission / LGF / score change for 3 months), or Nurture → 0 by default. Specific nurture reasons override that — Migration or Unresponsive → 10; Changes in personnel or No internal capacity → 20. Demographic grade (A–D) can also worsen when account or persona data changes. After a reduction, the lead must earn new engagement before reaching the 100-point MQL threshold again. See MQL Policy → When the behavioral score is reduced.</div></details>
+        <details><summary>Can a lead score decrease?</summary><div class="inner">Yes. Behavioral Score Calculation is reduced in specific ops scenarios: Blacklisted country, Not Relevant, Unsubscribe, or Nurture → 0 by default. Inactivity (no form submission / LGF / score change for 3 months) steps the score down — if greater than 15 → 15; if 15 or less → 5. Specific nurture reasons override Nurture’s default — Migration or Unresponsive → 10; Changes in personnel or No internal capacity → 20. Demographic grade (A–D) can also worsen when account or persona data changes. After a reduction, the lead must earn new engagement before reaching the 100-point MQL threshold again. See MQL Policy → When the behavioral score is reduced.</div></details>
         <details><summary>Where can I see the full process flow?</summary><div class="inner">See the linked Miro board for the end-to-end lead scoring flow maintained by RevOps/Marketing Ops.</div></details>
       </div>
     </section>

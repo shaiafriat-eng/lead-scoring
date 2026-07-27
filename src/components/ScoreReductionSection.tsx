@@ -21,23 +21,37 @@ export function ScoreReductionSection() {
           </thead>
           <tbody>
             {SCORE_REDUCTION_RULES.flatMap((rule) => {
+              const hasChildren = Boolean(rule.reasons?.length || rule.tiers?.length);
+              const scoreLabel =
+                rule.points === null ? "By rule" : `→ ${rule.points}`;
+
               const baseRow = (
                 <tr key={rule.id}>
                   <td>
                     <strong>{rule.scenario}</strong>
                   </td>
                   <td>
-                    <span className="score-reduction__pts">→ {rule.points ?? 0}</span>
+                    <span className="score-reduction__pts">{scoreLabel}</span>
                   </td>
                   <td>{rule.why}</td>
                 </tr>
               );
 
-              if (!rule.reasons?.length) return [baseRow];
+              if (!hasChildren) return [baseRow];
 
-              return [
-                baseRow,
-                ...rule.reasons.map((item) => (
+              const childRows = [
+                ...(rule.tiers ?? []).map((item) => (
+                  <tr key={`${rule.id}-${item.condition}`} className="score-reduction__exception">
+                    <td>
+                      <span className="score-reduction__sub">{item.condition}</span>
+                    </td>
+                    <td>
+                      <span className="score-reduction__pts">→ {item.points}</span>
+                    </td>
+                    <td>{item.why}</td>
+                  </tr>
+                )),
+                ...(rule.reasons ?? []).map((item) => (
                   <tr key={`${rule.id}-${item.reason}`} className="score-reduction__exception">
                     <td>
                       <span className="score-reduction__sub">
@@ -51,6 +65,8 @@ export function ScoreReductionSection() {
                   </tr>
                 )),
               ];
+
+              return [baseRow, ...childRows];
             })}
           </tbody>
         </table>
