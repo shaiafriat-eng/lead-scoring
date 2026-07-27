@@ -114,10 +114,7 @@ function dimensionsBehaviorBlock({ onHome = false, showNav = true } = {}) {
             <tr><td><strong>4</strong></td><td>0–14</td><td>TOFU only</td></tr>
           </table>
         </div>
-        <div class="card" style="margin-top:1rem;border-left:4px solid var(--orange-juice)">
-          <h3>Top weights</h3>
-          <p style="margin:0;color:var(--muted)"><strong style="color:var(--cherry-syrup)">+100</strong> Demo, pricing, contact sales · <strong style="color:var(--cherry-syrup)">+50</strong> WAD, tour, ROI, events · <strong style="color:var(--cherry-syrup)">+35</strong> A-tier booth + Decision/Purchase · <strong style="color:var(--cherry-syrup)">+5</strong> Email click (max 3/mo)</p>
-        </div>
+        <div id="activity-points" class="activity-points-mount" style="margin-top:1.25rem"></div>
 ${nav}
         </div>`;
 }
@@ -166,6 +163,7 @@ const pages = {
   "index.html": {
     title: "Home",
     shareTitle: "The Ultimate Guide to Lead Scoring",
+    scripts: ["js/activity-points.js"],
     body:
     heroSection() +
     `    <section class="page">
@@ -229,7 +227,11 @@ ${matrixSection({ embedded: true })}`,
     </section>`,
   },
 
-  "dimensions.html": { title: "Fit & behavior", body: dimensionsSection() },
+  "dimensions.html": {
+    title: "Fit & behavior",
+    scripts: ["js/activity-points.js"],
+    body: dimensionsSection(),
+  },
 
   "matrix.html": { title: "Score matrix", body: matrixSection() },
 
