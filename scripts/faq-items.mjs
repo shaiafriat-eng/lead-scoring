@@ -40,7 +40,7 @@ export const FAQ_ITEMS = [
   },
   {
     q: "Can a lead score decrease?",
-    a: "Yes. Behavioral Score Calculation is reduced in specific ops scenarios: Blacklisted country, Not Relevant, Unsubscribe, or Nurture → 0 by default. Specific nurture reasons override that — Migration or Unresponsive → 10; Changes in personnel or No internal capacity → 20. Demographic grade (A–D) can also worsen when account or persona data changes. After a reduction, the lead must earn new engagement before reaching the 100-point MQL threshold again. See MQL Policy → When the behavioral score is reduced.",
+    a: "Yes. Behavioral Score Calculation is reduced in specific ops scenarios: Blacklisted country, Not Relevant, Unsubscribe, Inactivity (no form submission / LGF / score change for 3 months), or Nurture → 0 by default. Specific nurture reasons override that — Migration or Unresponsive → 10; Changes in personnel or No internal capacity → 20. Demographic grade (A–D) can also worsen when account or persona data changes. After a reduction, the lead must earn new engagement before reaching the 100-point MQL threshold again. See MQL Policy → When the behavioral score is reduced.",
   },
   {
     q: "Where can I see the full process flow?",

@@ -19,6 +19,12 @@ export const SCORE_REDUCTION_RULES = [
     why: "The person opted out of email. Continuing to score engagement would misrepresent intent and risk compliance issues.",
   },
   {
+    id: "inactivity",
+    scenario: "Inactivity",
+    points: 0,
+    why: "No meaningful engagement for 3 months — no form submission, no LGF, and the behavioral score has not changed. Stale points are cleared so old activity cannot keep the lead MQL-eligible.",
+  },
+  {
     id: "nurture",
     scenario: "Nurture",
     points: 0,

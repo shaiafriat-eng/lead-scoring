@@ -1,0 +1,20 @@
+HiBob Lead Scoring Guide — offline HTML package
+===============================================
+
+Open the guide
+--------------
+1. Unzip this folder (if you received a ZIP).
+2. Double-click START-HERE.html
+   (or open index.html)
+
+No GitHub login required. Works in Chrome, Safari, Edge, or Firefox.
+
+Sharing
+-------
+Send the entire folder or the ZIP file.
+Do not send only one HTML page — CSS, JS, and images must stay in the same folder.
+
+Pages included
+--------------
+Home, ICP definition, Explore the Flow, Score matrix,
+MQL Policy (incl. score reduction), Support and Trust / FAQ

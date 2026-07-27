@@ -1,0 +1,3319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HiBob Lead Scoring Guide</title>
+  <link rel="icon" type="image/png" href="data:image/png;base64,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" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Domine:wght@500;600;700&family=Lato:wght@400;700;900&display=swap" rel="stylesheet" />
+  <style>
+
+/* HiBob brand — brand.hibob.com */
+:root {
+  --cherry-syrup: #ee164f;
+  --dark-wine: #83143d;
+  --orange-juice: #faa32b;
+  --cappuccino-foam: #fdf6eb;
+  --white-cream: #ffffff;
+  --black-coffee: #3a3a37;
+  --muted: #5c5c58;
+  --border: #e3ddd3;
+  --bg-page: #f6f4ef;
+  --bg-warm: #fffbf4;
+  --pink-mid: #f36488;
+  --radius: 16px;
+  --nav-height: 64px;
+  --font-headline: "Archivo Black", sans-serif;
+  --font-subhead: "Domine", Georgia, serif;
+  --font-body: "Lato", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--black-coffee);
+  background: var(--bg-page);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+main { flex: 1; }
+
+h1 {
+  font-family: var(--font-subhead);
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  margin: 0 0 1rem;
+}
+.heading-date {
+  font-size: 0.58em;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0;
+  text-transform: none;
+}
+h2 {
+  font-family: var(--font-headline);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+  font-size: clamp(1.35rem, 3vw, 1.85rem);
+  margin: 0 0 0.75rem;
+}
+h3 { font-family: var(--font-subhead); font-weight: 700; line-height: 1.25; font-size: 1.05rem; margin: 0 0 0.5rem; }
+.hibob-word { text-transform: none; letter-spacing: -0.01em; }
+a { color: var(--cherry-syrup); font-weight: 700; text-decoration: none; }
+a:hover { color: var(--dark-wine); }
+
+.wrap { width: min(1100px, 100% - 2rem); margin: 0 auto; }
+.page { padding: 2.5rem 0 3.5rem; }
+.page--alt { background: var(--white-cream); }
+.page-hero { padding: 2.5rem 0 3rem; background: var(--bg-warm); }
+
+/* Home — built hero (vector/CSS, not raster banner) */
+.guide-hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(128deg, var(--cherry-syrup) 0%, #d41342 48%, var(--dark-wine) 100%);
+  color: #fff;
+}
+.guide-hero__pattern {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.35;
+}
+.guide-hero__pattern--tl {
+  width: 280px;
+  height: 280px;
+  top: -120px;
+  right: 8%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.22) 0%, transparent 68%);
+}
+.guide-hero__pattern--br {
+  width: 200px;
+  height: 200px;
+  bottom: 72px;
+  left: -40px;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.9) 1.5px, transparent 1.5px);
+  background-size: 14px 14px;
+  opacity: 0.2;
+}
+.guide-hero__main {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr min(42%, 420px);
+  gap: 2rem 2.5rem;
+  align-items: center;
+  padding: 2.25rem 0 2rem;
+}
+.guide-hero__title {
+  font-family: var(--font-headline);
+  font-weight: 400;
+  font-size: clamp(1.65rem, 3.8vw, 2.35rem);
+  line-height: 1.12;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0 0 0.85rem;
+}
+.guide-hero__tagline {
+  font-size: clamp(0.8125rem, 1.4vw, 0.9375rem);
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0 0 0.5rem;
+  max-width: 40rem;
+  font-weight: 700;
+  text-transform: none;
+}
+.guide-hero__description {
+  font-size: clamp(0.75rem, 1.25vw, 0.875rem);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.88);
+  margin: 0;
+  max-width: 40rem;
+  font-weight: 400;
+  text-transform: none;
+}
+.guide-hero__visual {
+  position: relative;
+  min-height: 200px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.35rem;
+  padding-bottom: 0.25rem;
+}
+.guide-hero__gauge {
+  flex: 0 1 200px;
+  margin-right: -1.5rem;
+  z-index: 0;
+}
+.guide-hero__gauge-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.18));
+}
+.guide-hero__score-card {
+  position: relative;
+  z-index: 2;
+  background: #fff;
+  border-radius: 14px;
+  padding: 0.85rem 1rem 0.75rem;
+  min-width: 128px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+.guide-hero__score-label {
+  margin: 0;
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #1e3a5f;
+}
+.guide-hero__score-value {
+  margin: 0.1rem 0 0.5rem;
+  font-family: var(--font-headline);
+  font-size: 2.35rem;
+  line-height: 1;
+  color: var(--cherry-syrup);
+  letter-spacing: -0.02em;
+}
+.guide-hero__score-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.guide-hero__avatar {
+  flex-shrink: 0;
+  width: 1.65rem;
+  height: 1.65rem;
+  border-radius: 50%;
+  background: var(--cherry-syrup);
+  position: relative;
+}
+.guide-hero__avatar::after {
+  content: "";
+  position: absolute;
+  inset: 28% 32% 22%;
+  background: #fff;
+  border-radius: 50% 50% 40% 40%;
+  clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+}
+.guide-hero__score-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+  flex: 1;
+}
+.guide-hero__score-lines i {
+  display: block;
+  height: 5px;
+  border-radius: 3px;
+  background: #f8d4dc;
+}
+.guide-hero__score-lines i:first-child { width: 88%; }
+.guide-hero__score-lines i:last-child { width: 62%; }
+.guide-hero__bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.35rem;
+  height: 72px;
+  padding-bottom: 0.15rem;
+  z-index: 1;
+}
+.guide-hero__bars span {
+  display: block;
+  width: 0.65rem;
+  border-radius: 4px 4px 2px 2px;
+  background: rgba(255, 255, 255, 0.55);
+}
+.guide-hero__bars span:nth-child(1) { height: 42%; }
+.guide-hero__bars span:nth-child(2) { height: 58%; background: rgba(255, 255, 255, 0.75); }
+.guide-hero__bars span:nth-child(3) { height: 72%; }
+.guide-hero__bars span:nth-child(4) { height: 88%; background: #fff; }
+.guide-hero__benefits {
+  position: relative;
+  z-index: 1;
+  list-style: none;
+  margin: 0 auto;
+  padding: 0.85rem 0 1.1rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+.guide-hero__benefits li {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.35;
+  padding: 0 0.5rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+.guide-hero__benefits li > span:not(.guide-hero__benefit-icon) {
+  white-space: nowrap;
+}
+.guide-hero__benefits li:last-child { border-right: none; }
+.guide-hero__benefit-icon {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+.guide-hero__benefit-icon svg {
+  width: 1rem;
+  height: 1rem;
+}
+@media (max-width: 900px) {
+  .guide-hero__main {
+    grid-template-columns: 1fr;
+    padding-bottom: 1rem;
+  }
+  .guide-hero__visual {
+    min-height: 180px;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+  .guide-hero__benefits {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .guide-hero__benefits li:nth-child(2) { border-right: none; }
+}
+@media (max-width: 520px) {
+  .guide-hero__benefits {
+    grid-template-columns: 1fr;
+  }
+  .guide-hero__benefits li {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    padding-bottom: 0.5rem;
+  }
+  .guide-hero__benefits li:last-child { border-bottom: none; }
+}
+
+.dimension-block--follow {
+  margin-top: 3rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--border);
+}
+.label { font-size: 0.7rem; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dark-wine); }
+.lead { color: var(--muted); max-width: 42rem; margin: 0 0 1.5rem; }
+.lead--full-width { max-width: none; width: 100%; }
+
+.scoring-flow-block {
+  width: 100%;
+  max-width: 100%;
+}
+
+.scoring-flow-block__intro {
+  max-width: none;
+  width: 100%;
+  margin: 0;
+}
+
+.scoring-flow-block__miro {
+  margin: 1rem 0 1.25rem;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+
+.scoring-flow-block__card {
+  margin-top: 0;
+}
+
+#how-it-works h1,
+#how-it-works h2 {
+  margin-bottom: 0.5rem;
+}
+
+.intro-grid {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.intro-grid .lead {
+  margin: 0;
+  max-width: none;
+  width: 100%;
+}
+
+/* Header / nav — sticky on wrapper for reliable scroll behavior */
+#site-header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  flex-shrink: 0;
+  width: 100%;
+}
+
+header.site {
+  background: rgba(255, 251, 244, 0.97);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+header.site .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  min-height: var(--nav-height);
+}
+.logo { display: flex; align-items: center; gap: 1rem; text-decoration: none; color: inherit; }
+.logo img { height: 32px; width: auto; display: block; }
+.site-brand-logo { height: 35px; width: auto; display: block; flex-shrink: 0; }
+.site-brand-logo--footer { height: 28px; }
+.logo-tag {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--muted);
+  border-left: 1px solid var(--border);
+  padding-left: 1rem;
+}
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem;
+  justify-content: flex-end;
+  align-items: center;
+  max-width: 52rem;
+}
+.site-nav a {
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 700;
+  padding: 0.35rem 0.5rem;
+  border-radius: 8px;
+  margin: 0;
+}
+.site-nav a:hover { color: var(--cherry-syrup); background: var(--cappuccino-foam); }
+.site-nav a.is-active {
+  color: var(--dark-wine);
+  background: var(--cappuccino-foam);
+  box-shadow: inset 0 0 0 2px var(--cherry-syrup);
+}
+
+@media (max-width: 900px) {
+  header.site .wrap { flex-direction: column; align-items: stretch; }
+  .site-nav { justify-content: flex-start; }
+}
+
+/* Components */
+.card {
+  background: var(--white-cream);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 8px 24px rgba(58, 58, 55, 0.06);
+}
+.grid-2 { display: grid; gap: 1.25rem; }
+@media (min-width: 768px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
+
+.hero-tagline, .hero-description { font-size: 1.0625rem; color: var(--muted); margin: 0; }
+.hero-tagline { max-width: 40rem; margin-bottom: 0.75rem; }
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2.25rem; }
+
+.overview-columns { display: grid; gap: 2rem; }
+@media (min-width: 768px) {
+  .overview-columns { grid-template-columns: 1fr 1fr; gap: 0; }
+  .overview-item:first-child { padding-right: 2.5rem; border-right: 1px solid var(--border); }
+  .overview-item:last-child { padding-left: 2.5rem; }
+}
+.overview-item__title {
+  margin: 0 0 0.65rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid var(--cherry-syrup);
+  display: inline-block;
+  font-size: 1.125rem;
+}
+.overview-item__text { margin: 0; color: var(--muted); font-size: 1rem; line-height: 1.65; }
+
+.btn {
+  display: inline-block;
+  padding: 0.7rem 1.25rem;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 0.875rem;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+.btn-primary { background: var(--cherry-syrup); color: #fff; }
+.btn-primary:hover { background: var(--dark-wine); color: #fff; }
+.btn-secondary { background: var(--white-cream); color: var(--black-coffee); border: 2px solid var(--border); }
+.icp-doc-link__note { font-weight: 400; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+th, td { padding: 0.65rem 0.85rem; text-align: left; border-bottom: 1px solid var(--border); }
+th { background: var(--cappuccino-foam); font-weight: 900; text-transform: uppercase; font-size: 0.75rem; }
+
+.flow-step-dots { display: flex; flex-wrap: wrap; gap: 4px; padding: 1rem 1rem 0; }
+.flow-dot {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 2px solid var(--border); font-weight: 900; font-size: 0.75rem;
+  cursor: pointer; background: var(--white-cream);
+}
+.flow-dot.active { background: var(--cherry-syrup); color: #fff; border-color: var(--cherry-syrup); }
+.flow-dot.done { background: #fac7d1; }
+.flow-panel { padding: 1.25rem 1.5rem; }
+
+.flow-branches__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.flow-branches__item {
+  display: flex; gap: 0.65rem; align-items: flex-start; padding: 0.65rem 0.75rem;
+  background: var(--white-cream); border: 1px solid var(--border); border-radius: 10px; font-size: 0.875rem;
+}
+.flow-branches__item--btn { flex-direction: column; align-items: stretch; }
+.flow-branches__item.is-selected {
+  border-color: var(--cherry-syrup); box-shadow: inset 0 0 0 2px var(--cherry-syrup); background: var(--cappuccino-foam);
+}
+.flow-branches__item--grade-D.is-selected { border-color: var(--dark-wine); box-shadow: inset 0 0 0 2px var(--dark-wine); }
+.flow-branches__trigger {
+  display: flex; align-items: center; gap: 0.5rem; width: 100%; text-align: left;
+  padding: 0; border: none; background: none; cursor: pointer; font: inherit; color: inherit;
+}
+.flow-branches__badge {
+  flex-shrink: 0; min-width: 1.75rem; padding: 0.15rem 0.4rem; border-radius: 6px;
+  background: var(--cherry-syrup); color: #fff; font-weight: 900; font-size: 0.75rem; text-align: center;
+}
+.flow-branches__item--grade-D .flow-branches__badge { background: var(--border); color: var(--black-coffee); }
+.flow-branches__label { font-weight: 700; display: block; }
+.flow-branches__outcome { margin: 0.35rem 0 0; color: var(--muted); font-size: 0.8125rem; line-height: 1.45; font-weight: 400; }
+.flow-branches__selected { margin-top: 0.75rem; }
+
+.flow-derived {
+  padding: 1.25rem 1.5rem;
+  background: var(--cappuccino-foam);
+  border-radius: 12px;
+  border: 2px solid var(--border);
+}
+.flow-derived__label {
+  margin: 0 0 0.35rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+.flow-derived__value {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-headline, "Archivo Black", sans-serif);
+  font-size: 2rem;
+  line-height: 1.1;
+  color: var(--black-coffee);
+}
+.flow-derived--grade-D .flow-derived__value { color: var(--dark-wine); }
+.flow-derived__outcome {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+.flow-derived--mql-yes { border-color: #2d6a4f; background: #edf7f0; }
+.flow-derived--mql-yes .flow-derived__value { color: #1b4332; }
+.flow-derived--mql-no { border-color: var(--dark-wine); background: #fdf0f3; }
+.flow-derived--mql-no .flow-derived__value { color: var(--dark-wine); }
+.flow-derived--mql-selective { border-color: var(--orange-juice, #faa32b); background: #fff8ed; }
+.flow-derived--mql-selective .flow-derived__value { color: #9a5b00; }
+.flow-derived--mql-review { border-color: var(--cherry-syrup); }
+
+/* MQL diagnostic — conversational guide */
+.mql-diagnostic { padding: 0; overflow: hidden; }
+.mql-diagnostic__progress {
+  height: 4px;
+  background: var(--border);
+}
+.mql-diagnostic__progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #1a5f7a, #2a9d8f);
+  transition: width 0.35s ease;
+}
+.mql-diagnostic__thread {
+  padding: 1.25rem 1.35rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  max-height: 28rem;
+  overflow-y: auto;
+}
+.mql-diagnostic__msg {
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+}
+.mql-diagnostic__msg--user { flex-direction: row-reverse; }
+.mql-diagnostic__bubble--thinking {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 2.5rem;
+}
+.mql-diagnostic__thinking-text {
+  font-weight: 700;
+  color: var(--muted);
+}
+.mql-diagnostic__thinking-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.22rem;
+  height: 1rem;
+}
+.mql-diagnostic__thinking-dots span {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: #2a9d8f;
+  animation: mql-thinking-dot 1.05s ease-in-out infinite;
+}
+.mql-diagnostic__thinking-dots span:nth-child(2) { animation-delay: 0.16s; }
+.mql-diagnostic__thinking-dots span:nth-child(3) { animation-delay: 0.32s; }
+.mql-diagnostic--thinking .mql-diagnostic__options {
+  opacity: 0;
+  pointer-events: none;
+}
+@keyframes mql-thinking-dot {
+  0%, 80%, 100% { opacity: 0.35; transform: translateY(0) scale(0.85); }
+  40% { opacity: 1; transform: translateY(-5px) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mql-diagnostic__thinking-dots span { animation: none; }
+}
+.mql-diagnostic__avatar {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1a5f7a, #2a9d8f);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mql-diagnostic__avatar svg {
+  display: block;
+}
+.mql-diagnostic__bubble {
+  max-width: min(100%, 28rem);
+  padding: 0.75rem 1rem;
+  border-radius: 14px 14px 14px 4px;
+  background: var(--cappuccino-foam);
+  border: 1px solid var(--border);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+.mql-diagnostic__bubble--user {
+  border-radius: 14px 14px 4px 14px;
+  background: var(--white-cream);
+  border-color: #b8d4ce;
+  font-weight: 600;
+  color: var(--black-coffee);
+}
+.mql-diagnostic__options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem 1.35rem 1rem;
+  border-top: 1px solid var(--border);
+  background: var(--bg-warm);
+}
+.mql-diagnostic__option {
+  text-align: left;
+  padding: 0.7rem 0.9rem;
+  border-radius: 10px;
+  border: 2px solid var(--border);
+  background: var(--white-cream);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--black-coffee);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.mql-diagnostic__option:hover {
+  border-color: #2a9d8f;
+  background: #eef8f6;
+}
+.mql-diagnostic__conclusion {
+  margin: 0.5rem 0 0;
+  padding: 1rem 1.1rem;
+  border-radius: 12px;
+}
+.mql-diagnostic__conclusion--policy { background: var(--cappuccino-foam); }
+.mql-diagnostic__conclusion--review {
+  background: linear-gradient(90deg, var(--white-cream) 0%, var(--cappuccino-foam) 100%);
+}
+.mql-diagnostic__conclusion--info { background: var(--white-cream); }
+.qualification-issue__title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.qualification-issue__wip {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--black-coffee);
+  background: var(--orange-juice);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  line-height: 1.2;
+}
+.mql-diagnostic__conclusion-tag {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dark-wine);
+}
+.mql-diagnostic__grade-insight {
+  margin: 0 0.5rem 0.25rem 2.65rem;
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #eef8f6 0%, var(--cappuccino-foam) 100%);
+  border: 1px solid #b8d4ce;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.mql-diagnostic__grade-insight-title {
+  margin: 0 0 0.5rem;
+  font-weight: 700;
+  color: var(--black-coffee);
+}
+.mql-diagnostic__grade-insight ul {
+  margin: 0;
+  padding-left: 1.15rem;
+  color: var(--muted);
+}
+.mql-diagnostic__grade-insight li { margin-bottom: 0.3rem; }
+.mql-diagnostic__footer {
+  padding: 0 1.35rem 1.25rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.miro-embed { width: 100%; height: 360px; border: none; display: block; }
+
+.matrix-wrap { margin-top: 1rem; width: fit-content; max-width: 100%; overflow: visible; }
+.matrix-wrap--with-hint { position: relative; padding-top: 0.25rem; }
+
+.matrix-try-hint {
+  position: absolute;
+  z-index: 35;
+  left: 50%;
+  top: 2.75rem;
+  transform: translateX(-12%);
+  pointer-events: none;
+  animation: matrix-try-float 2.4s ease-in-out infinite;
+}
+.matrix-try-hint--hidden {
+  opacity: 0;
+  transform: translateX(-12%) scale(0.85);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: none;
+}
+.matrix-try-hint__bubble {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.85rem;
+  background: linear-gradient(135deg, #1a5f7a, #2a9d8f);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  box-shadow: 0 10px 28px rgba(26, 95, 122, 0.35);
+  animation: matrix-try-pop 1.8s ease-in-out infinite;
+}
+.matrix-try-hint__label { line-height: 1; white-space: nowrap; }
+.matrix-try-hint__tail {
+  display: block;
+  width: 14px;
+  height: 14px;
+  margin: -5px auto 0;
+  background: #2a9d8f;
+  transform: rotate(45deg);
+  border-radius: 2px;
+  box-shadow: 3px 3px 8px rgba(26, 95, 122, 0.25);
+}
+
+@keyframes matrix-try-float {
+  0%, 100% { transform: translateX(-12%) translateY(0); }
+  50% { transform: translateX(-12%) translateY(-8px); }
+}
+@keyframes matrix-try-pop {
+  0%, 100% { transform: scale(1); }
+  45% { transform: scale(1.06); }
+}
+@media (max-width: 520px) {
+  .matrix-try-hint {
+    left: auto;
+    right: 0;
+    top: 0.5rem;
+    transform: none;
+    animation-name: matrix-try-float-mobile;
+  }
+  .matrix-try-hint--hidden { transform: scale(0.85); }
+  @keyframes matrix-try-float-mobile {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+}
+.matrix {
+  display: grid;
+  grid-template-columns: auto repeat(4, 56px);
+  gap: 8px;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  width: fit-content;
+}
+.matrix.card { padding: 1.35rem 1.5rem; overflow: visible; }
+.matrix-axis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+.matrix-axis--row { justify-content: flex-end; padding-right: 0.35rem; }
+
+.matrix-cell {
+  position: relative;
+  border-radius: 10px;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: help;
+}
+.matrix-cell:focus-visible {
+  outline: 2px solid var(--cherry-syrup);
+  outline-offset: 2px;
+}
+.matrix-cell__code { pointer-events: none; }
+
+.matrix-cell__tooltip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 14px);
+  transform: translateX(-50%) translateY(6px) scale(0.97);
+  width: max-content;
+  max-width: 19rem;
+  min-width: 11rem;
+  border-radius: 12px;
+  background: var(--white-cream);
+  border: 1px solid var(--border);
+  box-shadow:
+    0 16px 40px rgba(131, 20, 61, 0.14),
+    0 6px 16px rgba(58, 58, 55, 0.1);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  overflow: hidden;
+  transition:
+    opacity 0.22s ease,
+    visibility 0.22s ease,
+    transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 30;
+}
+
+.matrix-cell__tooltip::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--dark-wine), var(--cherry-syrup), var(--orange-juice));
+}
+
+.matrix-cell__tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  margin-top: -6px;
+  background: var(--white-cream);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  transform: rotate(45deg);
+  box-shadow: 4px 4px 10px rgba(58, 58, 55, 0.08);
+}
+
+.matrix-cell__tooltip-code {
+  display: block;
+  padding: 0.55rem 0.85rem 0.4rem;
+  font-family: var(--font-headline);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--dark-wine);
+  line-height: 1;
+}
+
+.matrix-cell__tooltip-text {
+  display: block;
+  padding: 0 0.85rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.matrix-cell:hover .matrix-cell__tooltip,
+.matrix-cell:focus-visible .matrix-cell__tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0) scale(1);
+}
+
+.matrix-cell--flip .matrix-cell__tooltip {
+  bottom: auto;
+  top: calc(100% + 14px);
+  transform: translateX(-50%) translateY(-6px) scale(0.97);
+}
+
+.matrix-cell--flip:hover .matrix-cell__tooltip,
+.matrix-cell--flip:focus-visible .matrix-cell__tooltip {
+  transform: translateX(-50%) translateY(0) scale(1);
+}
+
+.matrix-cell--flip .matrix-cell__tooltip::after {
+  top: auto;
+  bottom: 100%;
+  margin-top: 0;
+  margin-bottom: -6px;
+  border-right: none;
+  border-bottom: none;
+  border-left: 1px solid var(--border);
+  border-top: 1px solid var(--border);
+  box-shadow: -3px -3px 10px rgba(58, 58, 55, 0.06);
+}
+
+details { border: 1px solid var(--border); border-radius: 12px; background: var(--white-cream); margin-bottom: 0.5rem; }
+details summary { padding: 0.85rem 1rem; font-weight: 700; cursor: pointer; }
+details .inner { padding: 0 1rem 1rem; color: var(--muted); font-size: 0.9rem; }
+.dq-person-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: var(--muted);
+}
+
+.dq-person-list > li {
+  margin-bottom: 0.35rem;
+}
+
+details.details-in-list {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  margin: 0;
+}
+
+details.details-in-list summary {
+  padding: 0;
+  font-weight: 400;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+details.details-in-list summary:hover {
+  color: var(--cherry-syrup);
+}
+
+details.details-in-list .details-in-list__body {
+  margin: 0.5rem 0 0.5rem 0.5rem;
+  padding: 0.75rem 0 0.25rem 1rem;
+  border-left: 2px solid var(--border);
+}
+
+.tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+.tab { padding: 0.5rem 1rem; border-radius: 999px; border: 2px solid var(--border); background: var(--white-cream); cursor: pointer; font-weight: 900; font-size: 0.85rem; }
+.tab.active { background: var(--cherry-syrup); color: #fff; border-color: var(--cherry-syrup); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.banner { background: linear-gradient(135deg, var(--dark-wine), var(--cherry-syrup)); color: #fff; border: none; }
+.banner h3 { color: #fff; }
+
+.icp-definition__summary { margin: 0 0 1rem; font-size: 1rem; line-height: 1.55; }
+.icp-disclaimer {
+  margin: 1rem 0 0;
+  padding: 0.85rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--muted);
+  background: var(--cappuccino-foam);
+  border-left: 4px solid var(--cherry-syrup);
+  border-radius: 0 8px 8px 0;
+}
+.icp-definition__list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+.icp-definition__list li {
+  position: relative; padding: 0.65rem 0.85rem 0.65rem 2.25rem;
+  background: var(--cappuccino-foam); border-radius: 12px;
+  font-size: 0.9375rem; font-weight: 700; line-height: 1.4;
+}
+.icp-definition__list li::before {
+  content: ""; position: absolute; left: 0.85rem; top: 50%;
+  transform: translateY(-50%); width: 8px; height: 8px;
+  border-radius: 50%; background: var(--cherry-syrup);
+}
+
+.sales-order {
+  margin-top: 0.75rem; padding: 1rem 1.15rem;
+  background: var(--white-cream); border: 1px solid var(--border);
+  border-radius: var(--radius); box-shadow: 0 8px 24px rgba(58, 58, 55, 0.06);
+}
+.sales-order__header {
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  justify-content: space-between; gap: 0.35rem;
+  margin-bottom: 0.6rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+}
+.sales-order__title { margin: 0; font-family: var(--font-subhead); font-size: 1.05rem; }
+.sales-order__caption { font-size: 0.7rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dark-wine); }
+.sales-order__ladder { display: flex; flex-direction: column; }
+.sales-order__row { display: grid; grid-template-columns: 1.75rem 1fr; align-items: center; gap: 0.5rem; padding: 0.12rem 0; }
+.sales-order__rank {
+  display: flex; align-items: center; justify-content: center;
+  width: 1.75rem; height: 1.75rem; border-radius: 50%;
+  background: var(--cappuccino-foam); border: 2px solid var(--border);
+  font-size: 0.65rem; font-weight: 900; color: var(--dark-wine);
+}
+.sales-order__row:first-child .sales-order__rank { background: var(--cherry-syrup); border-color: var(--cherry-syrup); color: #fff; }
+.sales-order__row:last-child .sales-order__rank { background: var(--bg-page); color: var(--muted); }
+.sales-order__codes { display: flex; flex-wrap: wrap; gap: 0.25rem; }
+.sales-order__code {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 2.1rem; padding: 0.2rem 0.45rem; border-radius: 8px;
+  font-weight: 800; font-size: 0.75rem; box-shadow: 0 2px 8px rgba(58, 58, 55, 0.1);
+}
+.sales-order__foot {
+  margin: 0.6rem 0 0; padding-top: 0.5rem; border-top: 1px solid var(--border);
+  font-size: 0.8125rem; color: var(--muted);
+}
+@media (min-width: 640px) {
+  .sales-order__ladder { display: grid; grid-template-columns: 1fr 1fr; column-gap: 1.25rem; row-gap: 0.1rem; }
+}
+
+.page-nav-links {
+  display: flex; flex-wrap: wrap; gap: 0.5rem;
+  margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border);
+}
+.page-nav-links .btn { margin: 0; }
+
+.score-reduction {
+  margin-top: 0.75rem;
+  padding: 0;
+  overflow-x: auto;
+}
+.score-reduction__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+.score-reduction__table th,
+.score-reduction__table td {
+  padding: 0.55rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--border);
+}
+.score-reduction__table th {
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--bg-page);
+}
+.score-reduction__table tbody tr:last-child td {
+  border-bottom: none;
+}
+.score-reduction__table td:nth-child(2) {
+  width: 4.5rem;
+  white-space: nowrap;
+}
+.score-reduction__table td strong {
+  display: block;
+}
+.score-reduction__sub {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 0.8125rem;
+}
+.score-reduction__exception td:first-child {
+  padding-left: 1.35rem;
+}
+.score-reduction__group td {
+  padding-top: 0.75rem;
+  padding-bottom: 0.25rem;
+  border-bottom: none;
+  background: var(--bg-page);
+}
+.score-reduction__group-label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dark-wine);
+}
+.score-reduction__pts {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.4rem;
+  padding: 0.2rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(131, 20, 61, 0.1);
+  color: var(--dark-wine);
+  font-weight: 900;
+  font-size: 0.8125rem;
+  line-height: 1;
+}
+.score-reduction__note {
+  margin: 0.75rem 0 0;
+  color: var(--muted);
+  font-size: 0.8125rem;
+  max-width: 48rem;
+}
+
+.activity-points {
+  padding: 1.25rem 1.35rem 1.1rem;
+}
+.activity-points h3 {
+  margin: 0 0 0.4rem;
+}
+.activity-points__lead {
+  margin: 0 0 1rem;
+  color: var(--muted);
+  font-size: 0.9375rem;
+  max-width: 44rem;
+}
+.activity-points__search-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.activity-points__search-wrap {
+  position: relative;
+  margin-bottom: 0.75rem;
+}
+.activity-points__search-icon {
+  position: absolute;
+  left: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.1rem;
+  height: 1.1rem;
+  color: var(--muted);
+  pointer-events: none;
+}
+.activity-points__search {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--white-cream);
+  color: var(--black-coffee);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 0.85rem 1rem 0.85rem 2.6rem;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.activity-points__search:focus {
+  border-color: var(--cherry-syrup);
+  box-shadow: 0 0 0 3px rgba(238, 22, 79, 0.12);
+}
+.activity-points__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+.activity-points__chip {
+  appearance: none;
+  border: 1px solid var(--border);
+  background: var(--bg-page);
+  color: var(--black-coffee);
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.activity-points__chip:hover {
+  border-color: var(--cherry-syrup);
+  color: var(--dark-wine);
+}
+.activity-points__chip.is-active {
+  background: var(--cherry-syrup);
+  border-color: var(--cherry-syrup);
+  color: #fff;
+}
+.activity-points__count {
+  margin: 0 0 0.65rem;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+.activity-points__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 28rem;
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-warm);
+}
+.activity-points__row {
+  display: grid;
+  grid-template-columns: 4.25rem 1fr;
+  gap: 0.85rem;
+  align-items: start;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.activity-points__row:last-child {
+  border-bottom: none;
+}
+.activity-points__pts {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3.6rem;
+  padding: 0.35rem 0.45rem;
+  border-radius: 10px;
+  background: rgba(238, 22, 79, 0.1);
+  color: var(--cherry-syrup);
+  font-weight: 900;
+  font-size: 0.9375rem;
+  line-height: 1;
+}
+.activity-points__name {
+  margin: 0;
+  font-weight: 700;
+  font-size: 0.975rem;
+  color: var(--black-coffee);
+  line-height: 1.35;
+}
+.activity-points__name mark {
+  background: rgba(250, 163, 43, 0.35);
+  color: inherit;
+  border-radius: 3px;
+  padding: 0 0.1em;
+}
+.activity-points__tag {
+  margin: 0.25rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+.activity-points__empty {
+  margin: 0;
+  padding: 1.25rem 0.25rem;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+@media (max-width: 560px) {
+  .activity-points__row {
+    grid-template-columns: 3.5rem 1fr;
+    gap: 0.65rem;
+    padding: 0.75rem 0.8rem;
+  }
+}
+
+footer.site-footer {
+  padding: 2rem 0; border-top: 1px solid var(--border);
+  background: var(--white-cream); font-size: 0.85rem; color: var(--muted);
+}
+footer .logo-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
+footer img { height: 28px; }
+
+.section-divider { margin: 3rem 0 0; padding-top: 2.5rem; border-top: 1px solid var(--border); }
+
+
+.share-page[hidden] { display: none !important; }
+.share-page.is-active { display: block; }
+.share-banner {
+  background: var(--cappuccino-foam);
+  border-bottom: 1px solid var(--border);
+  padding: 0.55rem 0;
+  font-size: 0.8125rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+  </style>
+</head>
+<body>
+  <div class="share-banner">Offline HTML copy · no GitHub access needed · open this one file in any browser</div>
+  <div id="site-header"></div>
+  <main>
+<section class="share-page is-active" id="home" data-page="home" >
+<section class="guide-hero" aria-label="Introduction">
+      <div class="guide-hero__pattern guide-hero__pattern--tl" aria-hidden="true"></div>
+      <div class="guide-hero__pattern guide-hero__pattern--br" aria-hidden="true"></div>
+      <div class="wrap guide-hero__main">
+        <div class="guide-hero__copy">
+          <h1 class="guide-hero__title">The Ultimate Guide to Lead Scoring</h1>
+          <p class="guide-hero__tagline">Fit, engagement, and priority in one view.</p>
+          <p class="guide-hero__description">Our two-dimensional model helps Marketing, Sales, and RevOps focus on leads most&nbsp;likely to become sales-qualified opportunities.</p>
+        </div>
+        <div class="guide-hero__visual" aria-hidden="true">
+          <div class="guide-hero__gauge">
+            <svg class="guide-hero__gauge-svg" viewBox="0 0 220 120" role="presentation">
+              <defs>
+                <linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#ffb3c6"/>
+                  <stop offset="100%" stop-color="#ee164f"/>
+                </linearGradient>
+              </defs>
+              <path d="M 24 100 A 86 86 0 0 1 196 100" fill="none" stroke="url(#gaugeGrad)" stroke-width="14" stroke-linecap="round"/>
+              <text x="34" y="100" fill="rgba(255,255,255,0.85)" font-size="11" font-family="Lato,sans-serif" font-weight="700" text-anchor="middle" dominant-baseline="middle">25</text>
+              <text x="72" y="34.2" fill="rgba(255,255,255,0.85)" font-size="11" font-family="Lato,sans-serif" font-weight="700" text-anchor="middle" dominant-baseline="middle">50</text>
+              <text x="148" y="34.2" fill="rgba(255,255,255,0.85)" font-size="11" font-family="Lato,sans-serif" font-weight="700" text-anchor="middle" dominant-baseline="middle">75</text>
+              <text x="186" y="100" fill="rgba(255,255,255,0.85)" font-size="11" font-family="Lato,sans-serif" font-weight="700" text-anchor="middle" dominant-baseline="middle">100</text>
+              <line class="guide-hero__needle" x1="110" y1="100" x2="160.2" y2="63.6" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="110" cy="100" r="6" fill="#fff"/>
+            </svg>
+          </div>
+          <div class="guide-hero__score-card">
+            <p class="guide-hero__score-label">Lead Score</p>
+            <p class="guide-hero__score-value">85</p>
+            <div class="guide-hero__score-meta">
+              <span class="guide-hero__avatar"></span>
+              <span class="guide-hero__score-lines"><i></i><i></i></span>
+            </div>
+          </div>
+          <div class="guide-hero__bars">
+            <span style="--h:42%"></span>
+            <span style="--h:58%"></span>
+            <span style="--h:72%"></span>
+            <span style="--h:88%"></span>
+          </div>
+        </div>
+      </div>
+      <ul class="guide-hero__benefits wrap">
+        <li>
+          <span class="guide-hero__benefit-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2"/></svg>
+          </span>
+          <span>Prioritize high-value leads</span>
+        </li>
+        <li>
+          <span class="guide-hero__benefit-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="12" width="4" height="8" rx="1"/><rect x="10" y="8" width="4" height="12" rx="1"/><rect x="16" y="4" width="4" height="16" rx="1"/></svg>
+          </span>
+          <span>Improve sales&nbsp;&amp;&nbsp;marketing alignment</span>
+        </li>
+        <li>
+          <span class="guide-hero__benefit-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M5 20c1.5-4 13.5-4 14 0"/></svg>
+          </span>
+          <span>Increase conversion rates</span>
+        </li>
+        <li>
+          <span class="guide-hero__benefit-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M9 11h6"/></svg>
+          </span>
+          <span>Drive more revenue</span>
+        </li>
+      </ul>
+    </section>    <section class="page">
+      <div class="wrap overview-columns">
+        <article class="overview-item">
+          <h3 class="overview-item__title">What it is</h3>
+          <p class="overview-item__text">A method to rank leads by <strong>demographic fit</strong> (A–D) and <strong>behavioral engagement</strong> (1–4), combined into codes like A1 or B3.</p>
+        </article>
+        <article class="overview-item">
+          <h3 class="overview-item__title">Why it exists</h3>
+          <p class="overview-item__text">Prioritize sales outreach, reduce MQL noise, and route leads using conversion data—not treating every <strong>100-point</strong> MQL equally.</p>
+        </article>
+      </div>
+    </section>
+    <section class="page page--alt" id="how-it-works">
+      <div class="wrap">
+        <h2>How the score works</h2>
+        <div class="intro-grid">
+          <p class="lead lead--full-width">Two dimensions—fit and engagement—combine into a score code used for prioritization and MQL routing.</p>
+          <div class="grid-2">
+            <div class="card"><h3>Demographic (A–D)</h3><p style="color:var(--muted)">Person (function, seniority) + Account (ICP, status, geo, EE count) → grade A–D.</p></div>
+            <div class="card"><h3>Behavioral (1–4)</h3><p style="color:var(--muted)">Activities earn Marketo points → bucketed into tiers 1 (100+) through 4 (0–14).</p></div>
+          </div>
+        </div>
+        <p style="margin-top:1.5rem"><strong>Systems:</strong> Marketo (scoring & MQL), Salesforce (ICP), 6Sense (intent & booth bonus). <strong>MQL threshold: 100 points.</strong></p>
+
+      </div>
+    </section>
+    <section class="page" id="dimensions">
+      <div class="wrap">
+        <div class="dimension-block" id="demographic">
+        <p class="label">Dimension 1 · Fit</p>
+        <h2>Demographic score (A–D)</h2>
+        <div class="grid-2">
+          <div class="card"><h3><span style="color:var(--cherry-syrup)">A</span> Best fit</h3><p style="color:var(--muted);margin:0">ICP + decision maker/champion (incl. 50–99 EE when ICP flag lags).</p></div>
+          <div class="card"><h3><span style="color:var(--cherry-syrup)">B</span> Strong fit</h3><p style="color:var(--muted);margin:0">ICP + relevant function, or non-ICP + decision maker.</p></div>
+          <div class="card"><h3>C Workable</h3><p style="color:var(--muted);margin:0">Non-ICP workable persona or ICP validating function.</p></div>
+          <div class="card"><h3>D Lowest / DQ</h3><p style="color:var(--muted);margin:0">Irrelevant fit, junk, bad geo, competitor, customer, EE out of range.</p></div>
+        </div>
+        <h3 style="margin-top:2rem">Grade D — full rules</h3>
+        <details><summary>Person-level disqualifiers</summary><div class="inner"><ul class="dq-person-list">
+          <li><details class="details-in-list"><summary>Junk/bounced/private/invalid email</summary><div class="details-in-list__body">
+          <p style="color:var(--muted);margin:0 0 0.75rem">Classified as junk if <strong>one or more</strong> apply:</p>
+          <ul style="color:var(--muted);margin:0;padding-left:1.25rem">
+            <li>Test/fake data in names, company, notes, or email</li>
+            <li>Invalid, disposable, or bounced email</li>
+            <li>Internal QA/UAT from non-production environments</li>
+            <li>Restricted/high-risk countries</li>
+            <li>Fails qualification (e.g. missing referral form)</li>
+            <li>Flagged via operational junk-lead processes</li>
+            <li>Low-quality email validation signals</li>
+          </ul>
+          </div></details></li>
+          <li>Student, Design, intern, professor</li><li>Job function: Sales</li><li>HiBob employees</li></ul></div></details>
+        <details><summary>Account-level disqualifiers</summary><div class="inner"><ul class="dq-person-list">
+          <li>Account status is Not Relevant</li>
+          <li><details class="details-in-list"><summary>Bad country</summary><div class="details-in-list__body"><p style="margin:0;font-size:0.875rem;line-height:1.8;color:var(--muted)">Iran, Lebanon, North Korea, Somalia, Cuba, Syria, Sudan, Libya, Pakistan, India, Iraq, Palestine, Syrian Arab Republic, China, Palestinian Territory (Occupied), Palestinian Territory</p></div></details></li>
+          <li>Competitor or Customer</li><li>Account has fewer than 20 or more than 8,000 employees, and Update MQL Process = FALSE in Salesforce (standard auto-MQL is off for that size band)</li></ul></div></details>
+        </div>
+        <div class="dimension-block dimension-block--follow" id="behavioral">
+        <p class="label">Dimension 2 · Behavior</p>
+        <h2>Behavioral score (1–4)</h2>
+        <div class="card" style="overflow-x:auto">
+          <table>
+            <tr><th>Tier</th><th>Points (Marketo)</th><th>Typical activities</th></tr>
+            <tr><td><strong>1</strong></td><td>100+</td><td>Demo, pricing, explicit sales contact</td></tr>
+            <tr><td><strong>2</strong></td><td>50–99</td><td>WAD, product tour, BOFU, events</td></tr>
+            <tr><td><strong>3</strong></td><td>15–49</td><td>Nurture forms, MOFU, CPL</td></tr>
+            <tr><td><strong>4</strong></td><td>0–14</td><td>TOFU only</td></tr>
+          </table>
+        </div>
+        <div id="activity-points" class="activity-points-mount" style="margin-top:1.25rem"></div>
+
+        </div>
+      </div>
+    </section>
+</section>
+<section class="share-page" id="icp" data-page="icp" hidden>
+<section class="page">
+      <div class="wrap">
+        <h1>ICP definition</h1>
+        <div class="card icp-definition">
+          <p class="icp-definition__summary">An account is ICP when it meets size, technology, industry, and geography rules—or is manually overridden in Salesforce.</p>
+          <p style="color:var(--muted);margin:0 0 0.65rem;font-size:0.875rem">Account must meet <strong>all</strong> criteria below (unless overridden):</p>
+          <ul class="icp-definition__list">
+            <li>100–5,000 employees</li>
+            <li>At least one modern technology in tech stack</li>
+            <li>Industry is NOT colleges/universities, government, federal, or schools</li>
+            <li>US-based companies must be international</li>
+            <li>OR manually flagged via ICP override field</li>
+          </ul>
+          <p class="icp-disclaimer">Disclaimer: We may still MQL accounts with 5,000–8,000 employees under current policy, even though they fall outside the standard ICP employee range.</p>
+          <a class="btn btn-secondary icp-doc-link" href="https://docs.google.com/document/d/1RLKQBVBYxgLHPT3YOboqpobUEW0yQZDwkt67vONTTto/edit?tab=t.0" target="_blank" rel="noopener" style="margin-top:1rem"><span class="icp-doc-link__label">Open full ICP doc (Google)</span><span class="icp-doc-link__note"> — full rules maintained by MIS →</span></a>
+        </div>
+      </div>
+    </section>
+</section>
+<section class="share-page" id="flow" data-page="flow" hidden>
+<section class="page page--alt">
+      <div class="wrap">
+        <h1>Explore the scoring flow</h1>
+        <div class="scoring-flow-block">
+        <p class="lead scoring-flow-block__intro">Step through the process below.</p>
+        <p class="scoring-flow-block__miro">Full diagram: <a href="https://miro.com/app/board/uXjVIkUIQp0=/?share_link_id=79974080622" target="_blank" rel="noopener">Open Miro board →</a></p>
+        <div class="card scoring-flow-block__card" style="padding:0">
+          <div class="flow-step-dots" id="flow-dots"></div>
+          <div class="flow-panel" id="flow-panel"></div>
+        </div>
+        </div>
+      </div>
+    </section>
+    <section class="page" id="matrix">
+      <div class="wrap">
+        <h2>Score matrix</h2>
+        <p class="lead">Darker = higher priority. A1 top → D4 lowest. <br>Hover a cell for an example lead.</p>
+        <div class="matrix-wrap matrix-wrap--with-hint">
+          <div class="matrix-try-hint" id="matrix-try-hint" aria-hidden="true">
+            <div class="matrix-try-hint__bubble">
+              <span class="matrix-try-hint__label">Try me</span>
+            </div>
+            <span class="matrix-try-hint__tail"></span>
+          </div>
+          <div class="card matrix" id="matrix-grid"></div>
+        </div>
+        
+      </div>
+    </section>
+</section>
+<section class="share-page" id="mql" data-page="mql" hidden>
+<section class="page" id="policy">
+      <div class="wrap">
+        <h1>MQL policy <span class="heading-date">last updated on March 2025</span></h1>
+        <div class="tabs">
+          <button class="tab active" data-tab="hr">Hand raiser</button>
+          <button class="tab" data-tab="wad">WAD</button>
+          <button class="tab" data-tab="act">Activity-based</button>
+          <button class="tab" data-tab="oth">Other</button>
+        </div>
+        <div class="card tab-panel active" id="tab-hr"><h3>Hand raiser — always auto-MQL</h3><p style="color:var(--muted)">Request Demo, Pricing, Contact Sales · ~18% MQL-to-SQA CVR</p></div>
+        <div class="card tab-panel" id="tab-wad"><h3>WAD — combo-based</h3><ul style="color:var(--muted)"><li>Auto-MQL: A1–A4, B1–B3, C1</li><li>C3: Americas, UK, APJ (no Micro)</li><li>No D3</li></ul></div>
+        <div class="card tab-panel" id="tab-act"><h3>Activity-based</h3><p style="color:var(--muted)">A1 & B1 only</p></div>
+        <div class="card tab-panel" id="tab-oth"><h3>Other</h3><ul style="color:var(--muted)"><li>Keep PPL/directories</li><li>No ROI calculator MQL</li></ul></div>
+        <div class="card banner" style="margin-top:1.25rem"><h3>Key metric</h3><p style="margin:0">MQL-to-SQA conversion rate drives routing decisions.</p></div>
+      </div>
+    </section>
+    <section class="page page--alt" id="score-reduction">
+      <div class="wrap">
+        <p class="label">Score reduction</p>
+        <h1>When the behavioral score is reduced</h1>
+        <p class="lead">These statuses reset Behavioral Score Calculation in Marketo so leads don’t stay above MQL after they should stop being worked.</p>
+        <div class="score-reduction card">
+          <table class="score-reduction__table">
+            <thead>
+              <tr><th>Scenario</th><th>Score</th><th>Why</th></tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td><strong>Blacklisted country</strong></td>
+              <td><span class="score-reduction__pts">→ 0</span></td>
+              <td>The person or account is in a restricted / high-risk country. Engagement should not keep the lead above MQL thresholds.</td>
+            </tr>
+            <tr>
+              <td><strong>Not Relevant</strong></td>
+              <td><span class="score-reduction__pts">→ 0</span></td>
+              <td>The Salesforce account is marked Not Relevant. Sales should not work the lead, so behavioral points are cleared.</td>
+            </tr>
+            <tr>
+              <td><strong>Unsubscribe</strong></td>
+              <td><span class="score-reduction__pts">→ 0</span></td>
+              <td>The person opted out of email. Continuing to score engagement would misrepresent intent and risk compliance issues.</td>
+            </tr>
+            <tr>
+              <td><strong>Inactivity</strong></td>
+              <td><span class="score-reduction__pts">→ 0</span></td>
+              <td>No meaningful engagement for 3 months — no form submission, no LGF, and the behavioral score has not changed. Stale points are cleared so old activity cannot keep the lead MQL-eligible.</td>
+            </tr>
+            <tr>
+              <td><strong>Nurture</strong></td>
+              <td><span class="score-reduction__pts">→ 0</span></td>
+              <td>Sales parked the lead in Nurture. Behavioral score is reduced to 0 by default.</td>
+            </tr>
+            <tr class="score-reduction__exception">
+              <td><span class="score-reduction__sub">Nurture reason · Migration</span></td>
+              <td><span class="score-reduction__pts">→ 10</span></td>
+              <td>Mid-migration / not ready to buy — score is set to 10 so the lead is not auto-MQLd again immediately.</td>
+            </tr>
+            <tr class="score-reduction__exception">
+              <td><span class="score-reduction__sub">Nurture reason · Unresponsive</span></td>
+              <td><span class="score-reduction__pts">→ 10</span></td>
+              <td>Lead stopped responding — score is set to 10 until they re-engage.</td>
+            </tr>
+            <tr class="score-reduction__exception">
+              <td><span class="score-reduction__sub">Nurture reason · Changes in personnel</span></td>
+              <td><span class="score-reduction__pts">→ 20</span></td>
+              <td>Buying contact changed — score is set to 20 so the account can resurface with a new stakeholder.</td>
+            </tr>
+            <tr class="score-reduction__exception">
+              <td><span class="score-reduction__sub">Nurture reason · No internal capacity</span></td>
+              <td><span class="score-reduction__pts">→ 20</span></td>
+              <td>Timing is wrong (no bandwidth) — score is set to 20 rather than wiping intent entirely.</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="score-reduction__note">After reduction, the lead must earn new points before reaching the 100-point MQL threshold again.</p>
+      </div>
+    </section>
+    <section class="page" id="non-mql-reasons">
+      <div class="wrap">
+        <p class="label">Qualification issues</p>
+        <h1>Common MQL Qualification Issues</h1>
+        <div class="grid-2" style="margin-top:1.25rem">
+          <div class="card"><h3>Employee Count Discrepancies</h3><p style="color:var(--muted);margin:0;font-size:0.9375rem;line-height:1.55">Company size data is often inaccurate, mainly due to reliance on ZoomInfo without Apollo as a secondary source.</p></div>
+          <div class="card"><h3>Job Title Classification</h3><p style="color:var(--muted);margin:0;font-size:0.9375rem;line-height:1.55">Most title-related issues involve broad roles such as student, intern, sales, or marketing.</p></div>
+          <div class="card"><h3 class="qualification-issue__title"><span>WAD vs. Scoring Misalignment</span><span class="qualification-issue__wip">WIP</span></h3><p style="color:var(--muted);margin:0;font-size:0.9375rem;line-height:1.55">Some WAD completions have strong titles but receive a low score due to company attributes, preventing MQL qualification.</p></div>
+          <div class="card"><h3>Conversions on Not Relevant Accounts</h3><p style="color:var(--muted);margin:0;font-size:0.9375rem;line-height:1.55">Leads converting on accounts already marked as not relevant are not assigned to sales and lose MQL status.</p></div>
+        </div>
+        <div class="card" style="margin-top:1.5rem;border-left:4px solid var(--dark-wine);background:linear-gradient(90deg,var(--white-cream) 0%,var(--cappuccino-foam) 100%)">
+          <h3>Quick check before escalating</h3>
+          <p style="margin:0;color:var(--muted)">Confirm employee count sources, job title classification, WAD vs demographic grade alignment, and account relevance before opening a manual review. See the <a href="#mql#manual-review" data-page-link="mql">MQL diagnostic</a> below or <a href="#flow" data-page-link="flow">scoring flow</a> for full policy detail.</p>
+        </div>
+      </div>
+    </section>
+    <section class="page" id="manual-review">
+      <div class="wrap">
+        <h1>Why wasn't this lead MQL'd?</h1>
+        <p class="lead lead--full-width">Walk through employee size, ICP, job function, and seniority—the same inputs Marketo uses for demographic grade—then engagement and MQL channel rules.</p>
+        <div class="card mql-diagnostic" id="mql-diagnostic"></div>
+        <div class="page-nav-links" style="margin-top:1.5rem">
+          <a class="btn btn-primary" href="https://form.asana.com/?k=VjhxKo900uMGso834pxKXg&d=103035621276259" target="_blank" rel="noopener">Request manual MQL review (Marketing Ops) →</a>
+        </div>
+        <p style="margin:0.75rem 0 0;font-size:0.875rem;color:var(--muted);max-width:52rem">Use this form when the guide shows the lead should have MQL'd but did not—Marketing Ops can review and force MQL if appropriate.</p>
+      </div>
+    </section>
+</section>
+<section class="share-page" id="guide" data-page="guide" hidden>
+<section class="page">
+      <div class="wrap">
+        <p class="label">Support</p>
+        <h1>FAQ</h1>
+        <details><summary>What is lead scoring?</summary><div class="inner">A structured way to rank leads by fit (demographic A–D) and engagement (behavioral 1–4) so Marketing and Sales prioritize outreach and MQL routing based on expected conversion—not a single point total alone.</div></details>
+        <details><summary>What is the MQL point threshold?</summary><div class="inner">Leads typically need 100+ points in the Behavioral Score Calculation field to reach MQL-eligible engagement tiers, combined with demographic grade and channel-specific auto-MQL rules.</div></details>
+        <details><summary>How is the behavioral score calculated?</summary><div class="inner">Activities earn points in Marketo (Behavioral Score Calculation field). Point totals map to tiers: 100+ → 1, 50–99 → 2, 15–49 → 3, 0–14 → 4. Scores update as people engage.</div></details>
+        <details><summary>Can email clicks alone create an MQL?</summary><div class="inner">No. Email link clicks (+5, max 3× per month) cannot reach the 100-point MQL threshold by themselves.</div></details>
+        <details><summary>Why wasn't my lead MQL'd?</summary><div class="inner">Common blockers: grade D or junk/DQ flags, points below 100 without a qualifying channel combo, activity-based paths limited to A1/B1 only, WAD exclusions (e.g. D3), excluded sources (ROI calculator, New Movers asset), or booth rules (only A + Decision/Purchase bonus). See Why not MQL. If you still believe the lead should have MQL'd, follow Manual MQL review.</div></details>
+        <details><summary>How do I request a manual MQL review?</summary><div class="inner">Run the self-check in Why not MQL, gather lead IDs, scores, source, and recent activities, then submit to Marketing Ops / RevOps via your team’s standard intake. See the Manual MQL review section for the full checklist and outcomes.</div></details>
+        <details><summary>How are junk or fake leads identified?</summary><div class="inner">Leads are screened for test/fake data, invalid emails, QA/UAT records, restricted countries, failed qualification, and low-quality email signals—with exceptions for approved domains and reviewed records.</div></details>
+        <details><summary>Why didn't every ICP booth attendee become an MQL?</summary><div class="inner">After a 2023 pilot overload, only top booth attendees qualify: demographic A plus 6Sense Decision/Purchase stage receive a +35 bonus (with attendance points) to surface the top ~5% of booth traffic.</div></details>
+        <details><summary>Why does ICP sometimes show FALSE for new contacts?</summary><div class="inner">Salesforce ICP can take ~24 hours to calculate. Marketo ICP scoring is used interim until SFDC updates.</div></details>
+        <details><summary>Can a lead score decrease?</summary><div class="inner">Yes. Behavioral Score Calculation is reduced in specific ops scenarios: Blacklisted country, Not Relevant, Unsubscribe, Inactivity (no form submission / LGF / score change for 3 months), or Nurture → 0 by default. Specific nurture reasons override that — Migration or Unresponsive → 10; Changes in personnel or No internal capacity → 20. Demographic grade (A–D) can also worsen when account or persona data changes. After a reduction, the lead must earn new engagement before reaching the 100-point MQL threshold again. See MQL Policy → When the behavioral score is reduced.</div></details>
+        <details><summary>Where can I see the full process flow?</summary><div class="inner">See the linked Miro board for the end-to-end lead scoring flow maintained by RevOps/Marketing Ops.</div></details>
+      </div>
+    </section>
+    <section class="page page--alt">
+      <div class="wrap">
+        <p class="label">Trust</p>
+        <h1>Methodology & limitations</h1>
+        <ul style="color:var(--muted)">
+          <li>Behavioral tiers and point buckets describe the same dimension.</li>
+          <li>ICP and score updates have operational lag.</li>
+          <li>Demographics are rule-based, not ML.</li>
+          <li>Confirm live rules in Marketo before major campaigns.</li>
+        </ul>
+      </div>
+    </section>
+</section>
+  </main>
+  <div id="site-footer"></div>
+  <script>
+
+(function () {
+  var NAV = [{"id":"home","label":"Home"},{"id":"icp","label":"ICP definition"},{"id":"flow","label":"Explore the Flow"},{"id":"mql","label":"MQL Policy"},{"id":"guide","label":"Support and Trust"}];
+  var LOGO = "data:image/png;base64,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";
+
+  function showPage(id, hash) {
+    var pages = document.querySelectorAll(".share-page");
+    pages.forEach(function (el) {
+      var on = el.getAttribute("data-page") === id;
+      el.classList.toggle("is-active", on);
+      if (on) el.removeAttribute("hidden");
+      else el.setAttribute("hidden", "");
+    });
+    document.querySelectorAll(".site-nav a").forEach(function (a) {
+      a.classList.toggle("is-active", a.getAttribute("data-page-link") === id);
+    });
+    if (hash) {
+      var target = document.getElementById(hash);
+      if (target) setTimeout(function () { target.scrollIntoView({ behavior: "smooth", block: "start" }); }, 40);
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }
+
+  function parseHash() {
+    var raw = (location.hash || "#home").replace(/^#/, "");
+    var parts = raw.split("#");
+    // support #mql and #mql#score-reduction style via #mql/score-reduction or just in-page ids on active page
+    if (raw.indexOf("/") !== -1) {
+      parts = raw.split("/");
+      return { id: parts[0] || "home", hash: parts[1] || "" };
+    }
+    var known = NAV.some(function (n) { return n.id === parts[0]; });
+    if (known) return { id: parts[0], hash: "" };
+    // bare section id — keep current page if possible
+    var active = document.querySelector(".share-page.is-active");
+    return { id: active ? active.getAttribute("data-page") : "home", hash: raw };
+  }
+
+  var header = document.getElementById("site-header");
+  if (header) {
+    var links = NAV.map(function (item) {
+      return '<a href="#' + item.id + '" data-page-link="' + item.id + '">' + item.label + "</a>";
+    }).join("");
+    header.innerHTML =
+      '<header class="site"><div class="wrap">' +
+      '<a class="logo" href="#home" data-page-link="home">' +
+      '<img src="' + LOGO + '" alt="HiBob" class="site-brand-logo" height="35" />' +
+      '<span class="logo-tag">Marketing Ops</span></a>' +
+      '<nav class="site-nav" aria-label="Main">' + links + "</nav></div></header>";
+  }
+
+  var footer = document.getElementById("site-footer");
+  if (footer) {
+    footer.innerHTML =
+      '<footer class="site-footer"><div class="wrap">' +
+      '<div class="logo-row">' +
+      '<img src="' + LOGO + '" alt="HiBob" class="site-brand-logo site-brand-logo--footer" height="28" />' +
+      "<span>Lead Scoring Guide · offline share copy</span></div>" +
+      "<p>For internal HiBob Marketing, Sales, and RevOps use.</p></div></footer>";
+  }
+
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest("a[data-page-link]");
+    if (!a) return;
+    e.preventDefault();
+    var id = a.getAttribute("data-page-link");
+    var href = a.getAttribute("href") || "";
+    var hash = "";
+    // href="#mql#score-reduction" becomes tricky; support #mql and separate in-page links
+    if (href.indexOf("#") !== -1) {
+      var bits = href.replace(/^#/, "").split("#");
+      if (bits[0] && NAV.some(function (n) { return n.id === bits[0]; })) {
+        id = bits[0];
+        hash = bits[1] || "";
+      } else if (bits.length === 1 && !NAV.some(function (n) { return n.id === bits[0]; })) {
+        hash = bits[0];
+      }
+    }
+    location.hash = hash ? id + "/" + hash : id;
+  });
+
+  window.addEventListener("hashchange", function () {
+    var parsed = parseHash();
+    showPage(parsed.id, parsed.hash);
+  });
+
+  var initial = parseHash();
+  showPage(initial.id, initial.hash);
+})();
+
+  </script>
+  <script>
+(function () {
+  var mount = document.getElementById("activity-points");
+  if (!mount) return;
+
+  var ACTIVITY_WEIGHTS = [
+    {
+      points: 100,
+      tag: "Immediate tier 1",
+      activities: [
+        { name: "Request a demo form", aliases: "demo request filled form" },
+        { name: "Pricing form", aliases: "pricing page filled form" },
+        { name: "Contact form with Contact Sales as reason", aliases: "contact sales form" },
+        { name: "Demo or learn-more request on webinars", aliases: "webinar demo learn more" },
+        { name: "Demo or learn-more request at events", aliases: "event demo learn more" },
+      ],
+    },
+    {
+      points: 50,
+      tag: "Immediate tier 2",
+      activities: [
+        { name: "Watch a Demo form", aliases: "wad watch demo" },
+        { name: "Product tour", aliases: "tour" },
+        { name: "ROI Calculator", aliases: "roi" },
+        { name: "Attended a HiBob / Community event", aliases: "hibob community event attendance" },
+      ],
+    },
+    {
+      points: 35,
+      tag: "6Sense booth bonus",
+      activities: [
+        {
+          name: "Booth attendee with demographic A + Decision/Purchase stage",
+          aliases: "6sense booth a decision purchase bonus",
+        },
+      ],
+    },
+    {
+      points: 30,
+      tag: "",
+      activities: [{ name: "Watched 20+ seconds of the demo video", aliases: "demo video watch" }],
+    },
+    {
+      points: 25,
+      tag: "",
+      activities: [{ name: "Pre-MQL bonus for visiting BOFU pages", aliases: "bofu pre-mql bonus" }],
+    },
+    {
+      points: 15,
+      tag: "Once per day cap",
+      activities: [
+        { name: "BOFU page visit or BOFU link click", aliases: "bofu visit click" },
+        { name: "Content / Newsletter / Webinar form", aliases: "content newsletter webinar form nurture" },
+        { name: "Influenced by a content syndication (CPL) campaign", aliases: "cpl content syndication" },
+        { name: "Downloaded a High Value Asset", aliases: "hva high value asset download" },
+      ],
+    },
+    {
+      points: 10,
+      tag: "Once per day cap",
+      activities: [
+        { name: "MOFU page visit", aliases: "mofu visit" },
+        { name: "Attended at least 10 minutes on a live webinar", aliases: "webinar live 10 minutes" },
+      ],
+    },
+    {
+      points: 5,
+      tag: "Max 3×/month — cannot reach MQL alone",
+      activities: [{ name: "Clicked any link in an email", aliases: "email click link" }],
+    },
+  ];
+
+  var ALL = ACTIVITY_WEIGHTS.flatMap(function (row) {
+    return row.activities.map(function (activity) {
+      return {
+        points: row.points,
+        tag: row.tag,
+        name: activity.name,
+        aliases: activity.aliases || "",
+      };
+    });
+  });
+
+  var POINT_OPTIONS = ACTIVITY_WEIGHTS.map(function (row) {
+    return row.points;
+  });
+
+  var state = { query: "", points: "all" };
+
+  function matches(item) {
+    if (state.points !== "all" && String(item.points) !== String(state.points)) return false;
+    var q = state.query.trim().toLowerCase();
+    if (!q) return true;
+    var hay = (item.name + " " + item.aliases + " +" + item.points + " " + item.tag).toLowerCase();
+    return q.split(/\s+/).every(function (token) {
+      return hay.indexOf(token) !== -1;
+    });
+  }
+
+  function highlight(text, query) {
+    if (!query.trim()) return escapeHtml(text);
+    var tokens = query
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean)
+      .map(function (t) {
+        return t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      });
+    if (!tokens.length) return escapeHtml(text);
+    var re = new RegExp("(" + tokens.join("|") + ")", "ig");
+    return escapeHtml(text).replace(re, "<mark>$1</mark>");
+  }
+
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function render() {
+    var filtered = ALL.filter(matches);
+    var chips = ['<button type="button" class="activity-points__chip' + (state.points === "all" ? " is-active" : "") + '" data-points="all">All</button>']
+      .concat(
+        POINT_OPTIONS.map(function (pts) {
+          var active = String(state.points) === String(pts) ? " is-active" : "";
+          return (
+            '<button type="button" class="activity-points__chip' +
+            active +
+            '" data-points="' +
+            pts +
+            '">+' +
+            pts +
+            "</button>"
+          );
+        }),
+      )
+      .join("");
+
+    var list;
+    if (!filtered.length) {
+      list =
+        '<p class="activity-points__empty">No activities match <strong>' +
+        escapeHtml(state.query) +
+        "</strong>. Try “demo”, “webinar”, “email”, or “BOFU”.</p>";
+    } else {
+      list =
+        '<ul class="activity-points__list" role="list">' +
+        filtered
+          .map(function (item) {
+            return (
+              '<li class="activity-points__row">' +
+              '<span class="activity-points__pts" aria-label="' +
+              item.points +
+              ' points">+' +
+              item.points +
+              "</span>" +
+              '<div class="activity-points__copy">' +
+              '<p class="activity-points__name">' +
+              highlight(item.name, state.query) +
+              "</p>" +
+              (item.tag
+                ? '<p class="activity-points__tag">' + escapeHtml(item.tag) + "</p>"
+                : "") +
+              "</div>" +
+              "</li>"
+            );
+          })
+          .join("") +
+        "</ul>";
+    }
+
+    mount.innerHTML =
+      '<div class="activity-points card">' +
+      "<h3>Which activities earn points?</h3>" +
+      '<p class="activity-points__lead">Search any marketing activity to see how many points it adds in Marketo’s Behavioral Score Calculation field.</p>' +
+      '<label class="activity-points__search-label" for="activity-points-search">Search activities</label>' +
+      '<div class="activity-points__search-wrap">' +
+      '<svg class="activity-points__search-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>' +
+      '<input id="activity-points-search" class="activity-points__search" type="search" placeholder="Try demo, webinar, email, BOFU, booth…" autocomplete="off" value="' +
+      escapeHtml(state.query) +
+      '" />' +
+      "</div>" +
+      '<div class="activity-points__chips" role="group" aria-label="Filter by points">' +
+      chips +
+      "</div>" +
+      '<p class="activity-points__count" aria-live="polite">' +
+      filtered.length +
+      " activit" +
+      (filtered.length === 1 ? "y" : "ies") +
+      "</p>" +
+      list +
+      "</div>";
+
+    var input = document.getElementById("activity-points-search");
+    if (input) {
+      input.addEventListener("input", function () {
+        state.query = input.value;
+        var start = input.selectionStart;
+        var end = input.selectionEnd;
+        render();
+        var next = document.getElementById("activity-points-search");
+        if (next) {
+          next.focus();
+          if (typeof start === "number") next.setSelectionRange(start, end);
+        }
+      });
+    }
+
+    mount.querySelectorAll("[data-points]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        state.points = btn.getAttribute("data-points");
+        render();
+        var next = document.getElementById("activity-points-search");
+        if (next) next.focus();
+      });
+    });
+  }
+
+  render();
+})();
+
+
+(function () {
+  const MQL_THRESHOLD = 100;
+
+  const FLOW_STEPS = [
+    {
+      id: "enter",
+      title: "Lead enters the system",
+      body: "A person engages via web forms, events, content, or third-party sources. Data lands in Marketo and syncs to Salesforce.",
+    },
+    {
+      id: "junk",
+      title: "Junk / test screening",
+      body: "Marketo and ops rules check for junk/test signals before fit scoring runs.",
+      branchMode: "choose-one",
+      branchPrompt: "Does the lead match junk/test criteria?",
+      branches: [
+        {
+          id: "yes",
+          label: "Yes — junk / test match",
+          grade: "D",
+          outcome:
+            "Grade D immediately. Lead is nurtured or suppressed—not scored through the normal A–D fit ladder.",
+          action: "end",
+        },
+        {
+          id: "no",
+          label: "No — passes screening",
+          outcome: "Continue to demographic scoring (persona + account).",
+          action: "continue",
+        },
+      ],
+    },
+    {
+      id: "demo",
+      title: "Demographic score (A–D)",
+      body: "Marketo/Salesforce rules evaluate persona (function, seniority) and account (ICP, status, geography, employee count) together.",
+      branchMode: "choose-one",
+      branchPrompt: "Persona + account fit — which grade applies?",
+      branches: [
+        {
+          id: "a",
+          label: "Grade A — Best fit",
+          grade: "A",
+          outcome:
+            "ICP account with champion/decision-maker persona (or eligible 50–99 EE edge case). Strongest demographic fit.",
+        },
+        {
+          id: "b",
+          label: "Grade B — Strong fit",
+          grade: "B",
+          outcome: "ICP + relevant function, or non-ICP + decision maker/champion. Still strong for outreach.",
+        },
+        {
+          id: "c",
+          label: "Grade C — Workable",
+          grade: "C",
+          outcome:
+            "Non-ICP with a workable persona, or ICP with validating/influencing (non-champion) function. Selective MQL paths only.",
+        },
+        {
+          id: "d",
+          label: "Grade D — Not a fit",
+          grade: "D",
+          outcome:
+            "Persona and/or account are not a fit (irrelevant role, non-ICP without champion, competitor, customer, bad geo, DQ rules). Grade D—typically blocked from standard auto-MQL paths.",
+        },
+      ],
+    },
+    {
+      id: "engage",
+      title: "Engagement & point ledger",
+      body: "Each marketing activity adds points in Marketo (Behavioral Score Calculation). Points stack until the next activity.",
+      branchMode: "choose-one",
+      branchPrompt: "Which marketing activity did the lead take?",
+      branches: [
+        {
+          id: "p100",
+          label: "Demo, pricing, or contact sales",
+          outcome: "+100 pts — immediate high intent (often reaches MQL threshold in one step).",
+          action: "continue",
+        },
+        {
+          id: "p50",
+          label: "WAD, product tour, ROI calculator, or event",
+          outcome: "+50 pts — strong engagement; may need another activity to reach 100+ pts.",
+          action: "continue",
+        },
+        {
+          id: "p15",
+          label: "BOFU visit, content, newsletter, or webinar form",
+          outcome: "+15 pts — mid engagement (daily caps apply on some channels).",
+          action: "continue",
+        },
+        {
+          id: "p5",
+          label: "Email click only",
+          outcome: "+5 pts — capped; cannot reach MQL threshold from email clicks alone.",
+          action: "continue",
+        },
+      ],
+    },
+    {
+      id: "behavior",
+      title: "Behavioral tier (1–4)",
+      body: "Based on the activity you selected in step 4, Marketo assigns a behavioral tier (1–4).",
+      branchMode: "derived",
+      branches: [
+        {
+          id: "1",
+          label: "Tier 1 (100+ pts)",
+          grade: "1",
+          outcome: "Matches demo, pricing, or contact sales — highest intent.",
+          action: "continue",
+        },
+        {
+          id: "2",
+          label: "Tier 2 (50–99 pts)",
+          grade: "2",
+          outcome: "Matches WAD, product tour, ROI calculator, or events.",
+          action: "continue",
+        },
+        {
+          id: "3",
+          label: "Tier 3 (15–49 pts)",
+          grade: "3",
+          outcome: "Matches BOFU visits, content, newsletter, or webinar forms.",
+          action: "continue",
+        },
+        {
+          id: "4",
+          label: "Tier 4 (0–14 pts)",
+          grade: "4",
+          outcome: "Matches email clicks only or very low engagement.",
+          action: "continue",
+        },
+      ],
+    },
+    {
+      id: "code",
+      title: "Score code",
+      body: "Your demographic grade and behavioral tier combine into one score code.",
+      branchMode: "derived",
+      branches: [
+        { id: "a1", label: "A1", grade: "A1", outcome: "Best ICP fit + highest engagement → top sales priority" },
+        { id: "b2", label: "B2", grade: "B2", outcome: "Strong fit + high engagement → high priority" },
+        { id: "c3", label: "C3", grade: "C3", outcome: "Workable fit + mid engagement → selective MQL/outreach" },
+        { id: "d4", label: "D4", grade: "D4", outcome: "Poor fit + low engagement → lowest priority / usually no MQL" },
+      ],
+    },
+    {
+      id: "mql",
+      title: "MQL decision",
+      body: "Based on your demographic grade, activity, and score code, this is the expected auto-MQL outcome.",
+      branchMode: "derived",
+      branches: [],
+    },
+  ];
+
+  let flowStep = 0;
+  const choices = {};
+
+  const panel = document.getElementById("flow-panel");
+  const dotsEl = document.getElementById("flow-dots");
+  if (!panel || !dotsEl) return;
+
+  const ENGAGE_TO_TIER = { p100: "1", p50: "2", p15: "3", p5: "4" };
+
+  function getEngageBranch(engageId) {
+    const engageStep = FLOW_STEPS.find(function (s) {
+      return s.id === "engage";
+    });
+    return engageStep && engageStep.branches
+      ? engageStep.branches.find(function (b) {
+          return b.id === engageId;
+        })
+      : undefined;
+  }
+
+  function getBehaviorBranchByTier(tierId) {
+    const behaviorStep = FLOW_STEPS.find(function (s) {
+      return s.id === "behavior";
+    });
+    return behaviorStep && behaviorStep.branches
+      ? behaviorStep.branches.find(function (b) {
+          return b.id === tierId;
+        })
+      : undefined;
+  }
+
+  function scoreCodeFromChoices(demoId, tier) {
+    if (!demoId || !tier) return null;
+    return demoId.toUpperCase() + tier;
+  }
+
+  function getScoreCodeOutcome(code) {
+    const codeStep = FLOW_STEPS.find(function (s) {
+      return s.id === "code";
+    });
+    const match =
+      codeStep &&
+      codeStep.branches &&
+      codeStep.branches.find(function (b) {
+        return b.label === code || b.grade === code;
+      });
+    if (match) return match.outcome;
+    var letter = code.charAt(0);
+    if (letter === "D") return "Poor fit combined with engagement level — lowest priority; usually no auto-MQL.";
+    if (letter === "A") return "Best demographic fit with this engagement tier — top of the sales queue.";
+    if (letter === "B") return "Strong fit with this engagement tier — high priority outreach.";
+    if (letter === "C") return "Workable fit with this engagement tier — selective MQL and outreach paths.";
+    return "Used for prioritization, reporting, and MQL combo rules.";
+  }
+
+  function currentBehaviorTier() {
+    return choices.behavior || (choices.engage ? ENGAGE_TO_TIER[choices.engage] : null);
+  }
+
+  function setChoice(stepId, branchId) {
+    choices[stepId] = branchId;
+    if (stepId === "engage" && ENGAGE_TO_TIER[branchId]) {
+      choices.behavior = ENGAGE_TO_TIER[branchId];
+    }
+  }
+
+  function getMqlDecisionFromFlow() {
+    if (choices.junk === "yes") {
+      return {
+        value: "Not MQL",
+        tone: "no",
+        outcome:
+          "Lead matched junk/test screening (grade D). Standard auto-MQL paths do not apply—nurture or suppress per ops rules.",
+      };
+    }
+    var tier = currentBehaviorTier();
+    var demo = choices.demo;
+    var engage = choices.engage;
+    if (!demo || !engage || !tier) return null;
+
+    var code = scoreCodeFromChoices(demo, tier);
+    var engageBranch = getEngageBranch(engage);
+    var activityLabel = engageBranch ? engageBranch.label : "Selected activity";
+
+    if (engage === "p100") {
+      if (demo === "d") {
+        return {
+          value: "Review required",
+          tone: "review",
+          outcome:
+            code +
+            " — hand-raiser with grade D is unusual. Verify junk/ICP data or submit a manual MQL review.",
+        };
+      }
+      return {
+        value: "Likely auto-MQL",
+        tone: "yes",
+        outcome:
+          activityLabel + " → " + code + ". Hand-raiser path is always auto-MQL when the record is clean.",
+      };
+    }
+
+    if (demo === "d") {
+      if (engage === "p50" && tier === "3") {
+        return {
+          value: "Not auto-MQL",
+          tone: "no",
+          outcome: code + " on WAD — D3 is explicitly blocked. Other D grades rarely auto-MQL.",
+        };
+      }
+      return {
+        value: "Not auto-MQL",
+        tone: "no",
+        outcome: code + " — grade D is excluded from most WAD and activity auto-MQL paths.",
+      };
+    }
+
+    if (engage === "p5") {
+      return {
+        value: "Not auto-MQL",
+        tone: "no",
+        outcome: "Email clicks only (+5 pts) cannot reach the " + MQL_THRESHOLD + "-point threshold alone.",
+      };
+    }
+
+    if (engage === "p15") {
+      return {
+        value: "Not auto-MQL",
+        tone: "no",
+        outcome: code + " — ~15 pts from this activity; below the " + MQL_THRESHOLD + "-point MQL threshold.",
+      };
+    }
+
+    if (engage === "p50") {
+      if (tier === "3" && demo === "c") {
+        return {
+          value: "Selective MQL",
+          tone: "selective",
+          outcome: code + " on WAD — C3 may auto-MQL in Americas, UK, and APJ only. Not a blanket pass.",
+        };
+      }
+      if (demo === "c" && tier === "1") {
+        return {
+          value: "Likely auto-MQL",
+          tone: "yes",
+          outcome: code + " on WAD — C1 is in the allowed WAD auto-MQL list.",
+        };
+      }
+      if (demo === "a" || demo === "b") {
+        return {
+          value: "Likely auto-MQL",
+          tone: "yes",
+          outcome: code + " on WAD — fits allowed combos (A1–A4, B1–B3, and C1).",
+        };
+      }
+      if (demo === "c") {
+        return {
+          value: "Unlikely auto-MQL",
+          tone: "no",
+          outcome: code + " on WAD — only C1 and selective C3 qualify.",
+        };
+      }
+      return { value: "Check WAD rules", tone: "review", outcome: code + " on WAD — confirm allowed combos in MQL policy." };
+    }
+
+    if (tier === "1" && (demo === "a" || demo === "b")) {
+      return {
+        value: "Likely auto-MQL",
+        tone: "yes",
+        outcome: code + " — activity-based auto-MQL allows A1 and B1 only (" + MQL_THRESHOLD + "+ pts).",
+      };
+    }
+
+    if (demo === "a" || demo === "b") {
+      return {
+        value: "Not auto-MQL",
+        tone: "no",
+        outcome: code + " — activity-based path requires A1 or B1; " + code + " does not qualify.",
+      };
+    }
+
+    if (demo === "c") {
+      return {
+        value: "Unlikely auto-MQL",
+        tone: "no",
+        outcome: code + " — grade C only has selective paths (e.g. C3 + WAD in target regions).",
+      };
+    }
+
+    return { value: "Check MQL policy", tone: "review", outcome: code + " — confirm channel rules on the MQL Policy page." };
+  }
+
+  function renderDerived(step) {
+    var wrap = document.createElement("div");
+    wrap.className = "flow-derived";
+    wrap.style.marginBottom = "1.25rem";
+
+    if (step.id === "behavior") {
+      var tier = currentBehaviorTier();
+      if (!choices.engage || !tier) {
+        var hint = document.createElement("p");
+        hint.style.cssText = "font-size:0.875rem;color:var(--muted);margin:0";
+        hint.textContent = "Select a marketing activity on step 4 first.";
+        wrap.appendChild(hint);
+        return wrap;
+      }
+      var tierBranch = getBehaviorBranchByTier(tier);
+      wrap.className = "flow-derived";
+      appendDerived(wrap, "Behavioral tier", "Tier " + tier, tierBranch ? tierBranch.outcome : "");
+      return wrap;
+    }
+
+    if (step.id === "code") {
+      var behaviorTier = currentBehaviorTier();
+      if (!choices.demo || !behaviorTier) {
+        var hint2 = document.createElement("p");
+        hint2.style.cssText = "font-size:0.875rem;color:var(--muted);margin:0";
+        hint2.textContent = "Complete steps 3 and 4 first — the score code is built from your demographic grade and activity.";
+        wrap.appendChild(hint2);
+        return wrap;
+      }
+      var code = scoreCodeFromChoices(choices.demo, behaviorTier);
+      wrap.className = "flow-derived flow-derived--grade-" + choices.demo.toUpperCase();
+      if (choices.demo === "d") wrap.className = "flow-derived flow-derived--grade-D";
+      appendDerived(wrap, "Score code", code, getScoreCodeOutcome(code));
+      return wrap;
+    }
+
+    if (step.id === "mql") {
+      var decision = getMqlDecisionFromFlow();
+      if (!decision) {
+        var hint3 = document.createElement("p");
+        hint3.style.cssText = "font-size:0.875rem;color:var(--muted);margin:0";
+        hint3.textContent = "Complete steps 2–6 first — MQL outcome depends on your path through the flow.";
+        wrap.appendChild(hint3);
+        return wrap;
+      }
+      wrap.className = "flow-derived flow-derived--mql-" + decision.tone;
+      appendDerived(wrap, "MQL decision", decision.value, decision.outcome);
+      return wrap;
+    }
+
+    return null;
+  }
+
+  function appendDerived(wrap, label, value, outcome) {
+    var lbl = document.createElement("p");
+    lbl.className = "flow-derived__label";
+    lbl.textContent = label;
+    wrap.appendChild(lbl);
+    var val = document.createElement("p");
+    val.className = "flow-derived__value";
+    val.setAttribute("aria-live", "polite");
+    val.textContent = value;
+    wrap.appendChild(val);
+    var out = document.createElement("p");
+    out.className = "flow-derived__outcome";
+    out.textContent = outcome;
+    wrap.appendChild(out);
+  }
+
+  function renderBranches(step) {
+    if (!step.branches || !step.branches.length) return null;
+    const wrap = document.createElement("div");
+    wrap.className = "flow-branches";
+    if (step.branchPrompt) {
+      const prompt = document.createElement("p");
+      prompt.style.cssText = "font-weight:700;font-size:0.875rem;margin:0 0 0.65rem";
+      prompt.textContent = step.branchPrompt;
+      wrap.appendChild(prompt);
+    }
+    const list = document.createElement("ul");
+    list.className = "flow-branches__list";
+    const isChoose = step.branchMode === "choose-one";
+    const selected = choices[step.id];
+
+    step.branches.forEach(function (branch) {
+      const li = document.createElement("li");
+      const gradeClass = branch.grade ? " flow-branches__item--grade-" + branch.grade.charAt(0) : "";
+      li.className =
+        "flow-branches__item" + (isChoose ? " flow-branches__item--btn" : "") + gradeClass + (selected === branch.id ? " is-selected" : "");
+
+      if (isChoose) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "flow-branches__trigger";
+        if (branch.grade) {
+          const badge = document.createElement("span");
+          badge.className = "flow-branches__badge";
+          badge.textContent = branch.grade;
+          btn.appendChild(badge);
+        }
+        const lbl = document.createElement("span");
+        lbl.className = "flow-branches__label";
+        lbl.textContent = branch.label;
+        btn.appendChild(lbl);
+        btn.onclick = function () {
+          setChoice(step.id, branch.id);
+          renderFlow();
+        };
+        li.appendChild(btn);
+      } else {
+        if (branch.grade) {
+          const badge = document.createElement("span");
+          badge.className = "flow-branches__badge";
+          badge.textContent = branch.grade;
+          li.appendChild(badge);
+        }
+        const body = document.createElement("div");
+        const strong = document.createElement("strong");
+        strong.className = "flow-branches__label";
+        strong.textContent = branch.label;
+        body.appendChild(strong);
+        const out = document.createElement("p");
+        out.className = "flow-branches__outcome";
+        out.textContent = branch.outcome;
+        body.appendChild(out);
+        li.appendChild(body);
+      }
+
+      const outP = document.createElement("p");
+      outP.className = "flow-branches__outcome";
+      outP.textContent = branch.outcome;
+      if (isChoose) li.appendChild(outP);
+
+      list.appendChild(li);
+    });
+
+    wrap.appendChild(list);
+
+    if (isChoose && selected) {
+      const sel = step.branches.find(function (b) {
+        return b.id === selected;
+      });
+      if (sel) {
+        const note = document.createElement("p");
+        note.className = "flow-branches__selected";
+        note.style.cssText =
+          "margin-top:0.75rem;padding:0.75rem 1rem;background:var(--cappuccino-foam);border-radius:8px;font-size:0.875rem";
+        note.textContent = sel.outcome;
+        wrap.appendChild(note);
+      }
+    }
+
+    return wrap;
+  }
+
+  function renderFlow() {
+    dotsEl.innerHTML = "";
+    FLOW_STEPS.forEach(function (_, i) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "flow-dot" + (i === flowStep ? " active" : i < flowStep ? " done" : "");
+      b.textContent = String(i + 1);
+      b.onclick = function () {
+        flowStep = i;
+        renderFlow();
+      };
+      dotsEl.appendChild(b);
+    });
+
+    const s = FLOW_STEPS[flowStep];
+    if (s.id === "behavior" && choices.engage && ENGAGE_TO_TIER[choices.engage] && !choices.behavior) {
+      choices.behavior = ENGAGE_TO_TIER[choices.engage];
+    }
+    panel.innerHTML = "";
+    const label = document.createElement("p");
+    label.className = "label";
+    label.textContent = "Step " + (flowStep + 1) + " of " + FLOW_STEPS.length;
+    panel.appendChild(label);
+    const h = document.createElement("h3");
+    h.textContent = s.title;
+    panel.appendChild(h);
+    const p = document.createElement("p");
+    p.style.color = "var(--muted)";
+    p.style.marginBottom = "1rem";
+    p.textContent = s.body;
+    panel.appendChild(p);
+
+    if (s.branchMode === "derived") {
+      const derivedEl = renderDerived(s);
+      if (derivedEl) panel.appendChild(derivedEl);
+    } else {
+      const branchesEl = renderBranches(s);
+      if (branchesEl) panel.appendChild(branchesEl);
+    }
+
+    const nav = document.createElement("div");
+    nav.style.cssText = "margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap";
+    const back = document.createElement("button");
+    back.type = "button";
+    back.className = "btn btn-secondary";
+    back.textContent = "Back";
+    back.disabled = flowStep === 0;
+    back.onclick = function () {
+      if (flowStep > 0) {
+        flowStep--;
+        renderFlow();
+      }
+    };
+    nav.appendChild(back);
+
+    var needsChoice = false;
+    if (s.id === "behavior") needsChoice = !choices.engage || !currentBehaviorTier();
+    else if (s.id === "code") needsChoice = !choices.demo || !currentBehaviorTier();
+    else if (s.id === "mql") needsChoice = !getMqlDecisionFromFlow();
+    else if (s.branchMode === "choose-one") needsChoice = !choices[s.id];
+
+    if (flowStep < FLOW_STEPS.length - 1) {
+      const next = document.createElement("button");
+      next.type = "button";
+      next.className = "btn btn-primary";
+      next.textContent = "Next";
+      next.disabled = needsChoice;
+      next.onclick = function () {
+        if (needsChoice) return;
+        const branch = s.branches && s.branches.find(function (b) {
+          return b.id === choices[s.id];
+        });
+        if (branch && branch.action === "end") flowStep = FLOW_STEPS.length - 1;
+        else flowStep++;
+        renderFlow();
+      };
+      nav.appendChild(next);
+    } else {
+      const reset = document.createElement("button");
+      reset.type = "button";
+      reset.className = "btn btn-primary";
+      reset.textContent = "Start over";
+      reset.onclick = function () {
+        flowStep = 0;
+        Object.keys(choices).forEach(function (k) {
+          delete choices[k];
+        });
+        renderFlow();
+      };
+      nav.appendChild(reset);
+    }
+    panel.appendChild(nav);
+  }
+
+  renderFlow();
+})();
+
+
+(function () {
+  const heat = (p) =>
+    p <= 2 ? "#ee164f" : p <= 5 ? "#f36488" : p <= 8 ? "#faa32b" : p <= 10 ? "#febb59" : "#e3ddd3";
+  const pri = {
+    A1: 1, A2: 2, A3: 3, A4: 4, B1: 2, B2: 5, B3: 6, B4: 7,
+    C1: 2, C2: 8, C3: 9, C4: 10, D1: 11, D2: 12, D3: 13, D4: 14,
+  };
+  const textColor = (p) => (p <= 8 ? "#fff" : "var(--black-coffee)");
+
+  const examples = {
+    A1: "VP People at a 400-employee ICP tech company requests a demo on the website (105 pts).",
+    A2: "ICP CHRO attends a live webinar and downloads the pricing guide (~72 pts).",
+    A3: "ICP People Ops Manager engages with MOFU emails and product pages (~30 pts).",
+    A4: "ICP champion clicks newsletter links only; no high-intent actions (~8 pts).",
+    B1: "ICP People Manager submits a WAD pricing form at a strong-fit account (102 pts).",
+    B2: "ICP HR Manager downloads an implementation guide plus a BOFU asset (~58 pts).",
+    B3: "ICP HRBP visits the booth at an event and consumes MOFU content (~24 pts).",
+    B4: "Strong-fit manager subscribes to the blog with light TOFU only (~11 pts).",
+    C1: "Non-ICP 800-EE account; C-level champion reaches 100+ pts on an executive brief.",
+    C2: "Non-ICP HR Generalist replays a BOFU webinar and downloads an asset (~55 pts).",
+    C3: "Non-ICP event attendee in a target region; MOFU engagement only (~25 pts).",
+    C4: "Workable persona at a non-ICP firm; single whitepaper view (~9 pts).",
+    D1: "Sales job function at an otherwise relevant account; 100+ pts but demographic D.",
+    D2: "Design intern at an ICP account with some content engagement (~18 pts).",
+    D3: "Competitor- or restricted-country-flagged account with moderate engagement (~32 pts).",
+    D4: "Irrelevant persona with TOFU only—e.g. student or ops junk-adjacent lead (~5 pts).",
+  };
+
+  function makeCell(code) {
+    const p = pri[code] || 14;
+    const cell = document.createElement("div");
+    cell.className = "matrix-cell" + (code[0] === "A" ? " matrix-cell--flip" : "");
+    cell.setAttribute("tabindex", "0");
+    cell.setAttribute("aria-label", code + ": " + examples[code]);
+
+    const label = document.createElement("span");
+    label.className = "matrix-cell__code";
+    label.textContent = code;
+    cell.appendChild(label);
+
+    const tip = document.createElement("span");
+    tip.className = "matrix-cell__tooltip";
+    tip.setAttribute("role", "tooltip");
+
+    const tipCode = document.createElement("span");
+    tipCode.className = "matrix-cell__tooltip-code";
+    tipCode.textContent = code;
+    tip.appendChild(tipCode);
+
+    const tipText = document.createElement("span");
+    tipText.className = "matrix-cell__tooltip-text";
+    tipText.textContent = examples[code];
+    tip.appendChild(tipText);
+
+    cell.appendChild(tip);
+
+    cell.style.background = heat(p);
+    cell.style.color = textColor(p);
+    return cell;
+  }
+
+  const g = document.getElementById("matrix-grid");
+  if (g) {
+    g.appendChild(document.createElement("div"));
+    [1, 2, 3, 4].forEach((b) => {
+      const d = document.createElement("div");
+      d.className = "matrix-axis";
+      d.textContent = b;
+      g.appendChild(d);
+    });
+    "ABCD".split("").forEach((demo) => {
+      const l = document.createElement("div");
+      l.className = "matrix-axis matrix-axis--row";
+      l.textContent = demo;
+      g.appendChild(l);
+      [1, 2, 3, 4].forEach((b) => {
+        g.appendChild(makeCell(demo + b));
+      });
+    });
+  }
+
+  const hint = document.getElementById("matrix-try-hint");
+  if (hint) {
+    function dismissHint() {
+      hint.classList.add("matrix-try-hint--hidden");
+    }
+    document.querySelectorAll(".matrix-cell").forEach(function (cell) {
+      cell.addEventListener("mouseenter", dismissHint, { once: true });
+      cell.addEventListener("focus", dismissHint, { once: true });
+    });
+  }
+})();
+
+
+document.querySelectorAll(".tab").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tab").forEach((t) => t.classList.remove("active"));
+    document.querySelectorAll(".tab-panel").forEach((p) => p.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
+  });
+});
+
+
+(function () {
+  const MQL_THRESHOLD = 100;
+  const OPS_BOT_AVATAR =
+    '<span class="mql-diagnostic__avatar" aria-hidden title="Marketing Ops bot">' +
+    '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<path d="M12 8V4H8"/><rect x="4" y="8" width="16" height="12" rx="2"/>' +
+    '<path d="M2 14h2"/><path d="M20 14h2"/><path d="M9 13v2"/><path d="M15 13v2"/>' +
+    "</svg></span>";
+
+  const GRADE_ORDER = { A: 4, B: 3, C: 2, D: 1 };
+
+  function computeDemographic(answers) {
+    if (answers.junk === "yes") return null;
+
+    var reasons = [];
+
+    if (answers.ee === "under_20" || answers.ee === "over_8000") {
+      return {
+        grade: "D",
+        title: "Grade D — employee size",
+        reasons: [
+          "Account has fewer than 20 or more than 8,000 employees with Update MQL Process = FALSE in Salesforce.",
+          "Standard auto-MQL is off for that employee band unless Ops has enabled an exception.",
+        ],
+      };
+    }
+
+    if (answers.icp === "competitor" || answers.icp === "customer") {
+      return {
+        grade: "D",
+        title: "Grade D — account status",
+        reasons: ["Competitor or Customer accounts are disqualified from normal MQL routing."],
+      };
+    }
+
+    if (answers.job === "sales" || answers.job === "student_intern") {
+      return {
+        grade: "D",
+        title: "Grade D — persona",
+        reasons: [
+          answers.job === "sales"
+            ? "Job function Sales is always graded D."
+            : "Student, Design, intern, or professor titles are person-level disqualifiers.",
+        ],
+      };
+    }
+
+    var icpTrue = answers.icp === "icp_true";
+    var icpEdge = answers.icp === "icp_50_99";
+    var champion = answers.seniority === "cvp_director" || answers.seniority === "vp";
+    var seniorManager = answers.seniority === "manager";
+    var hrFamily = answers.job === "hr" || answers.job === "hr_finance";
+    var icpRelevantOther = answers.job === "finance_ops_ceo" && (icpTrue || icpEdge);
+
+    if ((icpTrue || icpEdge) && hrFamily && champion) {
+      if (icpEdge) {
+        reasons.push(
+          "50–99 employees: treated as Grade A when ICP flag lags but industry is modern (not government/education).",
+        );
+      } else reasons.push("ICP account (SFDC ICP = TRUE).");
+      reasons.push("Job function HR or HR/Finance.");
+      reasons.push("Seniority C-level, VP, or Director — champion/decision-maker level.");
+      return { grade: "A", title: "Grade A — best fit", reasons: reasons };
+    }
+
+    if (icpTrue && icpRelevantOther && champion) {
+      reasons.push("ICP account with Finance, Business Operations, CEO, or G&A function.");
+      reasons.push("Director+ seniority on an ICP account maps to Grade B.");
+      return { grade: "B", title: "Grade B — strong fit (ICP)", reasons: reasons };
+    }
+
+    if (answers.icp === "icp_false" && hrFamily && champion) {
+      reasons.push("Non-ICP account but HR/HR Finance with C-level, VP, or Director seniority.");
+      reasons.push("Non-ICP + decision maker/champion = Grade B.");
+      return { grade: "B", title: "Grade B — strong fit (non-ICP champion)", reasons: reasons };
+    }
+
+    if (icpTrue && hrFamily && seniorManager) {
+      reasons.push("ICP account with HR/HR Finance at manager level (validating/influencing, not top champion).");
+      return { grade: "C", title: "Grade C — workable (ICP influencer)", reasons: reasons };
+    }
+
+    if (answers.icp === "icp_false" && hrFamily && (seniorManager || answers.seniority === "individual")) {
+      reasons.push("Non-ICP with HR/HR Finance but below champion seniority.");
+      reasons.push("Workable persona — Grade C; only selective MQL paths (e.g. some WAD C3 regions).");
+      return { grade: "C", title: "Grade C — workable (non-ICP)", reasons: reasons };
+    }
+
+    if (answers.job === "other_irrelevant" || answers.seniority === "entry") {
+      return {
+        grade: "D",
+        title: "Grade D — weak persona",
+        reasons: [
+          "Function or seniority is outside HR champion paths for this account type.",
+          "Irrelevant or entry-level personas score D.",
+        ],
+      };
+    }
+
+    if (icpTrue) {
+      reasons.push("ICP account but function/seniority combination is not champion-level.");
+      return { grade: "C", title: "Grade C — ICP validating persona", reasons: reasons };
+    }
+
+    reasons.push("Non-ICP account without a champion HR decision maker.");
+    return { grade: "C", title: "Grade C — default workable", reasons: reasons };
+  }
+
+  var ENGAGE_TO_TIER = { p100: "1", p50: "2", p15: "3", p5: "4" };
+
+  function engageActivitySummary(engageId) {
+    if (engageId === "p100") return "+100 pts — demo, pricing, or contact sales (Tier 1)";
+    if (engageId === "p50") return "+50 pts — WAD, product tour, ROI calculator, or event (Tier 2)";
+    if (engageId === "p15") return "+15 pts — BOFU visit, content, newsletter, or webinar form (Tier 3)";
+    if (engageId === "p5") return "+5 pts — email link click only (Tier 4; cannot reach MQL threshold alone)";
+    return null;
+  }
+
+  function routeGrade(stated, computed) {
+    var s = stated.toUpperCase();
+    if (s === computed.grade) return "engage";
+    if (GRADE_ORDER[s] < GRADE_ORDER[computed.grade]) return "c_grade_system_lower";
+    return "c_grade_system_higher";
+  }
+
+  function routeAfterEngage(engageId, computed) {
+    if (engageId === "p5") return "c_low_points";
+    if (computed && computed.grade === "D") return "points_after_d";
+    return "points";
+  }
+
+  var STEPS = {
+    junk: {
+      question: "First, does the record show junk, test, or hard disqualifier flags?",
+      helper:
+        "Unsubscribed, bounced/invalid email, test/QA data, bad country, ops junk flags, or person-level DQs (Sales, student, intern).",
+      options: [
+        { id: "yes", label: "Yes — junk / DQ signals present", next: "c_junk" },
+        { id: "no", label: "No — passes screening", next: "ee" },
+      ],
+    },
+    ee: {
+      question: "How many employees does the account have?",
+      helper: "From Salesforce account — drives ICP and Grade D rules when Update MQL Process = FALSE.",
+      options: [
+        { id: "under_20", label: "Under 20 employees", next: "c_ee_dq" },
+        { id: "ee_50_99", label: "50–99 employees", next: "icp" },
+        { id: "ee_100_4999", label: "100–4,999 employees (standard ICP band)", next: "icp" },
+        { id: "ee_5000_8000", label: "5,000–8,000 employees", next: "icp" },
+        { id: "over_8000", label: "More than 8,000 employees", next: "c_ee_dq" },
+      ],
+    },
+    icp: {
+      question: "What is the account ICP / status fit?",
+      helper: "SFDC ICP checkbox, account status, and the 50–99 EE edge case when ICP lags.",
+      options: [
+        { id: "icp_true", label: "ICP = TRUE", next: "job" },
+        { id: "icp_false", label: "ICP = FALSE", next: "job" },
+        { id: "icp_50_99", label: "50–99 EE, ICP still FALSE (modern industry, not gov/edu)", next: "job" },
+        { id: "competitor", label: "Competitor account", next: "c_account_dq" },
+        { id: "customer", label: "Customer account", next: "c_account_dq" },
+      ],
+    },
+    job: {
+      question: "What is the lead's job function?",
+      helper: "Persona rules: HR/HR Finance are champion paths; Sales is always Grade D.",
+      options: [
+        { id: "hr", label: "HR / People / Talent", next: "seniority" },
+        { id: "hr_finance", label: "HR Finance / HR & Finance", next: "seniority" },
+        { id: "finance_ops_ceo", label: "Finance, Business Operations, CEO, or G&A", next: "seniority" },
+        { id: "sales", label: "Sales (any seniority)", next: "c_persona_dq" },
+        { id: "student_intern", label: "Student, intern, professor, or Design", next: "c_persona_dq" },
+        { id: "other_workable", label: "Other — but still HR-adjacent / workable", next: "seniority" },
+        { id: "other_irrelevant", label: "Other — unrelated to HR buying center", next: "seniority" },
+      ],
+    },
+    seniority: {
+      question: "What is the lead's seniority level?",
+      helper: "Champion seniority (C-level, VP, Director) unlocks A/B on ICP or non-ICP HR paths.",
+      options: [
+        { id: "cvp_director", label: "C-level or Director", next: "marketo_grade" },
+        { id: "vp", label: "VP / Head of", next: "marketo_grade" },
+        { id: "manager", label: "Manager / senior manager", next: "marketo_grade" },
+        { id: "individual", label: "Individual contributor (non-manager)", next: "marketo_grade" },
+        { id: "entry", label: "Coordinator, assistant, or entry-level", next: "marketo_grade" },
+      ],
+    },
+    marketo_grade: {
+      question: "What demographic grade does Marketo or Salesforce show right now?",
+      helper: "We'll compare this to the grade implied by employee size + ICP + function + seniority.",
+      options: [
+        { id: "a", label: "Grade A", next: "__grade_route__" },
+        { id: "b", label: "Grade B", next: "__grade_route__" },
+        { id: "c", label: "Grade C", next: "__grade_route__" },
+        { id: "d", label: "Grade D", next: "__grade_route__" },
+      ],
+    },
+    engage: {
+      question: "Behavioral scoring — what activity did the lead perform?",
+      helper:
+        "Pick the highest-intent action in Marketo's point ledger (Behavioral Score Calculation). Points stack until the next activity.",
+      options: [
+        { id: "p100", label: "Demo, pricing, or contact sales", next: "__engage_route__" },
+        { id: "p50", label: "WAD, product tour, ROI calculator, or event", next: "__engage_route__" },
+        { id: "p15", label: "BOFU visit, content, newsletter, or webinar form", next: "__engage_route__" },
+        { id: "p5", label: "Email link click only", next: "__engage_route__" },
+      ],
+    },
+    points_after_d: {
+      question: "Even with grade D—roughly how many behavioral points?",
+      options: [
+        { label: "Under 100 points", next: "c_grade_d_low" },
+        { label: "100+ points", next: "source_after_d" },
+      ],
+    },
+    source_after_d: {
+      question: "What was the highest-intent action?",
+      options: [
+        { label: "Hand raiser (demo, pricing, contact sales)", next: "c_hand_on_d" },
+        { label: "WAD, content, event, or other", next: "c_grade_d" },
+      ],
+    },
+    points: {
+      question: "Are behavioral points at or above " + MQL_THRESHOLD + "?",
+      helper: "Behavioral Score Calculation field in Marketo.",
+      options: [
+        { label: "No — under " + MQL_THRESHOLD + " points", next: "c_low_points" },
+        { label: MQL_THRESHOLD + "+ points", next: "source" },
+      ],
+    },
+    source: {
+      question: "What path best describes how they engaged?",
+      options: [
+        { label: "Hand raiser — demo, pricing, or contact sales", next: "c_should_mql" },
+        { label: "WAD / product tour / BOFU asset", next: "code_wad" },
+        { label: "Activity only — no hand-raise form", next: "code_activity" },
+        { label: "ROI calculator submission", next: "c_excluded_roi" },
+        { label: "New Movers / high-value asset", next: "c_excluded_movers" },
+        { label: "Event or booth — no demo/pricing form", next: "c_event" },
+      ],
+    },
+    code_wad: {
+      question: "What is the score code on the WAD path?",
+      helper: "Demographic letter + behavioral tier (e.g. B2, C3, D3).",
+      options: [
+        { label: "A1–A4, B1–B3, or C1", next: "c_should_mql" },
+        { label: "C3", next: "c_wad_c3" },
+        { label: "D3", next: "c_wad_d3" },
+        { label: "D1, D2, or D4", next: "c_wad_d_blocked" },
+        { label: "Other / not sure", next: "c_wad_check" },
+      ],
+    },
+    code_activity: {
+      question: "What is the score code on the activity-based path?",
+      options: [
+        { label: "A1 or B1", next: "c_should_mql" },
+        { label: "Any other code (A2, B2, C1, C3, D*, etc.)", next: "c_activity_blocked" },
+      ],
+    },
+  };
+
+  var CONCLUSIONS = {
+    c_ee_dq: {
+      tone: "policy",
+      tag: "Matches policy",
+      title: "Expected — employee size blocks auto-MQL",
+      summary:
+        "Accounts under 20 or over 8,000 employees with Update MQL Process = FALSE do not follow standard auto-MQL.",
+      reasons: [
+        "Standard ICP employee band is 100–5,000; 5,000–8,000 may still MQL under separate policy.",
+        "Small or very large accounts are excluded unless Ops enables exceptions.",
+      ],
+      nextSteps: ["Confirm employee count and Update MQL Process in Salesforce."],
+    },
+    c_account_dq: {
+      tone: "policy",
+      tag: "Matches policy",
+      title: "Expected — competitor or customer",
+      summary: "Competitor and Customer accounts are disqualified regardless of persona or points.",
+      reasons: ["Account status overrides champion personas."],
+      nextSteps: ["Verify account status in SFDC."],
+    },
+    c_persona_dq: {
+      tone: "policy",
+      tag: "Matches policy",
+      title: "Expected — persona disqualifier",
+      summary: "Sales function or student/intern/design titles score Grade D before channel rules.",
+      reasons: ["Sales is always Grade D.", "Student/intern/professor/design are hard DQs."],
+      nextSteps: ["Confirm Job Function and Title in Marketo/SFDC."],
+    },
+    c_grade_system_lower: {
+      tone: "review",
+      tag: "Worth a review",
+      title: "Scoring mismatch — system grade is lower than fit",
+      summary:
+        "Employee size, ICP, function, and seniority imply a higher grade than Marketo shows. That often explains a missing MQL.",
+      reasons: [
+        "Demographic grade may be stale after ICP, EE, or persona updates.",
+        "SFDC ICP can lag ~24h behind Marketo.",
+      ],
+      nextSteps: [
+        "Compare SFDC ICP, employee count, Job Function, and Seniority to Marketo.",
+        "Ask RevOps to refresh scoring, then submit the manual MQL review form (link below) if still warranted.",
+      ],
+    },
+    c_grade_system_higher: {
+      tone: "info",
+      tag: "Depends on details",
+      title: "Scoring mismatch — system grade is higher than fit",
+      summary:
+        "Marketo shows A/B but persona/account inputs suggest weaker fit. Channel rules may still block MQL.",
+      reasons: ["Grade may not have refreshed down.", "High points with wrong code still fail activity/WAD rules."],
+      nextSteps: ["Continue to score code and channel checks.", "No-MQL may still be correct."],
+    },
+    c_junk: {
+      tone: "policy",
+      tag: "Matches policy",
+      title: "Likely intentional — junk or data quality",
+      summary: "Junk and disqualifier rules run before engagement scoring.",
+      reasons: ["Test/fake email, ops junk flags, or hard DQs."],
+      nextSteps: ["Confirm junk/DQ fields in Marketo and Salesforce."],
+    },
+    c_grade_d_low: {
+      tone: "policy",
+      tag: "Matches policy",
+      title: "Expected — grade D with low engagement",
+      summary: "Poor fit plus under " + MQL_THRESHOLD + " points.",
+      reasons: ["Grade D from persona/account rules.", "Below MQL point threshold."],
+      nextSteps: ["Keep in nurture or suppression."],
+    },
+    c_grade_d: {
+      tone: "policy",
+      tag: "Matches policy",
+      title: "Expected — grade D blocks standard auto-MQL",
+      summary: "Grade D is excluded from most WAD and activity auto-MQL paths.",
+      reasons: ["WAD blocks D3; activity allows only A1/B1."],
+      nextSteps: ["Check MQL policy for the channel."],
+    },
+    c_hand_on_d: {
+      tone: "review",
+      tag: "Worth a review",
+      title: "Unusual — hand raiser with grade D",
+      summary: "Hand raisers normally always MQL when valid—check persona/EE/ICP data quality.",
+      reasons: ["Hand raiser bypasses most combo rules when clean.", "Grade D may be stale or wrong."],
+      nextSteps: [
+        "Verify form type and junk flags.",
+        "Submit the Marketing Ops manual MQL review form (link below) if still not MQL.",
+      ],
+    },
+    c_low_points: {
+      tone: "policy",
+      tag: "Matches policy",
+      title: "Expected — below the MQL point threshold",
+      summary: "Need " + MQL_THRESHOLD + "+ points plus fit and channel rules.",
+      reasons: ["TOFU-only engagement.", "Email clicks cannot reach 100 alone."],
+      nextSteps: ["Review recent activities in Marketo."],
+    },
+    c_should_mql: {
+      tone: "review",
+      tag: "Worth a review",
+      title: "This lead should have MQL'd — request a review",
+      summary: "Fit, points, and channel align with auto-MQL—suspect sync or attribution.",
+      reasons: ["Passes demographic and channel logic from your inputs."],
+      nextSteps: [
+        "Confirm scoring ran after last activity.",
+        "Submit the Marketing Ops manual MQL review form (link below) with IDs and field values.",
+      ],
+    },
+    c_excluded_roi: {
+      tone: "policy",
+      tag: "Matches policy",
+      title: "Expected — ROI calculator excluded",
+      summary: "ROI calculator submissions do not auto-MQL.",
+      reasons: ["March 2025 Other channel rule."],
+      nextSteps: ["Use hand-raiser or WAD for sales intent."],
+    },
+    c_excluded_movers: {
+      tone: "policy",
+      tag: "Matches policy",
+      title: "Expected — New Movers asset excluded",
+      summary: "New Movers asset does not auto-MQL.",
+      reasons: ["Excluded source in policy."],
+      nextSteps: ["Confirm program in Marketo."],
+    },
+    c_event: {
+      tone: "policy",
+      tag: "Matches policy",
+      title: "Expected — event / booth alone rarely MQLs",
+      summary: "Only A + 6Sense Decision/Purchase gets booth bonus; attendance alone is not enough.",
+      reasons: ["Booth rules are selective by design."],
+      nextSteps: ["Check for hand-raiser form.", "See Why not MQL — Events."],
+    },
+    c_wad_c3: {
+      tone: "info",
+      tag: "Depends on details",
+      title: "Selective — C3 on WAD is region-limited",
+      summary: "C3 may MQL in Americas, UK, APJ only—not Micro.",
+      reasons: ["WAD C3 is selective."],
+      nextSteps: ["Confirm region in SFDC."],
+    },
+    c_wad_d3: {
+      tone: "policy",
+      tag: "Matches policy",
+      title: "Expected — D3 blocked on WAD",
+      summary: "WAD policy excludes D3.",
+      reasons: ["Known non-MQL combo."],
+      nextSteps: ["Keep in nurture."],
+    },
+    c_wad_d_blocked: {
+      tone: "policy",
+      tag: "Matches policy",
+      title: "Expected — D grade on WAD",
+      summary: "D1, D2, D4 not auto-MQL on WAD.",
+      reasons: ["Poor demographic fit on WAD."],
+      nextSteps: ["Confirm grade and code."],
+    },
+    c_wad_check: {
+      tone: "info",
+      tag: "Depends on details",
+      title: "Check the WAD allowlist",
+      summary: "WAD auto-MQL: A1–A4, B1–B3, C1; C3 selective; no D3.",
+      reasons: ["Compare code to policy tab."],
+      nextSteps: ["Escalate only if on allowlist."],
+    },
+    c_activity_blocked: {
+      tone: "policy",
+      tag: "Matches policy",
+      title: "Expected — activity path is A1 & B1 only",
+      summary: "Activity auto-MQL limited to A1 and B1.",
+      reasons: ["March 2025 activity path restriction."],
+      nextSteps: ["Prioritize nurture or hand-raiser/WAD."],
+    },
+  };
+
+  var root = document.getElementById("mql-diagnostic");
+  if (!root) return;
+
+  var THINK_MS = 750;
+  var stepId = "junk";
+  var history = [];
+  var answers = {};
+  var conclusionId = null;
+  var thinking = false;
+  var pendingExchange = null;
+  var thinkTimer = null;
+
+  function thinkingLoaderHtml() {
+    return (
+      '<div class="mql-diagnostic__msg mql-diagnostic__msg--guide mql-diagnostic__msg--thinking">' +
+      OPS_BOT_AVATAR +
+      '<div class="mql-diagnostic__bubble mql-diagnostic__bubble--thinking" aria-busy="true">' +
+      '<span class="mql-diagnostic__thinking-text">Thinking</span>' +
+      '<span class="mql-diagnostic__thinking-dots" aria-hidden="true"><span></span><span></span><span></span></span>' +
+      "</div></div>"
+    );
+  }
+
+  function esc(s) {
+    var d = document.createElement("div");
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  function enrichReasons(id, computed) {
+    var extra = [];
+    if (computed) extra.push("Scoring logic from your inputs → expected " + computed.grade + ": " + computed.reasons[0]);
+    if (answers.marketo_grade && computed) {
+      extra.push(
+        "Marketo/SFDC shows Grade " + answers.marketo_grade.toUpperCase() + " vs expected " + computed.grade + ".",
+      );
+    }
+    if (answers.ee === "ee_5000_8000") {
+      extra.push("Note: 5,000–8,000 EE may still MQL under policy outside standard ICP size.");
+    }
+    var engageSummary = engageActivitySummary(answers.engage);
+    if (engageSummary) extra.push("Primary activity: " + engageSummary + ".");
+    return extra;
+  }
+
+  function render() {
+    var step = conclusionId ? null : STEPS[stepId];
+    var conclusion = conclusionId ? CONCLUSIONS[conclusionId] : null;
+    var computed = computeDemographic(answers);
+
+    var html =
+      '<div class="mql-diagnostic__progress" aria-hidden><div class="mql-diagnostic__progress-bar" style="width:' +
+      (conclusionId ? 100 : Math.min(12 + history.length * 10, 92)) +
+      '%"></div></div>';
+    html += '<div class="mql-diagnostic__thread" role="log" aria-live="polite">';
+
+    history.forEach(function (entry) {
+      html +=
+        '<div class="mql-diagnostic__msg mql-diagnostic__msg--guide">' +
+        OPS_BOT_AVATAR +
+        '<div class="mql-diagnostic__bubble">' +
+        esc(entry.question) +
+        '</div></div><div class="mql-diagnostic__msg mql-diagnostic__msg--user"><div class="mql-diagnostic__bubble mql-diagnostic__bubble--user">' +
+        esc(entry.answer) +
+        "</div></div>";
+    });
+
+    if (thinking && pendingExchange) {
+      html +=
+        '<div class="mql-diagnostic__msg mql-diagnostic__msg--guide">' +
+        OPS_BOT_AVATAR +
+        '<div class="mql-diagnostic__bubble">' +
+        esc(pendingExchange.question) +
+        '</div></div><div class="mql-diagnostic__msg mql-diagnostic__msg--user"><div class="mql-diagnostic__bubble mql-diagnostic__bubble--user">' +
+        esc(pendingExchange.answer) +
+        "</div></div>";
+      html += thinkingLoaderHtml();
+    } else {
+      if (step && stepId === "marketo_grade" && computed) {
+        html +=
+          '<div class="mql-diagnostic__grade-insight"><p class="mql-diagnostic__grade-insight-title">From scoring logic → <strong>expected ' +
+          computed.grade +
+          "</strong> (" +
+          esc(computed.title) +
+          ')</p><ul>';
+        computed.reasons.forEach(function (r) {
+          html += "<li>" + esc(r) + "</li>";
+        });
+        html += "</ul></div>";
+      }
+
+      if (answers.engage && ENGAGE_TO_TIER[answers.engage] && stepId !== "engage" && stepId !== "marketo_grade") {
+        var engageSummary = engageActivitySummary(answers.engage);
+        html +=
+          '<div class="mql-diagnostic__grade-insight"><p class="mql-diagnostic__grade-insight-title">From activity → <strong>Tier ' +
+          ENGAGE_TO_TIER[answers.engage] +
+          "</strong></p><p style=\"margin:0;color:var(--muted)\">" +
+          esc(engageSummary) +
+          "</p></div>";
+      }
+
+      if (step) {
+        html +=
+          '<div class="mql-diagnostic__msg mql-diagnostic__msg--guide">' +
+          OPS_BOT_AVATAR +
+          '<div class="mql-diagnostic__bubble"><p style="margin:0;font-weight:700">' +
+          esc(step.question) +
+          "</p>";
+        if (step.helper) {
+          html += '<p style="margin:0.5rem 0 0;font-size:0.8125rem;color:var(--muted)">' + esc(step.helper) + "</p>";
+        }
+        html += "</div></div>";
+      }
+    }
+
+    if (!thinking && conclusion) {
+      var border =
+        conclusion.tone === "review"
+          ? "var(--cherry-syrup)"
+          : conclusion.tone === "info"
+            ? "var(--orange-juice)"
+            : "var(--border)";
+      html +=
+        '<div class="mql-diagnostic__conclusion mql-diagnostic__conclusion--' +
+        conclusion.tone +
+        '" style="border-left:4px solid ' +
+        border +
+        '"><span class="mql-diagnostic__conclusion-tag">' +
+        esc(conclusion.tag) +
+        "</span><h3 style=\"margin:0 0 0.5rem;font-size:1.15rem\">" +
+        esc(conclusion.title) +
+        '</h3><p style="margin:0 0 1rem;color:var(--muted)">' +
+        esc(conclusion.summary) +
+        '</p><p style="margin:0 0 0.35rem;font-weight:700;font-size:0.875rem">Why</p><ul style="margin:0 0 1rem;padding-left:1.25rem;color:var(--muted)">';
+      conclusion.reasons.concat(enrichReasons(conclusionId, computed)).forEach(function (r) {
+        html += "<li style=\"margin-bottom:0.35rem\">" + esc(r) + "</li>";
+      });
+      html += '</ul><p style="margin:0 0 0.35rem;font-weight:700;font-size:0.875rem">What to do next</p><ul style="margin:0;padding-left:1.25rem;color:var(--muted)">';
+      conclusion.nextSteps.forEach(function (s) {
+        html += "<li style=\"margin-bottom:0.35rem\">" + esc(s) + "</li>";
+      });
+      html += "</ul></div>";
+    }
+
+    html += "</div>";
+
+    if (step) {
+      html += '<div class="mql-diagnostic__options" role="group" aria-label="Your answer">';
+      step.options.forEach(function (opt, idx) {
+        html +=
+          '<button type="button" class="mql-diagnostic__option" data-idx="' +
+          idx +
+          '">' +
+          esc(opt.label) +
+          "</button>";
+      });
+      html += "</div>";
+    }
+
+    html += '<div class="mql-diagnostic__footer">';
+    if (conclusion) html += '<button type="button" class="btn btn-primary" id="mql-diag-reset">Check another lead</button>';
+    else if (history.length) html += '<button type="button" class="btn btn-secondary" id="mql-diag-reset">Start over</button>';
+    html += "</div>";
+
+    root.innerHTML = html;
+    root.classList.toggle("mql-diagnostic--thinking", thinking);
+    var thread = root.querySelector(".mql-diagnostic__thread");
+    if (thread) thread.scrollTop = thread.scrollHeight;
+
+    if (step) {
+      root.querySelectorAll(".mql-diagnostic__option").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          if (thinking) return;
+          var opt = step.options[Number(btn.getAttribute("data-idx"))];
+          var exchange = { question: step.question, answer: opt.label };
+          var currentStepId = stepId;
+          pendingExchange = exchange;
+          thinking = true;
+          render();
+
+          if (thinkTimer) clearTimeout(thinkTimer);
+          thinkTimer = setTimeout(function () {
+            thinkTimer = null;
+            history.push(exchange);
+            pendingExchange = null;
+            if (opt.id) answers[currentStepId] = opt.id;
+            var next = opt.next;
+            if (next === "__grade_route__") {
+              var comp = computeDemographic(answers);
+              if (comp) next = routeGrade(opt.id, comp);
+            }
+            if (next === "__engage_route__") {
+              var compEngage = computeDemographic(answers);
+              next = routeAfterEngage(opt.id, compEngage);
+            }
+            if (CONCLUSIONS[next]) {
+              conclusionId = next;
+              stepId = null;
+            } else {
+              stepId = next;
+              conclusionId = null;
+            }
+            thinking = false;
+            render();
+          }, THINK_MS);
+        });
+      });
+    }
+
+    var resetBtn = document.getElementById("mql-diag-reset");
+    if (resetBtn) {
+      resetBtn.addEventListener("click", function () {
+        if (thinkTimer) clearTimeout(thinkTimer);
+        thinkTimer = null;
+        thinking = false;
+        pendingExchange = null;
+        stepId = "junk";
+        history = [];
+        answers = {};
+        conclusionId = null;
+        render();
+      });
+    }
+  }
+
+  render();
+})();
+
+  </script>
+</body>
+</html>
