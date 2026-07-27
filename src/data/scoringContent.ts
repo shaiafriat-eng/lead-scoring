@@ -1292,28 +1292,28 @@ export const SCORE_REDUCTION_RULES: ScoreReductionRule[] = [
   {
     id: "nurture",
     scenario: "Nurture",
-    points: 0,
-    why: "Sales parked the lead in Nurture. Score is reduced to 0 by default. These nurture reasons keep a residual score instead:",
+    points: 10,
+    why: "Sales parked the lead in Nurture. Behavioral score is reduced to 10 by default.",
     reasons: [
       {
         reason: "Migration",
         points: 10,
-        why: "The account is mid-migration / not ready to buy now — keep a low residual score so they are not auto-MQLd again immediately.",
+        why: "Mid-migration / not ready to buy — keep score at 10 so the lead is not auto-MQLd again immediately.",
       },
       {
         reason: "Unresponsive",
         points: 10,
-        why: "The lead stopped responding. Keep a low residual score until they re-engage.",
+        why: "Lead stopped responding — keep score at 10 until they re-engage.",
       },
       {
         reason: "Changes in personnel",
         points: 20,
-        why: "The buying contact changed. Keep a modest score so the account can resurface when a new stakeholder engages.",
+        why: "Buying contact changed — keep a modest residual score (20) so the account can resurface with a new stakeholder.",
       },
       {
         reason: "No internal capacity",
         points: 20,
-        why: "Timing is wrong (no bandwidth to evaluate). Keep a modest score rather than wiping intent entirely.",
+        why: "Timing is wrong (no bandwidth) — keep a modest residual score (20) rather than wiping intent entirely.",
       },
     ],
   },
