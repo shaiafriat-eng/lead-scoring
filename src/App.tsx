@@ -11,6 +11,7 @@ import { ScoreMatrixSection } from "./components/ScoreMatrixSection";
 import { NonMqlReasonsSection } from "./components/NonMqlReasonsSection";
 import { ManualMqlReviewSection } from "./components/ManualMqlReviewSection";
 import { MqlPolicy } from "./components/MqlPolicy";
+import { ScoreReductionSection } from "./components/ScoreReductionSection";
 import { FAQ } from "./components/FAQ";
 import { Methodology } from "./components/Methodology";
 
@@ -33,6 +34,7 @@ function MqlRoutingPage() {
   return (
     <>
       <MqlPolicy />
+      <ScoreReductionSection />
       <NonMqlReasonsSection />
       <ManualMqlReviewSection />
     </>

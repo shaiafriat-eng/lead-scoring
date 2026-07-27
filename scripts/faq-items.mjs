@@ -40,7 +40,7 @@ export const FAQ_ITEMS = [
   },
   {
     q: "Can a lead score decrease?",
-    a: "Yes—in two ways. Demographic grade (A–D) can worsen when account or persona data changes—for example ICP status, account marked Not Relevant/Competitor/Customer, employee-count band, job title or function updates, or junk/DQ flags. Behavioral tier (1–4) can also move down when engagement changes in Marketo, since tiers map to point ranges in Behavioral Score Calculation (100+ → 1, 50–99 → 2, 15–49 → 3, 0–14 → 4). Activities add points and stack over time; this guide documents how points are earned, not automatic decay. Confirm any score-reset or decay rules in live Marketo programs with Marketing Ops.",
+    a: "Yes. Behavioral Score Calculation is reduced in specific ops scenarios: Blacklisted country, Not Relevant, or Unsubscribe → 0 points. Nurture depends on reason — Migration or Unresponsive → 10; Changes in personnel or No internal capacity → 20. Demographic grade (A–D) can also worsen when account or persona data changes. After a reduction, the lead must earn new engagement before reaching the 100-point MQL threshold again. See MQL Policy → When the behavioral score is reduced.",
   },
   {
     q: "Where can I see the full process flow?",

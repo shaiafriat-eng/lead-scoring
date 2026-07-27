@@ -5,6 +5,7 @@ import { fileURLToPath } from "url";
 import { heroSection } from "./hero-html.mjs";
 import { DEFAULT_DESCRIPTION, escapeMeta, socialMeta, SITE_NAME } from "./site-meta.mjs";
 import { FAQ_ITEMS } from "./faq-items.mjs";
+import { SCORE_REDUCTION_RULES } from "./score-reduction.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const siteDir = join(root, "site");
@@ -117,6 +118,43 @@ function dimensionsBehaviorBlock({ onHome = false, showNav = true } = {}) {
         <div id="activity-points" class="activity-points-mount" style="margin-top:1.25rem"></div>
 ${nav}
         </div>`;
+}
+
+function scoreReductionSection() {
+  const cards = SCORE_REDUCTION_RULES.map((rule) => {
+    const ptsBadge =
+      rule.points === null
+        ? `<span class="score-reduction__pts score-reduction__pts--split">By reason</span>`
+        : `<span class="score-reduction__pts" aria-label="Reduced to ${rule.points} points">→ ${rule.points}</span>`;
+    const reasons = rule.reasons
+      ? `<ul class="score-reduction__reasons">${rule.reasons
+          .map(
+            (item) =>
+              `<li class="score-reduction__reason"><div class="score-reduction__reason-top"><strong>${escapeMeta(item.reason)}</strong><span class="score-reduction__pts score-reduction__pts--sm">→ ${item.points}</span></div><p>${escapeMeta(item.why)}</p></li>`,
+          )
+          .join("")}</ul>`
+      : "";
+    return `<article class="score-reduction__card card">
+          <div class="score-reduction__header">
+            <h3 class="score-reduction__scenario">${escapeMeta(rule.scenario)}</h3>
+            ${ptsBadge}
+          </div>
+          <p class="score-reduction__why">${escapeMeta(rule.why)}</p>
+          ${reasons}
+        </article>`;
+  }).join("\n        ");
+
+  return `    <section class="page page--alt" id="score-reduction">
+      <div class="wrap">
+        <p class="label">Score management</p>
+        <h1>When the behavioral score is reduced</h1>
+        <p class="lead lead--full-width">Certain account and person statuses reset Behavioral Score Calculation in Marketo so leads do not stay above MQL thresholds after they should stop being worked.</p>
+        <div class="score-reduction">
+        ${cards}
+        </div>
+        <p class="score-reduction__note">After reduction, the lead must earn new engagement points again before they can reach the 100-point MQL threshold (and still pass demographic + channel rules).</p>
+      </div>
+    </section>`;
 }
 
 function faqSection() {
@@ -254,7 +292,8 @@ ${matrixSection({ embedded: true })}`,
         <div class="card banner" style="margin-top:1.25rem"><h3>Key metric</h3><p style="margin:0">MQL-to-SQA conversion rate drives routing decisions.</p></div>
       </div>
     </section>
-    <section class="page page--alt" id="non-mql-reasons">
+${scoreReductionSection()}
+    <section class="page" id="non-mql-reasons">
       <div class="wrap">
         <p class="label">Qualification issues</p>
         <h1>Common MQL Qualification Issues</h1>
