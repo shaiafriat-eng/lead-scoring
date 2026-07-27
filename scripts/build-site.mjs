@@ -121,38 +121,42 @@ ${nav}
 }
 
 function scoreReductionSection() {
-  const cards = SCORE_REDUCTION_RULES.map((rule) => {
-    const ptsBadge =
-      rule.points === null
-        ? `<span class="score-reduction__pts score-reduction__pts--split">By reason</span>`
-        : `<span class="score-reduction__pts" aria-label="Reduced to ${rule.points} points">→ ${rule.points}</span>`;
-    const reasons = rule.reasons
-      ? `<ul class="score-reduction__reasons">${rule.reasons
-          .map(
-            (item) =>
-              `<li class="score-reduction__reason"><div class="score-reduction__reason-top"><strong>${escapeMeta(item.reason)}</strong><span class="score-reduction__pts score-reduction__pts--sm">→ ${item.points}</span></div><p>${escapeMeta(item.why)}</p></li>`,
-          )
-          .join("")}</ul>`
-      : "";
-    return `<article class="score-reduction__card card">
-          <div class="score-reduction__header">
-            <h3 class="score-reduction__scenario">${escapeMeta(rule.scenario)}</h3>
-            ${ptsBadge}
-          </div>
-          <p class="score-reduction__why">${escapeMeta(rule.why)}</p>
-          ${reasons}
-        </article>`;
-  }).join("\n        ");
+  const rows = SCORE_REDUCTION_RULES.flatMap((rule) => {
+    if (rule.reasons?.length) {
+      return rule.reasons.map(
+        (item, i) =>
+          `<tr>
+              <td>${i === 0 ? `<strong>${escapeMeta(rule.scenario)}</strong>` : ""}<span class="score-reduction__sub">${escapeMeta(item.reason)}</span></td>
+              <td><span class="score-reduction__pts">→ ${item.points}</span></td>
+              <td>${escapeMeta(item.why)}</td>
+            </tr>`,
+      );
+    }
+    return [
+      `<tr>
+              <td><strong>${escapeMeta(rule.scenario)}</strong></td>
+              <td><span class="score-reduction__pts">→ ${rule.points}</span></td>
+              <td>${escapeMeta(rule.why)}</td>
+            </tr>`,
+    ];
+  }).join("\n            ");
 
   return `    <section class="page page--alt" id="score-reduction">
       <div class="wrap">
-        <p class="label">Score management</p>
+        <p class="label">Score reduction</p>
         <h1>When the behavioral score is reduced</h1>
-        <p class="lead lead--full-width">Certain account and person statuses reset Behavioral Score Calculation in Marketo so leads do not stay above MQL thresholds after they should stop being worked.</p>
-        <div class="score-reduction">
-        ${cards}
+        <p class="lead">These statuses reset Behavioral Score Calculation in Marketo so leads don’t stay above MQL after they should stop being worked.</p>
+        <div class="score-reduction card">
+          <table class="score-reduction__table">
+            <thead>
+              <tr><th>Scenario</th><th>Score</th><th>Why</th></tr>
+            </thead>
+            <tbody>
+            ${rows}
+            </tbody>
+          </table>
         </div>
-        <p class="score-reduction__note">After reduction, the lead must earn new engagement points again before they can reach the 100-point MQL threshold (and still pass demographic + channel rules).</p>
+        <p class="score-reduction__note">After reduction, the lead must earn new points before reaching the 100-point MQL threshold again.</p>
       </div>
     </section>`;
 }

@@ -43,44 +43,54 @@
     </section>
     <section class="page page--alt" id="score-reduction">
       <div class="wrap">
-        <p class="label">Score management</p>
+        <p class="label">Score reduction</p>
         <h1>When the behavioral score is reduced</h1>
-        <p class="lead lead--full-width">Certain account and person statuses reset Behavioral Score Calculation in Marketo so leads do not stay above MQL thresholds after they should stop being worked.</p>
-        <div class="score-reduction">
-        <article class="score-reduction__card card">
-          <div class="score-reduction__header">
-            <h3 class="score-reduction__scenario">Blacklisted country</h3>
-            <span class="score-reduction__pts" aria-label="Reduced to 0 points">→ 0</span>
-          </div>
-          <p class="score-reduction__why">The person or account is in a restricted / high-risk country. Engagement should not keep the lead above MQL thresholds.</p>
-          
-        </article>
-        <article class="score-reduction__card card">
-          <div class="score-reduction__header">
-            <h3 class="score-reduction__scenario">Not Relevant</h3>
-            <span class="score-reduction__pts" aria-label="Reduced to 0 points">→ 0</span>
-          </div>
-          <p class="score-reduction__why">The Salesforce account is marked Not Relevant. Sales should not work the lead, so behavioral points are cleared.</p>
-          
-        </article>
-        <article class="score-reduction__card card">
-          <div class="score-reduction__header">
-            <h3 class="score-reduction__scenario">Unsubscribe</h3>
-            <span class="score-reduction__pts" aria-label="Reduced to 0 points">→ 0</span>
-          </div>
-          <p class="score-reduction__why">The person opted out of email. Continuing to score engagement would misrepresent intent and risk compliance issues.</p>
-          
-        </article>
-        <article class="score-reduction__card card">
-          <div class="score-reduction__header">
-            <h3 class="score-reduction__scenario">Nurture</h3>
-            <span class="score-reduction__pts score-reduction__pts--split">By reason</span>
-          </div>
-          <p class="score-reduction__why">Sales parked the lead in Nurture. The reduced score depends on the nurture reason:</p>
-          <ul class="score-reduction__reasons"><li class="score-reduction__reason"><div class="score-reduction__reason-top"><strong>Migration</strong><span class="score-reduction__pts score-reduction__pts--sm">→ 10</span></div><p>The account is mid-migration / not ready to buy now — keep a low residual score so they are not auto-MQLd again immediately.</p></li><li class="score-reduction__reason"><div class="score-reduction__reason-top"><strong>Unresponsive</strong><span class="score-reduction__pts score-reduction__pts--sm">→ 10</span></div><p>The lead stopped responding. Score is reduced so they fall out of active MQL priority until they re-engage.</p></li><li class="score-reduction__reason"><div class="score-reduction__reason-top"><strong>Changes in personnel</strong><span class="score-reduction__pts score-reduction__pts--sm">→ 20</span></div><p>The buying contact changed. Keep a modest score so the account can resurface when a new stakeholder engages.</p></li><li class="score-reduction__reason"><div class="score-reduction__reason-top"><strong>No internal capacity</strong><span class="score-reduction__pts score-reduction__pts--sm">→ 20</span></div><p>Timing is wrong (no bandwidth to evaluate). Keep a modest score rather than wiping intent entirely.</p></li></ul>
-        </article>
+        <p class="lead">These statuses reset Behavioral Score Calculation in Marketo so leads don’t stay above MQL after they should stop being worked.</p>
+        <div class="score-reduction card">
+          <table class="score-reduction__table">
+            <thead>
+              <tr><th>Scenario</th><th>Score</th><th>Why</th></tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td><strong>Blacklisted country</strong></td>
+              <td><span class="score-reduction__pts">→ 0</span></td>
+              <td>The person or account is in a restricted / high-risk country. Engagement should not keep the lead above MQL thresholds.</td>
+            </tr>
+            <tr>
+              <td><strong>Not Relevant</strong></td>
+              <td><span class="score-reduction__pts">→ 0</span></td>
+              <td>The Salesforce account is marked Not Relevant. Sales should not work the lead, so behavioral points are cleared.</td>
+            </tr>
+            <tr>
+              <td><strong>Unsubscribe</strong></td>
+              <td><span class="score-reduction__pts">→ 0</span></td>
+              <td>The person opted out of email. Continuing to score engagement would misrepresent intent and risk compliance issues.</td>
+            </tr>
+            <tr>
+              <td><strong>Nurture</strong><span class="score-reduction__sub">Migration</span></td>
+              <td><span class="score-reduction__pts">→ 10</span></td>
+              <td>The account is mid-migration / not ready to buy now — keep a low residual score so they are not auto-MQLd again immediately.</td>
+            </tr>
+            <tr>
+              <td><span class="score-reduction__sub">Unresponsive</span></td>
+              <td><span class="score-reduction__pts">→ 10</span></td>
+              <td>The lead stopped responding. Score is reduced so they fall out of active MQL priority until they re-engage.</td>
+            </tr>
+            <tr>
+              <td><span class="score-reduction__sub">Changes in personnel</span></td>
+              <td><span class="score-reduction__pts">→ 20</span></td>
+              <td>The buying contact changed. Keep a modest score so the account can resurface when a new stakeholder engages.</td>
+            </tr>
+            <tr>
+              <td><span class="score-reduction__sub">No internal capacity</span></td>
+              <td><span class="score-reduction__pts">→ 20</span></td>
+              <td>Timing is wrong (no bandwidth to evaluate). Keep a modest score rather than wiping intent entirely.</td>
+            </tr>
+            </tbody>
+          </table>
         </div>
-        <p class="score-reduction__note">After reduction, the lead must earn new engagement points again before they can reach the 100-point MQL threshold (and still pass demographic + channel rules).</p>
+        <p class="score-reduction__note">After reduction, the lead must earn new points before reaching the 100-point MQL threshold again.</p>
       </div>
     </section>
     <section class="page" id="non-mql-reasons">
