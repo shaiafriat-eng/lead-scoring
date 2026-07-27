@@ -1292,8 +1292,8 @@ export const SCORE_REDUCTION_RULES: ScoreReductionRule[] = [
   {
     id: "nurture",
     scenario: "Nurture",
-    points: null,
-    why: "Sales parked the lead in Nurture. The reduced score depends on the nurture reason:",
+    points: 0,
+    why: "Sales parked the lead in Nurture. Score is reduced to 0 by default. These nurture reasons keep a residual score instead:",
     reasons: [
       {
         reason: "Migration",
@@ -1303,7 +1303,7 @@ export const SCORE_REDUCTION_RULES: ScoreReductionRule[] = [
       {
         reason: "Unresponsive",
         points: 10,
-        why: "The lead stopped responding. Score is reduced so they fall out of active MQL priority until they re-engage.",
+        why: "The lead stopped responding. Keep a low residual score until they re-engage.",
       },
       {
         reason: "Changes in personnel",

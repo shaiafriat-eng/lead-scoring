@@ -481,6 +481,9 @@ details.details-in-list .details-in-list__body {
   font-weight: 500;
   font-size: 0.8125rem;
 }
+.score-reduction__exception td:first-child {
+  padding-left: 1.35rem;
+}
 .score-reduction__pts {
   display: inline-flex;
   align-items: center;

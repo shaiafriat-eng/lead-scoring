@@ -21,11 +21,28 @@ export function ScoreReductionSection() {
           </thead>
           <tbody>
             {SCORE_REDUCTION_RULES.flatMap((rule) => {
-              if (rule.reasons?.length) {
-                return rule.reasons.map((item, i) => (
-                  <tr key={`${rule.id}-${item.reason}`}>
+              const baseRow = (
+                <tr key={rule.id}>
+                  <td>
+                    <strong>{rule.scenario}</strong>
+                    {rule.reasons?.length ? (
+                      <span className="score-reduction__sub">Default (any other nurture reason)</span>
+                    ) : null}
+                  </td>
+                  <td>
+                    <span className="score-reduction__pts">→ {rule.points ?? 0}</span>
+                  </td>
+                  <td>{rule.why}</td>
+                </tr>
+              );
+
+              if (!rule.reasons?.length) return [baseRow];
+
+              return [
+                baseRow,
+                ...rule.reasons.map((item) => (
+                  <tr key={`${rule.id}-${item.reason}`} className="score-reduction__exception">
                     <td>
-                      {i === 0 ? <strong>{rule.scenario}</strong> : null}
                       <span className="score-reduction__sub">{item.reason}</span>
                     </td>
                     <td>
@@ -33,18 +50,7 @@ export function ScoreReductionSection() {
                     </td>
                     <td>{item.why}</td>
                   </tr>
-                ));
-              }
-              return [
-                <tr key={rule.id}>
-                  <td>
-                    <strong>{rule.scenario}</strong>
-                  </td>
-                  <td>
-                    <span className="score-reduction__pts">→ {rule.points}</span>
-                  </td>
-                  <td>{rule.why}</td>
-                </tr>,
+                )),
               ];
             })}
           </tbody>

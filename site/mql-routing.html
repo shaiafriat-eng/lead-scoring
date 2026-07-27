@@ -68,21 +68,26 @@
               <td>The person opted out of email. Continuing to score engagement would misrepresent intent and risk compliance issues.</td>
             </tr>
             <tr>
-              <td><strong>Nurture</strong><span class="score-reduction__sub">Migration</span></td>
+              <td><strong>Nurture</strong><span class="score-reduction__sub">Default (any other nurture reason)</span></td>
+              <td><span class="score-reduction__pts">→ 0</span></td>
+              <td>Sales parked the lead in Nurture. Score is reduced to 0 by default. These nurture reasons keep a residual score instead:</td>
+            </tr>
+            <tr class="score-reduction__exception">
+              <td><span class="score-reduction__sub">Migration</span></td>
               <td><span class="score-reduction__pts">→ 10</span></td>
               <td>The account is mid-migration / not ready to buy now — keep a low residual score so they are not auto-MQLd again immediately.</td>
             </tr>
-            <tr>
+            <tr class="score-reduction__exception">
               <td><span class="score-reduction__sub">Unresponsive</span></td>
               <td><span class="score-reduction__pts">→ 10</span></td>
-              <td>The lead stopped responding. Score is reduced so they fall out of active MQL priority until they re-engage.</td>
+              <td>The lead stopped responding. Keep a low residual score until they re-engage.</td>
             </tr>
-            <tr>
+            <tr class="score-reduction__exception">
               <td><span class="score-reduction__sub">Changes in personnel</span></td>
               <td><span class="score-reduction__pts">→ 20</span></td>
               <td>The buying contact changed. Keep a modest score so the account can resurface when a new stakeholder engages.</td>
             </tr>
-            <tr>
+            <tr class="score-reduction__exception">
               <td><span class="score-reduction__sub">No internal capacity</span></td>
               <td><span class="score-reduction__pts">→ 20</span></td>
               <td>Timing is wrong (no bandwidth to evaluate). Keep a modest score rather than wiping intent entirely.</td>

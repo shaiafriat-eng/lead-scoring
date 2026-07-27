@@ -122,22 +122,26 @@ ${nav}
 
 function scoreReductionSection() {
   const rows = SCORE_REDUCTION_RULES.flatMap((rule) => {
-    if (rule.reasons?.length) {
-      return rule.reasons.map(
-        (item, i) =>
-          `<tr>
-              <td>${i === 0 ? `<strong>${escapeMeta(rule.scenario)}</strong>` : ""}<span class="score-reduction__sub">${escapeMeta(item.reason)}</span></td>
+    const base = `<tr>
+              <td><strong>${escapeMeta(rule.scenario)}</strong>${
+                rule.reasons?.length
+                  ? `<span class="score-reduction__sub">Default (any other nurture reason)</span>`
+                  : ""
+              }</td>
+              <td><span class="score-reduction__pts">→ ${rule.points ?? 0}</span></td>
+              <td>${escapeMeta(rule.why)}</td>
+            </tr>`;
+    if (!rule.reasons?.length) return [base];
+    return [
+      base,
+      ...rule.reasons.map(
+        (item) =>
+          `<tr class="score-reduction__exception">
+              <td><span class="score-reduction__sub">${escapeMeta(item.reason)}</span></td>
               <td><span class="score-reduction__pts">→ ${item.points}</span></td>
               <td>${escapeMeta(item.why)}</td>
             </tr>`,
-      );
-    }
-    return [
-      `<tr>
-              <td><strong>${escapeMeta(rule.scenario)}</strong></td>
-              <td><span class="score-reduction__pts">→ ${rule.points}</span></td>
-              <td>${escapeMeta(rule.why)}</td>
-            </tr>`,
+      ),
     ];
   }).join("\n            ");
 
